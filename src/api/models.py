@@ -48,9 +48,9 @@ with sync_playwright() as p:
     # print("---")
 
 # Tras investigar la primera opción de escrapeo era beutifullsoap, sin embargo eso funciona para página cuyo HTML es estático y no carga dinámicamente
-# La segunda opción era Selenium, sin embargo en el etorno de githuib no permite ser utilizado porque por medidas de seguridad no permite abrir navegadores para realizar las busquedas de información necesaria
+# La segunda opción era Selenium, sin embargo en el etorno de github no permite ser utilizado porque por medidas de seguridad no permite abrir navegadores para realizar las busquedas de información necesaria
 # Finalmente usamos playwright, porque gracias a su atributo headless=True es posible emular la navegación sin realmente abirlo cumpliendo con la brecha de seguridad de github
-# El proceso de imnstalación de este paque es el siguiente
+# El proceso de instalación de este paquete es el siguiente
 # 1) pip install playwright
 # 2) playwright install
 # 3) npx playwright install-deps
