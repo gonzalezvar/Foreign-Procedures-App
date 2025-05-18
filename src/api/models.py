@@ -26,7 +26,7 @@ with sync_playwright() as p:
     page = browser.new_page()
 
     page.goto("https://www.inclusion.gob.es/web/migraciones/listado-completo")
-    
+
     page.wait_for_selector("div.container > ul > li > a")
 
     links = page.locator("div.container > ul > li > a")
@@ -46,3 +46,13 @@ with sync_playwright() as p:
     # print(f"Título: {titulo}")
     # print(f"Enlace: {enlace}")
     # print("---")
+
+# Tras investigar la primera opción de escrapeo era beutifullsoap, sin embargo eso funciona para página cuyo HTML es estático y no carga dinámicamente
+# La segunda opción era Selenium, sin embargo en el etorno de githuib no permite ser utilizado porque por medidas de seguridad no permite abrir navegadores para realizar las busquedas de información necesaria
+# Finalmente usamos playwright, porque gracias a su atributo headless=True es posible emular la navegación sin realmente abirlo cumpliendo con la brecha de seguridad de github
+# El proceso de imnstalación de este paque es el siguiente
+# 1) pip install playwright
+# 2) playwright install
+# 3) npx playwright install-deps
+# 4) playwright install para verificar que se ha instalado
+
