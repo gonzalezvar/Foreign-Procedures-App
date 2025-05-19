@@ -1,4 +1,4 @@
-from sqlalchemy import String, Integer,Func, Date
+from sqlalchemy import String, Integer, Date
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from models import db
 from typing import TYPE_CHECKING, List  
@@ -7,8 +7,8 @@ if TYPE_CHECKING:
     from .errand import Errand
     
 
-class Follow_up(db.Model):
-    __tablename__ = "follow_up"
+class Offices(db.Model):
+    __tablename__ = "offices"
     office_id: Mapped[int] = mapped_column(Integer, primary_key=True)
     street_name: Mapped[str] = mapped_column(String(250), nullable=False)
     postal_code: Mapped[int] = mapped_column(Integer, nullable=True)

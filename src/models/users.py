@@ -1,9 +1,4 @@
-"""user_id integer PK
-email string unique
-password string
-"""
-
-from sqlalchemy import String, Integer,Func, Date
+from sqlalchemy import String, Integer, Date
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from models import db
 from typing import TYPE_CHECKING, List  

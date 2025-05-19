@@ -1,4 +1,4 @@
-from sqlalchemy import String, Integer
+from sqlalchemy import String, Integer, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from models import db
 from typing import TYPE_CHECKING, List  # Importa List
@@ -12,7 +12,7 @@ class Favorites(db.Model):
     __tablename__ = "favorites"
     favorites_id: Mapped[int] = mapped_column(Integer, primary_key=True)
     users_id: Mapped[int] = mapped_column(ForeignKey('users.users_id'), nullable=False)
-    errand_id: Mappedl[int] = mapped_column(ForeignKey('errand.errand_id'), nullable=False)
+    errand_id: Mapped[int] = mapped_column(ForeignKey('errand.errand_id'), nullable=False)
     
 
     user: Mapped["User"] = relationship("User", back_populates="favorites", foreign_keys=[users_id])

@@ -1,4 +1,4 @@
-from flask_sqlalchemy import SQLAlchemy
+""" from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import String, Boolean
 from sqlalchemy.orm import Mapped, mapped_column
 from playwright.sync_api import sync_playwright
@@ -37,7 +37,7 @@ with sync_playwright() as p:
         print(f"Título: {titulo}")
         print(f"Enlace: {enlace}")
 
-    browser.close()
+    browser.close() """
 
 # para que haga todos de la primera pagina, hay que buscar la forma de hacer de las demás páginas
     # for i in range(links.count()):
