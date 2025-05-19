@@ -28,6 +28,7 @@ links = []
 procedures = []
 categorized_data = []
 
+
 with sync_playwright() as p:
     browser = p.chromium.launch(headless=True)
     page = browser.new_page()
@@ -77,7 +78,8 @@ with sync_playwright() as p:
                 content_element = page.locator(locator)
                 if content_element.count() > 0:
                     procedure_content = content_element.first.text_content().strip()
-                    print(f"Found procedure content using locator: '{locator}'")
+                    print(
+                        f"Found procedure content using locator: '{locator}'")
                     break
 
             if not procedure_content:
@@ -98,7 +100,8 @@ with sync_playwright() as p:
             "title": current_title,
             "link": current_link,
             "procedure": procedure_content,
-            "category": category
+            "category": category,
+            "country": spain
         })
 
     page.close()
