@@ -37,7 +37,7 @@ with sync_playwright() as p:
         print(f"Título: {titulo}")
         print(f"Enlace: {enlace}")
 
-    browser.close() """
+    browser.close()
 
 # para que haga todos de la primera pagina, hay que buscar la forma de hacer de las demás páginas
     # for i in range(links.count()):
@@ -56,3 +56,4 @@ with sync_playwright() as p:
 # 3) npx playwright install-deps
 # 4) playwright install para verificar que se ha instalado
 
+ """

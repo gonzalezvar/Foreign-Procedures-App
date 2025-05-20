@@ -1,6 +1,6 @@
 import os
 from flask_admin import Admin
-from .models import db, User, Errand, Errand_type, Favorites, Offices, Follow_up
+from src.models import db, User, Errand, Errand_type, Favorites, Offices, Follow_up
 from flask_admin.contrib.sqla import ModelView
 
 def setup_admin(app):

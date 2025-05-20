@@ -32,3 +32,4 @@ class User(db.Model):
         data['follow_up'] = self.follow_up.serialize() if self.follow_up else {}
         return data
 
+
