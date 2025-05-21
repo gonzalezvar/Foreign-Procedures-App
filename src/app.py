@@ -10,7 +10,9 @@ from api.models import db, Errand, Errand_type, Favorites, Offices, Follow_up, U
 from api.admin import setup_admin
 from api.commands import setup_commands
 from api.routes.routes import api
-
+from flask_jwt_extended import JWTManager
+from flask_cors import CORS
+from api.routes.user_routes import user_bp
 
 # from models import Person
 
@@ -19,6 +21,12 @@ static_file_dir = os.path.join(os.path.dirname(
     os.path.realpath(__file__)), '../public/')
 app = Flask(__name__)
 app.url_map.strict_slashes = False
+
+jwt = JWTManager(app)
+CORS(app)
+
+app.register_blueprint(user_bp)
+
 
 # database condiguration
 db_url = os.getenv("DATABASE_URL")
