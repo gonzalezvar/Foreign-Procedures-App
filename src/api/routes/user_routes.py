@@ -11,6 +11,7 @@ CORS(user_bp)
 
 bcrypt = Bcrypt()
 
+
 @user_bp.route('/home', methods=['GET'])
 @jwt_required()
 def private_route():
