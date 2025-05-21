@@ -1,12 +1,12 @@
 from sqlalchemy import String, Integer, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from models import db
+from api.models import db
 from typing import TYPE_CHECKING, List  # Importa List
 
 if TYPE_CHECKING:
-    from .errand_types import Errand_type
-    from .offices_id import Offices
-    from .favorites import Favorites
+    from .users import User
+    from .errand import Errand
+
 
 
 class Favorites(db.Model):

@@ -1,6 +1,6 @@
 from sqlalchemy import String, Integer, Date
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from models import db
+from api.models import db
 from typing import TYPE_CHECKING, List  
 
 if TYPE_CHECKING:
@@ -14,10 +14,7 @@ class Offices(db.Model):
     postal_code: Mapped[int] = mapped_column(Integer, nullable=True)
     coordinates: Mapped[str] = mapped_column(String(250), nullable=True)
     
-    
-
     errand: Mapped[List["Errand"]] = relationship("Errand", back_populates="offices")
-
 
     def serialize(self):
         return {

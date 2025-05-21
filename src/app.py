@@ -6,10 +6,10 @@ from flask import Flask, request, jsonify, url_for, send_from_directory
 from flask_migrate import Migrate
 from flask_swagger import swagger
 from api.utils import APIException, generate_sitemap
-from models import db, Errand, Errand_type, Favorites, Offices, Follow_up, User
+from api.models import db, Errand, Errand_type, Favorites, Offices, Follow_up, User
 from api.admin import setup_admin
 from api.commands import setup_commands
-
+from api.routes.routes import api
 
 
 # from models import Person

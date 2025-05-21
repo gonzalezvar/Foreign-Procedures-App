@@ -1,6 +1,6 @@
 from sqlalchemy import String, Integer, Date
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from models import db
+from api.models import db
 from typing import TYPE_CHECKING, List  
 
 if TYPE_CHECKING:
@@ -14,11 +14,8 @@ class User(db.Model):
     email: Mapped[str] = mapped_column(String(250), unique=True, nullable=False)
     password: Mapped[str] = mapped_column(String(250), nullable=False)
     
-    
-    
     favorites: Mapped[List["Favorites"]] = relationship("Favorites", back_populates="user")
     follow_up: Mapped[List["Follow_up"]] = relationship("Follow_up", back_populates="user")
-
 
     def serialize(self):
         return {

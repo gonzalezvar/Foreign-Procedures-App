@@ -1,10 +1,10 @@
 from sqlalchemy import String, Integer, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from models import db
-from typing import TYPE_CHECKING
+from api.models import db
+from typing import TYPE_CHECKING,  List
 
 if TYPE_CHECKING:
-    from .errand import Errand 
+    from .errand import Errand
 
 
 class Errand_type(db.Model):
@@ -12,10 +12,10 @@ class Errand_type(db.Model):
     errand_type_id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String(250), nullable=False)
     description: Mapped[str] = mapped_column(String(250), nullable=False)
-    errand_id: Mapped[int] = mapped_column(ForeignKey('errand.errand_id'), nullable=True)
-    errand: Mapped["Errand"] = relationship("Errand", back_populates="errand_types", foreign_keys=[errand_id])
+    
+    errand: Mapped[List["Errand"]] = relationship(
+        "Errand", back_populates="errand_type")
 
- 
     def serialize(self):
         return {
             "errand_type_id": self.errand_type_id,
