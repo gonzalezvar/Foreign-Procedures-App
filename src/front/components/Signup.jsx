@@ -3,7 +3,7 @@ import { authenticationServices } from "../services/authenticationServices";
 import { TextField } from "@mui/material";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 
-export const SignUp = () => {
+export const Signup = () => {
 
   const { store, dispatch } = useGlobalReducer();
   const [signUpData, setSignUpData] = useState(
@@ -61,7 +61,7 @@ export const SignUp = () => {
             required
             type="password"
           />
-          <button type="submit" className="btn btn-primary">Submit</button>
+          <button type="submit" className="btn btn-primary m-2">Submit</button>
         </ul>
       </div>
     </form>
