@@ -5,7 +5,7 @@ export const authenticationServices = {
   signUp: async ({ email, password }) => {
     try {
       const request = await fetch(
-        `https://organic-space-robot-wrgw95p9wg9jhx74-3001.app.github.dev/user/create`,
+        `${baseUrl}/user/create`,
         {
           method: "POST",
           headers: {
@@ -25,7 +25,7 @@ export const authenticationServices = {
   login: async ({ email, password }) => {
     try {
       const request = await fetch(
-        `https://organic-space-robot-wrgw95p9wg9jhx74-3001.app.github.dev/user/login`,
+        `${baseUrl}/user/login`,
         {
           method: "POST",
           headers: {
@@ -49,7 +49,7 @@ export const authenticationServices = {
     console.log(token);
     
     try {
-      const resp = await fetch(`https://organic-space-robot-wrgw95p9wg9jhx74-3001.app.github.dev/home`, {
+      const resp = await fetch(`${baseUrl}/home`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
