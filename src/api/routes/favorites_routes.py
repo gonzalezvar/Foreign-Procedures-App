@@ -1,5 +1,5 @@
 from flask import request, jsonify, Blueprint
-from models import db, User, Errand
+from api.models import db, User, Errand, Favorites
 
 favorite_bp = Blueprint('favorite_custom', __name__, url_prefix='/favorite')
 
@@ -21,7 +21,7 @@ def add_favorite(errand_id):
     if not users:
         return jsonify({"error": "No se ha encontrado users_id"}), 400
 
-    new_favorite = Favorite(
+    new_favorite = Favorites(
         users_id=users_id,
         errand_id=errand_id
     )
@@ -38,7 +38,7 @@ def add_favorite(errand_id):
 
 @favorite_bp.route('/errand/<int:errand_id>', methods=['DELETE'])
 def delete_fav_errand(errand_id):
-    favorite = Favorite.query.filter_by(errand_id=errand_id).first()
+    favorite = Favorites.query.filter_by(errand_id=errand_id).first()
 
     if favorite is None:
         return jsonify({"error": "Favorite errand not found"}), 404
@@ -50,7 +50,7 @@ def delete_fav_errand(errand_id):
 
 @favorite_bp.route('/user/<int:users_id>/favorites', methods=['GET'])
 def get_user_favorites(users_id):
-    favorites = Favorite.query.filter_by(users_id=users_id).all()
+    favorites = Favorites.query.filter_by(users_id=users_id).all()
     if not favorites: 
         return jsonify({"message": "No favorite errands found for this user"}), 404
     serialized_favorites = [favorite.serialize() for favorite in favorites]

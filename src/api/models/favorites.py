@@ -8,7 +8,6 @@ if TYPE_CHECKING:
     from .errand import Errand
 
 
-
 class Favorites(db.Model):
     __tablename__ = "favorites"
     favorites_id: Mapped[int] = mapped_column(Integer, primary_key=True)
@@ -22,15 +21,13 @@ class Favorites(db.Model):
     errand: Mapped["Errand"] = relationship(
         "Errand", back_populates="favorites", foreign_keys=[errand_id])
 
+    def serialize(self):
+        return {
+            'favorites_id': self.favorites_id,
+        }
 
-def serialize(self):
-    return {
-        'favorites_id': self.favorites_id,
-    }
-
-
-def serialize_with_relations(self):
-    data = self.serialize()
-    data['user'] = self.user.serialize() if self.user else {}
-    data['errand'] = self.errand.serialize() if self.errand else {}
-    return data
+    def serialize_with_relations(self):
+        data = self.serialize()
+        data['user'] = self.user.serialize() if self.user else {}
+        data['errand'] = self.errand.serialize() if self.errand else {}
+        return data
