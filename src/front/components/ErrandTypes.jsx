@@ -1,14 +1,27 @@
 import React, { useState } from 'react';
 import procedures_categorized from "../assets/img/procedures_categorized.json";
+import useGlobalReducer from "../hooks/useGlobalReducer";
+import { useFavorites } from "../hooks/favoriteReducer";
 
 export const ErrandTypes = () => {
     const [selectedCategory, setSelectedCategory] = useState("Todas");
-
+    const { state, dispatch } = useFavorites();
     const uniqueCategories = ["Todas", ...new Set(procedures_categorized.map(item => item.category))];
 
     const filteredProcedures = selectedCategory === "Todas"
         ? procedures_categorized
         : procedures_categorized.filter(item => item.category === selectedCategory);
+
+    const handleFavorite = (e) => {
+        e.stopPropagation();
+        favoriteReducer({ type: "toggleFavorite", payload: { id: uid, name } });  // Despachar al contexto de favoritos
+    };
+    const isFavorite = state.favorites.some(fav => fav.id === uid);
+
+
+
+
+
 
     return (
         <div className="p-4">
@@ -42,6 +55,12 @@ export const ErrandTypes = () => {
                                 <a href="#" className="btn btn-primary">
                                     Ver más
                                 </a>
+                                <button
+                                    className="btn btn-warning"
+                                    onClick={(e) => handleFavorite(e)}
+                                >
+                                    {isFavorite ? "❤️" : "🤍"}
+                                </button>
                             </div>
                         </div>
                     </div>

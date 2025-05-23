@@ -11,6 +11,10 @@ CORS(user_bp)
 
 bcrypt = Bcrypt()
 
+@user_bp.route('/users_info', methods=['GET'])
+def get_users():
+    users = User.query.all()
+    return jsonify([e.serialize_with_relations() for e in users]), 200
 
 @user_bp.route('/home', methods=['GET'])
 @jwt_required()
@@ -69,3 +73,4 @@ def create_user():
         print(e)
         db.session.rollback()
         return jsonify({"error": "Error en el servido"}), 500
+

@@ -25,7 +25,7 @@ class User(db.Model):
         
     def serialize_with_relations(self):
         data = self.serialize()
-        data['favorites'] = self.favorites.serialize()
+        data['favorites'] = self.favorites.serialize() if self.favorites else {}
         data['follow_up'] = self.follow_up.serialize() if self.follow_up else {}
         return data
 
