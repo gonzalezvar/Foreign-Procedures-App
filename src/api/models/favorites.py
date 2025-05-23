@@ -31,6 +31,6 @@ def serialize(self):
 
 def serialize_with_relations(self):
     data = self.serialize()
-    data['user'] = self.user.serialize()
+    data['user'] = self.user.serialize() if self.user else {}
     data['errand'] = self.errand.serialize() if self.errand else {}
     return data

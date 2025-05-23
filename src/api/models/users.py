@@ -1,32 +1,33 @@
 from sqlalchemy import String, Integer, Date
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from api.models import db
-from typing import TYPE_CHECKING, List  
+from typing import TYPE_CHECKING, List
 
 if TYPE_CHECKING:
     from .favorites import Favorites
     from .follow_up import Follow_up
-    
+
 
 class User(db.Model):
     __tablename__ = "users"
     users_id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    email: Mapped[str] = mapped_column(String(250), unique=True, nullable=False)
+    email: Mapped[str] = mapped_column(
+        String(250), unique=True, nullable=False)
     password: Mapped[str] = mapped_column(String(250), nullable=False)
-    
-    favorites: Mapped[List["Favorites"]] = relationship("Favorites", back_populates="user")
-    follow_up: Mapped[List["Follow_up"]] = relationship("Follow_up", back_populates="user")
+
+    favorites: Mapped[List["Favorites"]] = relationship(
+        "Favorites", back_populates="user")
+    follow_up: Mapped[List["Follow_up"]] = relationship(
+        "Follow_up", back_populates="user")
 
     def serialize(self):
         return {
             "users_id": self.users_id,
             "email": self.email,
         }
-        
+
     def serialize_with_relations(self):
         data = self.serialize()
-        data['favorites'] = self.favorites.serialize()
+        data['favorites'] = self.favorites.serialize() if self.favorites else {}
         data['follow_up'] = self.follow_up.serialize() if self.follow_up else {}
         return data
-
-
