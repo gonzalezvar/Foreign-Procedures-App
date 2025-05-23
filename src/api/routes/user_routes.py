@@ -73,3 +73,4 @@ def create_user():
         print(e)
         db.session.rollback()
         return jsonify({"error": "Error en el servido"}), 500
+
