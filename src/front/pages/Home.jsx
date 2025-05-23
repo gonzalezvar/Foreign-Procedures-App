@@ -1,59 +1,79 @@
-import rigoImageUrl from "../assets/img/rigo-baby.jpg";
+import React, { useState } from 'react';
+import { Dropdown, DropdownButton } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import procedures_categorized from "../assets/img/procedures_categorized.json";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
-import { SignUp } from "../components/SignUp.jsx";
+import { Signup } from "../components/Signup.jsx";
 import { Login } from "../components/Login.jsx";
-import { ErrandTypes } from "../components/ErrandTypes.jsx";
+import { ErrandTypes } from '../components/ErrandTypes.jsx';
 
 export const Home = () => {
 
-	const { store, dispatch } = useGlobalReducer()
+	const { store, dispatch } = useGlobalReducer();
+	const [selectedCategory, setSelectedCategory] = useState(null);
 
-	// const loadMessage = async () => {
-	// 	try {
-	// 		const backendUrl = import.meta.env.VITE_BACKEND_URL
-	// 		console.log(backendUrl);
+	const uniqueCategories = [...new Set(procedures_categorized.map(item => item.category))];
 
 
-	// 		if (!backendUrl) throw new Error("VITE_BACKEND_URL is not defined in .env file")
+	const handleSelect = (eventKey) => {
+		setSelectedCategory(eventKey);
+		console.log("Categoría seleccionada:", eventKey);
+		// const procedure = procedures_categorized.find(p => p.category === eventKey);
+		// if (procedure) {
+		// // 	setSelectedProcedure(procedure);
+		// // 	console.log("Procedimiento seleccionado:", procedure);
+		// }
+	};
 
-	// 		const response = await fetch(backendUrl + "/api/hello")
-	// 		const data = await response.json()
+	const limitLength = (text, maxLength) => {
+		if (text.length > maxLength) {
+			return text.substring(0, maxLength) + '...';
+		}
+		return text;
+	};
 
-	// 		if (response.ok) dispatch({ type: "set_hello", payload: data.message })
-
-	// 		return data
-
-	// 	} catch (error) {
-	// 		if (error.message) throw new Error(
-	// 			`Could not fetch the message from the backend.
-	// 			Please check if the backend is running and the backend port is public.`
-	// 		);
-	// 	}
-
-	// }
-
-	// useEffect(() => {
-	// 	loadMessage()
-	// }, [])
+	const maxTitleLength = 25;
 
 	return (
 		<div className="text-center mt-5">
-			<SignUp></SignUp>
-			<Login></Login>
-			<ErrandTypes></ErrandTypes>
-			<h1 className="display-4">Hello Rigo!!</h1>
-			<p className="lead">
-				<img src={rigoImageUrl} className="img-fluid rounded-circle mb-3" alt="Rigo Baby" />
-			</p>
-			<div className="alert alert-info">
-				{store.message ? (
-					<span>{store.message}</span>
-				) : (
-					<span className="text-danger">
-						Loading message from the backend (make sure your python 🐍 backend is running)...
-					</span>
-				)}
+			<div className="p-4">
+				<DropdownButton
+					id="dropdown-basic-button"
+					title={selectedCategory ? limitLength(selectedCategory, maxTitleLength) : "Seleccionar Trámite"}
+					onSelect={handleSelect}
+					className="w-100"
+					variant="info"
+				>
+					{uniqueCategories.length > 0 ? (
+						uniqueCategories.map((item) => (
+							<Dropdown.Item
+								key={item.id}
+								eventKey={item}
+								active={selectedCategory?.category === item.category}
+								className="py-1"
+								style={{ transition: 'transform 0.2s ease-in-out, background-color 0.2s ease-in-out', backgroundColor: 'black' }}
+								onMouseEnter={(e) => {
+									e.currentTarget.style.transform = 'scale(1.02)';
+									e.currentTarget.style.backgroundColor = 'grey';
+								}}
+								onMouseLeave={(e) => {
+									e.currentTarget.style.transform = 'scale(1)';
+									e.currentTarget.style.backgroundColor = 'black';
+								}}
+							>
+								<div className="d-flex flex-column">
+									<h6 className="mb-0 fw-normal" style={{ fontSize: '0.9rem' }}>
+										{limitLength(item, maxTitleLength)}
+									</h6>
+								</div>
+							</Dropdown.Item>
+						))
+					) : (
+						<Dropdown.Item disabled>No hay trámites disponibles</Dropdown.Item>
+					)}
+				</DropdownButton>
+				<ErrandTypes></ErrandTypes>
 			</div>
 		</div>
 	);
-}; 
+};

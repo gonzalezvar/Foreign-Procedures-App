@@ -14,6 +14,8 @@ from api.routes.routes import api
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 from api.routes.user_routes import user_bp
+from api.routes.errand_types_routes import errand_type_bp
+from api.routes.errand_routes import errand_bp
 
 # from models import Person
 
@@ -27,6 +29,8 @@ jwt = JWTManager(app)
 CORS(app)
 
 app.register_blueprint(user_bp)
+app.register_blueprint(errand_type_bp)
+app.register_blueprint(errand_bp)
 
 
 # database condiguration

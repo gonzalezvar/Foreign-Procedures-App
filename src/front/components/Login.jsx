@@ -2,10 +2,15 @@ import { useState } from "react";
 import { authenticationServices } from "../services/authenticationServices";
 import { TextField } from "@mui/material";
 import useGlobalReducer from "../hooks/useGlobalReducer";
+import { useNavigate } from "react-router-dom";
+
 
 export const Login = () => {
 
   const { store, dispatch } = useGlobalReducer();
+  const navigate = useNavigate();
+
+
   const [loginData, setLoginData] = useState(
     {
       email: "",
@@ -29,17 +34,13 @@ export const Login = () => {
         email: loginData.email.trim(),
         password: loginData.password.trim()
       }
-     await authenticationServices.login(loginUser)
+      const response = await authenticationServices.login(loginUser)
+      dispatch({ type: "LOGIN", payload: { token: response.token } });
+      navigate("/");
     }
     catch (error) {
       console.error('Error al agregar usuario:', error);
     }
-  }
-
-  const logOut = () => {
-    console.log("Token antes de logout:", localStorage.getItem("jwt-token"))
-    localStorage.removeItem("jwt-token");
-    console.log("Token después de logout:", localStorage.getItem("jwt-token")); // debe ser null
   }
 
   return (
@@ -68,13 +69,12 @@ export const Login = () => {
               required
               type="password"
             />
-            <button type="submit" className="btn btn-primary">Login</button>
-
+            <button type="submit" className="btn btn-primary m-2">Login</button>
           </ul>
         </div>
       </form>
       <div>
-        <button type="button" className="btn btn-primary" onClick={logOut}>Logout</button>
+        <button type="button" className="btn btn-primary m-2" onClick={() => navigate("/signup")}>Don't have an user? Signup here</button>
       </div>
     </>
   );

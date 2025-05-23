@@ -22,6 +22,8 @@ sqlalchemy = "*"
 playwright = "*"
 flask-jwt-extended = "*"
 flask-bcrypt = "*"
+requests = "*"
+pdfplumber = "*"
 
 [requires]
 python_version = "3.13"
