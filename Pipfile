@@ -23,6 +23,8 @@ playwright = "*"
 eralchemy2 = "*"
 flask-bcrypt = "*"
 flask-jwt-extended = "*"
+requests = "*"
+pdfplumber = "*"
 
 [requires]
 python_version = "3.13"
