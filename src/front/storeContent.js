@@ -1,15 +1,15 @@
 export const initialStoreContent = () => ({
-  errands: {
-    name: [],
-    description: [],
-    types: [
-      {
-        name: "",
-        descriptionErrandType: "",
-      },
-    ],
-    loading: true,
-  },
+  errands: [{
+    id: null,
+    name: "",
+    description: "",
+    type: {
+      type_id: null,
+      name: "",
+      descriptionErrandType: "",
+    },
+  }],
+  loading: null
 });
 
 export default function storeReducerContent(store, action = {}) {

@@ -787,13 +787,6 @@
             "markers": "python_version >= '3.8'",
             "version": "==13.0.0"
         },
-        "pygraphviz": {
-            "hashes": [
-                "sha256:c10df02377f4e39b00ae17c862f4ee7e5767317f1c6b2dfd04cea6acc7fc2bea"
-            ],
-            "markers": "python_version >= '3.10'",
-            "version": "==1.14"
-        },
         "pyjwt": {
             "hashes": [
                 "sha256:3cc5772eb20009233caf06e9d8a0577824723b44e6648ee0a2aedb6cf9381953",
