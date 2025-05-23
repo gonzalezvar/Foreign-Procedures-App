@@ -1,8 +1,8 @@
-import React, { useEffect } from "react"
 import rigoImageUrl from "../assets/img/rigo-baby.jpg";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { SignUp } from "../components/SignUp.jsx";
 import { Login } from "../components/Login.jsx";
+import { ErrandTypes } from "../components/ErrandTypes.jsx";
 
 export const Home = () => {
 
@@ -12,7 +12,7 @@ export const Home = () => {
 	// 	try {
 	// 		const backendUrl = import.meta.env.VITE_BACKEND_URL
 	// 		console.log(backendUrl);
-			
+
 
 	// 		if (!backendUrl) throw new Error("VITE_BACKEND_URL is not defined in .env file")
 
@@ -40,6 +40,7 @@ export const Home = () => {
 		<div className="text-center mt-5">
 			<SignUp></SignUp>
 			<Login></Login>
+			<ErrandTypes></ErrandTypes>
 			<h1 className="display-4">Hello Rigo!!</h1>
 			<p className="lead">
 				<img src={rigoImageUrl} className="img-fluid rounded-circle mb-3" alt="Rigo Baby" />
