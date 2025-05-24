@@ -1,12 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import procedures_categorized from "../assets/img/procedures_categorized.json";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 import { useFavorites } from "../hooks/favoriteReducer";
+import { contentServices } from "../services/contentServices";
 
 export const ErrandTypes = () => {
     const [selectedCategory, setSelectedCategory] = useState("Todas");
-    const { state, dispatch } = useFavorites();
+    const { state: favoritesState, dispatch: favoriteReducer } = useFavorites();
+    const { store, dispatch } = useGlobalReducer();
     const uniqueCategories = ["Todas", ...new Set(procedures_categorized.map(item => item.category))];
+
+    useEffect(() => {
+        contentServices.getErrands(dispatch)
+    }, []);
+
 
     const filteredProcedures = selectedCategory === "Todas"
         ? procedures_categorized
@@ -16,17 +23,12 @@ export const ErrandTypes = () => {
         e.stopPropagation();
         favoriteReducer({ type: "toggleFavorite", payload: { id: uid, name } });  // Despachar al contexto de favoritos
     };
-    const isFavorite = state.favorites.some(fav => fav.id === uid);
-
-
-
-
+    const isFavorite = favoritesState.favorites.some(fav => fav.id === uid);
 
 
     return (
         <div className="p-4">
             <h1>Lista de Trámites</h1>
-
             <div className="mb-3">
                 <label htmlFor="category-select" className="form-label">Filtrar por Categoría:</label>
                 <select

@@ -1,17 +1,11 @@
+const baseUrl = import.meta.env.VITE_BACKEND_URL;
+
 export const contentServices = {
   getErrands: async (dispatch) => {
-    dispatch({ type: 'setLoading', category: 'errands' });
+    dispatch({ type: 'setLoading', category: 'errands' }); 
     try {
-
-        // hay que congifurar para tarear la informaci{on del local storage para acelarar tiempos de carga y de paso hacer un dispacth desde aqui al store del content
-        // const storedData = localStorage.getItem(localStorageKey);
-        // if (storedData) {
-        // const parsedData = JSON.parse(storedData);
-
-        // dispatch({ type: 'setData', category: 'films', data: parsedData.films });
       const request = await fetch(
-        "https://organic-space-robot-wrgw95p9wg9jhx74-3001.app.github.dev/api/errands",
-
+        `${baseUrl}/api/errands`,
         {
           headers: {
             accept: "application/json",
