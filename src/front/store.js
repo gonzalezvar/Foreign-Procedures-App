@@ -2,13 +2,13 @@ export const initialStore = () => {
   return {
     auth: {
       token: localStorage.getItem("jwt-token") || null,
-      isAuthenticated: !!localStorage.getItem("jwt-token")
+      isAuthenticated: !!localStorage.getItem("jwt-token"),
     },
     user_data: null,
     offices: [],
     appLoading: false,
     appError: null,
-    selected_errand: null
+    selected_errand: null,
   };
 };
 
@@ -42,44 +42,41 @@ export default function storeReducer(store, action = {}) {
       return {
         ...store,
         user_data: {
-            ...store.user_data,
-            ...action.payload
+          ...store.user_data,
+          ...action.payload,
         },
       };
 
     case "ADD_USER_FOLLOW_UP": // Add new follow_up to user
-      if (!store.user_data)
-        return store;
+      if (!store.user_data) return store;
       return {
         ...store,
         user_data: {
           ...store.user_data,
-          follow_up: [...store.user_data.follow_up, action.payload]
-        }
+          follow_up: [...store.user_data.follow_up, action.payload],
+        },
       };
 
     case "UPDATE_USER_FOLLOW_UP": // Update follow_up on user
-      if (!store.user_data.follow_up)
-        return store;
+      if (!store.user_data.follow_up) return store;
       return {
         ...store,
         user_data: {
           ...store.user_data,
-          follow_up: store.user_data.follow_up.map(fu =>
+          follow_up: store.user_data.follow_up.map((fu) =>
             fu.id === action.payload.id ? { ...fu, ...action.payload } : fu
-          )
-        }
+          ),
+        },
       };
 
     case "ADD_USER_FAVORITE": // Add new favorite to user
-      if (!store.user_data)
-        return store;
+      if (!store.user_data) return store;
       return {
         ...store,
         user_data: {
           ...store.user_data,
-          favorites: [...store.user_data.favorites, action.payload]
-        }
+          favorites: [...store.user_data.favorites, action.payload],
+        },
       };
 
     case "SET_OFFICES":
@@ -95,6 +92,6 @@ export default function storeReducer(store, action = {}) {
       return { ...store, appError: null };
 
     default:
-      throw new Error("Unknown action.");
+      return store;
   }
 }
