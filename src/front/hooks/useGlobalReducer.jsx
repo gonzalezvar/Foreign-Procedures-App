@@ -1,6 +1,6 @@
 import { useContext, useReducer, createContext } from "react";
 import storeReducer, { initialStore } from "../store";
-import storeReducerContent, { initialStoreContent } from './storeContent';
+import storeReducerContent, { initialStoreContent } from '../storeContent';
 
 // Combined initial state
 const combinedInitialState = {

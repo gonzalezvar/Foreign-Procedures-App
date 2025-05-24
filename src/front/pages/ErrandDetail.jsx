@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useGlobalStore } from '../store';
+import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 
-const ErrandDetail = () => {
+export const ErrandDetail = () => {
     const { errand_id } = useParams();
-    const { store, dispatch } = useGlobalStore();
+    const { store, dispatch } = useGlobalReducer();
     const selectedErrand = store.content.selected_errand;
 
     useEffect(() => {
@@ -89,5 +89,3 @@ const ErrandDetail = () => {
         </div>
     );
 };
-
-export default ErrandDetail;
