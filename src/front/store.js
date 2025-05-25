@@ -2,7 +2,7 @@ export const initialStore = () => {
   return {
     auth: {
       token: localStorage.getItem("jwt-token") || null,
-      isAuthenticated: !!localStorage.getItem("jwt-token")
+      isAuthenticated: !!localStorage.getItem("jwt-token"),
     },
     user_data: null, // { users_id: ..., email: ..., favorites: [], follow_up: [] }
     offices: [],
@@ -42,14 +42,13 @@ export default function storeReducer(store, action = {}) {
       return {
         ...store,
         user_data: {
-            ...store.user_data,
-            ...action.payload
+          ...store.user_data,
+          ...action.payload,
         },
       };
 
     case "ADD_USER_FOLLOW_UP": // Add new follow_up to user
-      if (!store.user_data)
-        return store;
+      if (!store.user_data) return store;
       return {
         ...store,
         user_data: {
@@ -68,15 +67,14 @@ export default function storeReducer(store, action = {}) {
         ...store,
         user_data: {
           ...store.user_data,
-          follow_up: store.user_data.follow_up.map(fu =>
+          follow_up: store.user_data.follow_up.map((fu) =>
             fu.id === action.payload.id ? { ...fu, ...action.payload } : fu
-          )
-        }
+          ),
+        },
       };
 
     case "ADD_USER_FAVORITE": // Add new favorite to user
-      if (!store.user_data)
-        return store;
+      if (!store.user_data) return store;
       return {
         ...store,
         user_data: {
@@ -142,6 +140,6 @@ export default function storeReducer(store, action = {}) {
       return { ...store, appError: null };
 
     default:
-      throw new Error("Unknown action.");
+      return store;
   }
 }

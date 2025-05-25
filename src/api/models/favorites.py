@@ -21,10 +21,12 @@ class Favorites(db.Model):
     errand: Mapped["Errand"] = relationship(
         "Errand", back_populates="favorites", foreign_keys=[errand_id])
 
+
     def serialize(self):
         return {
             'favorites_id': self.favorites_id,
         }
+
 
     def serialize_with_relations(self):
         data = self.serialize()

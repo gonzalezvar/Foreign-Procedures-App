@@ -2,10 +2,12 @@ import { useState } from "react";
 import { authenticationServices } from "../services/authenticationServices";
 import { TextField } from "@mui/material";
 import useGlobalReducer from "../hooks/useGlobalReducer";
+import { useNavigate } from "react-router-dom";
 
 export const Signup = () => {
 
   const { store, dispatch } = useGlobalReducer();
+  const navigate = useNavigate();
   const [signUpData, setSignUpData] = useState(
     {
       email: "",
@@ -30,6 +32,7 @@ export const Signup = () => {
         password: signUpData.password.trim()
       }
       await authenticationServices.signUp(newUser)
+      navigate("/");
     }
     catch (error) {
       console.error('Error al agregar usuario:', error);
