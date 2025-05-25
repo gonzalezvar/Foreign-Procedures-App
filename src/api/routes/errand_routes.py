@@ -24,6 +24,11 @@ def create_errand():
     db.session.commit()
     return jsonify(new_errand.serialize()), 201
 
+@errand_bp.route('/api/errands/<int:errand_id>', methods=['GET'])
+def update_errand(errand_id):
+    errand = Errand.query.get_or_404(errand_id)
+    return jsonify(errand.serialize()), 200
+
 @errand_bp.route('/api/errands/<int:id>', methods=['PUT'])
 def update_errand(id):
     errand = Errand.query.get_or_404(id)

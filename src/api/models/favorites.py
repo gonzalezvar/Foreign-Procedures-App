@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class Favorites(db.Model):
     __tablename__ = "favorites"
-    favorites_id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    favorite_id: Mapped[int] = mapped_column(Integer, primary_key=True)
     users_id: Mapped[int] = mapped_column(
         ForeignKey('users.users_id'), nullable=False)
     errand_id: Mapped[int] = mapped_column(

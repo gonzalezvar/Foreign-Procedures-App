@@ -1,27 +1,36 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { useGlobalStore } from '../store';
+import React, { useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useGlobalReducer } from '../store';
+import { API_URL } from '../config';
 
-const ErrandDetail = () => {
+export const ErrandDetail = () => {
     const { errand_id } = useParams();
-    const { store, dispatch } = useGlobalStore();
+    const { store, dispatch } = useGlobalReducer();
+    const navigate = useNavigate();
+
     const selectedErrand = store.content.selected_errand;
+    const contentLoading = store.content.contentLoading;
+    const contentError = store.content.contentError;
 
     useEffect(() => {
         const fetchErrandDetail = async () => {
             if (!errand_id)
                 return;
-            ////////////////////////////////////////////////////////////////////////
+
+            if (selectedErrand && selectedErrand.id === parseInt(errand_id)) {
+                return;
+            }
+
             dispatch({ type: "SET_CONTENT_LOADING", payload: true });
-            dispatch({ type: "CLEAR_CONTENT_ERROR" });
+            dispatch({ type: "CLEAR_APP_ERROR" });
 
             try {
-                const response = await fetch(`${API_URL}/api/errands/${errand_id}`); // Tu endpoint Flask
+                const response = await fetch(`${API_URL}/api/errands/${errand_id}`);
                 if (!response.ok) {
                     throw new Error(`Error al cargar el trámite: ${response.statusText}`);
                 }
                 const data = await response.json();
-                dispatch({ type: "SET_SELECTED_ERRAND", payload: data }); // Guarda el detalle en el store
+                dispatch({ type: "SET_SELECTED_ERRAND", payload: data });
             } catch (error) {
                 console.error("Error fetching errand detail:", error);
                 dispatch({ type: "SET_CONTENT_ERROR", payload: error.message });
@@ -31,14 +40,14 @@ const ErrandDetail = () => {
         };
 
         fetchErrandDetail();
-    }, [errand_id, selectedErrand, dispatch]); // Dependencias del useEffect
+    }, [errand_id, selectedErrand, dispatch]);
 
-    if (store.content.contentLoading) {
+    if (contentLoading) {
         return <div className="text-center p-4">Cargando información del trámite...</div>;
     }
 
-    if (store.content.contentError) {
-        return <div className="text-center p-4 text-red-500">Error: {store.content.contentError}</div>;
+    if (contentError) {
+        return <div className="text-center p-4 text-red-500">Error: {contentError}</div>;
     }
 
     if (!selectedErrand || selectedErrand.id !== parseInt(errand_id)) {
@@ -46,48 +55,82 @@ const ErrandDetail = () => {
         return <div className="text-center p-4">Trámite no encontrado o cargando...</div>;
     }
 
-    // Una vez que tenemos el trámite, lo mostramos
     return (
         <div className="container mx-auto p-4">
-            <h1 className="text-3xl font-bold mb-4">{selectedErrand.title}</h1> {/* Asumo 'title' en tu API */}
+            <h1 className="text-3xl font-bold mb-4">{selectedErrand.title}</h1>
             <span className="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-full mb-4">
-                Categoría: {selectedErrand.category} {/* Asumo 'category' en tu API */}
+                Categoría: {selectedErrand.category}
             </span>
 
             <div className="mb-6">
                 <h2 className="text-2xl font-semibold mb-2">Descripción General</h2>
-                {/* Aquí podrías renderizar un HTML parseado si 'description' es Markdown/HTML */}
-                {/* Usar dangerouslySetInnerHTML con precaución si el contenido viene de fuera sin sanitizar */}
-                <p className="text-gray-700 whitespace-pre-wrap">{selectedErrand.procedure}</p> {/* Asumo 'procedure' */}
-                {/* O si es solo texto plano, simplemente <p>{selectedErrand.description}</p> */}
+                {/* parsed description */}
+                <p className="text-gray-700 whitespace-pre-wrap">{selectedErrand.procedure}</p>
             </div>
 
-            {/* Aquí es donde añadirías un botón para iniciar el formulario */}
+            {/* Start form button */}
             <div className="mt-8 text-center">
                 <button
-                    onClick={() => {
-                        // Lógica para iniciar un nuevo seguimiento o navegar al formulario
-                        // Podrías dispatchear una acción para crear un nuevo follow_up en el backend
-                        // y luego navegar a una ruta de formulario dinámico (ej: /tramite/:errand_id/form/:followUpId)
+                    onClick={async () => {
                         console.log(`Iniciar trámite para: ${selectedErrand.title}`);
-                        // Ejemplo:
-                        // dispatch({ type: "CREATE_NEW_FOLLOW_UP", payload: { errand_id: selectedErrand.id } });
-                        // history.push(`/tramites/${errand_id}/formulario`);
+                        if (!store.auth.isAuthenticated) {
+                            alert("Debes iniciar sesión para rellenar un formulario.");
+                            // navigate("/login");
+                            return;
+                        }
+                        if (!store.user_data.users_id) {
+                            alert("No se pudo obtener la información del usuario logueado.");
+                            return;
+                        }
+                        if (!selectedErrand.errand_id) {
+                            alert("No se pudo obtener la información del trámite.");
+                            return;
+                        }
+                        //Podría mostrarse una pagina de Loading
+                        dispatch({ type: "SET_APP_LOADING", payload: true });
+                        dispatch({ type: "CLEAR_APP_ERROR" });
+
+                        try {
+                            const response = await fetch(`${API_URL}/api/user_follow_ups`, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Authorization': `Bearer ${store.auth.token}`
+                                },
+                                body: JSON.stringify({
+                                    user_id: store.user_data.users_id,
+                                    errand_name: selectedErrand.name, //name o id?
+                                    status_type: "started",
+                                    expiration_date: new Date().toISOString(),
+                                })
+                            });
+
+                            if (!response.ok) {
+                                const errorData = await response.json();
+                                throw new Error(errorData.message || `Error al iniciar el trámite: ${response.statusText}`);
+                            }
+
+                            const newFollowUp = await response.json();
+
+                            dispatch({ type: "ADD_USER_FOLLOW_UP", payload: newFollowUp });
+                            // Select to edit
+                            dispatch({ type: "SET_SELECTED_USER_FOLLOW_UP", payload: newFollowUp });
+                            // Redirect to the form page
+                            //navigate(`user/follow_up/${newFollowUp.follow_up_id}/form`);
+
+                        } catch (error) {
+                            console.error("Error al iniciar el formulario del trámite:", error);
+                            dispatch({ type: "SET_APP_ERROR", payload: error.message });
+                        } finally {
+                            dispatch({ type: "SET_APP_LOADING", payload: false });
+                        }
                     }}
                     className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-lg shadow-md transition duration-300"
                 >
                     Rellenar Formulario
                 </button>
             </div>
-
-            {/* Aquí podrías añadir más secciones del JSON original si las tienes:
-      - Requisitos
-      - Localización de oficinas
-      - Documentación necesaria
-      etc.
-      */}
+            {/* Añadir requirements, offices, etc. */}
         </div>
     );
 };
-
-export default ErrandDetail;
