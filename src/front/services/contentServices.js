@@ -18,7 +18,10 @@ export const contentServices = {
         data: errands, // guardar el arreglo completo
       });
 
+            localStorage.setItem("errands", JSON.stringify(errands));
+
       return errands;
+      
     } catch (error) {}
   },
 

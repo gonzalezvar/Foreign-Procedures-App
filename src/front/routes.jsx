@@ -8,6 +8,7 @@ import {
 import { Layout } from "./pages/Layout";
 import { Home } from "./pages/Home";
 import { ErrandDetailLuis } from "./pages/ErrandDetailLuis";
+import { ErrandDetail } from "./pages/ErrandDetail";
 import { MiPerfil } from "./pages/MiPerfil";
 import { LoginPage } from "./pages/LoginPage";
 import { SignupPage } from "./pages/SignupPage";
@@ -29,6 +30,7 @@ export const router = createBrowserRouter(
       <Route path="/login" element={<LoginPage />} />
       <Route path="/user_profile" element={<MiPerfil />} />
       <Route path="/tramitesLuis/:errandId" element={<ErrandDetailLuis />} />
+      <Route path="/errands/:errand_id" element={<ErrandDetail />} />
     </Route>
   )
 );

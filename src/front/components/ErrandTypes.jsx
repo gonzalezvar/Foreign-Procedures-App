@@ -3,15 +3,25 @@ import procedures_categorized from "../assets/img/procedures_categorized.json";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 import { useFavorites } from "../hooks/favoriteReducer";
 import { contentServices } from "../services/contentServices";
+import { Link } from 'react-router-dom';
 
 export const ErrandTypes = () => {
     const [selectedCategory, setSelectedCategory] = useState("Todas");
     const { state: favoritesState, dispatch: favoriteReducer } = useFavorites();
     const { store, dispatch } = useGlobalReducer();
 
-    useEffect(() => {
-        contentServices.getErrands(dispatch)
-    }, []);
+     useEffect(() => {
+                contentServices.getErrands(dispatch)
+
+    const storedErrands = localStorage.getItem("errands");
+    if (storedErrands) {
+      dispatch({
+        type: "setData",
+        category: "errands",
+        data: JSON.parse(storedErrands),
+      });
+    }
+  }, []);
 
     const errandsFromStore = store.content.errands.data || [];
     const adaptedErrands = errandsFromStore.map(item => ({
@@ -52,7 +62,7 @@ export const ErrandTypes = () => {
             </div>
             <div className="row">
                 {filteredProcedures.map((item) => (
-                    <div className="col-md-4 mb-4" key={item.id}>
+                    <div className="col-md-4 mb-4" key={item.errand_id}>
                         <div className="card" style={{ width: '100%' }}>
                             <img
                                 src="https://plus.unsplash.com/premium_photo-1661329930662-19a43503782f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -62,9 +72,9 @@ export const ErrandTypes = () => {
                             <div className="card-body">
                                 <h5 className="card-title">{item.errand_name}</h5>
                                 <p className="card-text">{item.category_name}</p>
-                                <a href="#" className="btn btn-primary">
+                                <Link to={`/errands/${item.errand_id}`} className="btn btn-primary">
                                     Ver más
-                                </a>
+                                </Link>
                                 <button
                                     className="btn btn-warning"
                                     onClick={(e) => handleFavorite(e)}
