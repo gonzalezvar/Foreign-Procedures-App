@@ -8,23 +8,31 @@ export const ErrandTypes = () => {
     const [selectedCategory, setSelectedCategory] = useState("Todas");
     const { state: favoritesState, dispatch: favoriteReducer } = useFavorites();
     const { store, dispatch } = useGlobalReducer();
-    const uniqueCategories = ["Todas", ...new Set(procedures_categorized.map(item => item.category))];
 
     useEffect(() => {
         contentServices.getErrands(dispatch)
     }, []);
 
+    const errandsFromStore = store.content.errands.data || [];
+    const adaptedErrands = errandsFromStore.map(item => ({
+        errand_id: item.errand_id,
+        category_name: item.errand_type.name || "Sin categoría",
+        category_description: item.errand_type.description,
+        errand_name: item.name
+    }));
 
     const filteredProcedures = selectedCategory === "Todas"
-        ? procedures_categorized
-        : procedures_categorized.filter(item => item.category === selectedCategory);
+        ? adaptedErrands
+        : adaptedErrands.filter(item => item.category_name === selectedCategory);
+
+    const uniqueCategories = ["Todas", ...new Set(adaptedErrands.map(item => item.category_name))];
 
     const handleFavorite = (e) => {
         e.stopPropagation();
-        favoriteReducer({ type: "toggleFavorite", payload: { id: uid, name } });  // Despachar al contexto de favoritos
+        favoriteReducer({ type: "toggleFavorite", payload: { id: uid, name } });
     };
-    const isFavorite = favoritesState.favorites.some(fav => fav.id === uid);
 
+    const isFavorite = favoritesState.favorites.some(fav => fav.id === uid);
 
     return (
         <div className="p-4">
@@ -52,8 +60,8 @@ export const ErrandTypes = () => {
                                 alt="errand"
                             />
                             <div className="card-body">
-                                <h5 className="card-title">{item.title}</h5>
-                                <p className="card-text">{item.category}</p>
+                                <h5 className="card-title">{item.errand_name}</h5>
+                                <p className="card-text">{item.category_name}</p>
                                 <a href="#" className="btn btn-primary">
                                     Ver más
                                 </a>
@@ -68,7 +76,6 @@ export const ErrandTypes = () => {
                     </div>
                 ))}
             </div>
-
         </div>
     );
 };

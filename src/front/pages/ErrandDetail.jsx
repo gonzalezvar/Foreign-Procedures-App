@@ -1,136 +1,78 @@
-import React, { useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { useGlobalReducer } from '../store';
-import { API_URL } from '../config';
+// Import necessary hooks and components from react-router-dom and other libraries.
+import { Link, useParams } from "react-router-dom";  // To use link for navigation and useParams to get URL parameters
+import PropTypes from "prop-types";  // To define prop types for this component
+import useGlobalReducer from "../hooks/useGlobalReducer";  // Import a custom hook for accessing the global state
 
-export const ErrandDetail = () => {
-    const { errand_id } = useParams();
-    const { store, dispatch } = useGlobalReducer();
-    const navigate = useNavigate();
+// Define and export the Single component which displays individual item details.
+export const Single = () => {
+  const { id, type, typeImage } = useParams();  // Obtenemos los parámetros de la URL
+  const { store } = useGlobalReducer();
+  
+//   const resourceFields = {
+//     errands: [
+//         { label: "Gender", key: "gender" },
+//         { label: "Hair Color", key: "hair_color" },
+//         { label: "Eye Color", key: "eye_color" },
+//         { label: "Skin Color", key: "skin_color" },
+//         { label: "Height", key: "height" },
+//         { label: "Birth Year", key: "birth_year" },
+//     ],
+// };
 
-    const selectedErrand = store.content.selected_errand;
-    const contentLoading = store.content.contentLoading;
-    const contentError = store.content.contentError;
+const singleItem = ;
+  
+  if (!singleItem) {
+    return <div>No se encontró el elemento.</div>;
+  }
 
-    useEffect(() => {
-        const fetchErrandDetail = async () => {
-            if (!errand_id)
-                return;
+  const imageUrl = `https://raw.githubusercontent.com/tbone849/star-wars-guide/refs/heads/master/build/assets/img/${typeImage}/${id}.jpg`;
 
-            if (selectedErrand && selectedErrand.id === parseInt(errand_id)) {
-                return;
-            }
+  const fallbackImage = "https://raw.githubusercontent.com/tbone849/star-wars-guide/refs/heads/master/build/assets/img/placeholder.jpg";
 
-            dispatch({ type: "SET_CONTENT_LOADING", payload: true });
-            dispatch({ type: "CLEAR_APP_ERROR" });
+  const handleError = (e) => {
+    e.target.src = fallbackImage;
+  };
 
-            try {
-                const response = await fetch(`${API_URL}/api/errands/${errand_id}`);
-                if (!response.ok) {
-                    throw new Error(`Error al cargar el trámite: ${response.statusText}`);
-                }
-                const data = await response.json();
-                dispatch({ type: "SET_SELECTED_ERRAND", payload: data });
-            } catch (error) {
-                console.error("Error fetching errand detail:", error);
-                dispatch({ type: "SET_CONTENT_ERROR", payload: error.message });
-            } finally {
-                dispatch({ type: "SET_CONTENT_LOADING", payload: false });
-            }
-        };
-
-        fetchErrandDetail();
-    }, [errand_id, selectedErrand, dispatch]);
-
-    if (contentLoading) {
-        return <div className="text-center p-4">Cargando información del trámite...</div>;
-    }
-
-    if (contentError) {
-        return <div className="text-center p-4 text-red-500">Error: {contentError}</div>;
-    }
-
-    if (!selectedErrand || selectedErrand.id !== parseInt(errand_id)) {
-        // Esto puede pasar si el fetch aún no ha terminado y el selectedErrand no coincide
-        return <div className="text-center p-4">Trámite no encontrado o cargando...</div>;
-    }
-
-    return (
-        <div className="container mx-auto p-4">
-            <h1 className="text-3xl font-bold mb-4">{selectedErrand.title}</h1>
-            <span className="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-full mb-4">
-                Categoría: {selectedErrand.category}
-            </span>
-
-            <div className="mb-6">
-                <h2 className="text-2xl font-semibold mb-2">Descripción General</h2>
-                {/* parsed description */}
-                <p className="text-gray-700 whitespace-pre-wrap">{selectedErrand.procedure}</p>
-            </div>
-
-            {/* Start form button */}
-            <div className="mt-8 text-center">
-                <button
-                    onClick={async () => {
-                        console.log(`Iniciar trámite para: ${selectedErrand.title}`);
-                        if (!store.auth.isAuthenticated) {
-                            alert("Debes iniciar sesión para rellenar un formulario.");
-                            // navigate("/login");
-                            return;
-                        }
-                        if (!store.user_data.users_id) {
-                            alert("No se pudo obtener la información del usuario logueado.");
-                            return;
-                        }
-                        if (!selectedErrand.errand_id) {
-                            alert("No se pudo obtener la información del trámite.");
-                            return;
-                        }
-                        //Podría mostrarse una pagina de Loading
-                        dispatch({ type: "SET_APP_LOADING", payload: true });
-                        dispatch({ type: "CLEAR_APP_ERROR" });
-
-                        try {
-                            const response = await fetch(`${API_URL}/api/user_follow_ups`, {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'Authorization': `Bearer ${store.auth.token}`
-                                },
-                                body: JSON.stringify({
-                                    user_id: store.user_data.users_id,
-                                    errand_name: selectedErrand.name, //name o id?
-                                    status_type: "started",
-                                    expiration_date: new Date().toISOString(),
-                                })
-                            });
-
-                            if (!response.ok) {
-                                const errorData = await response.json();
-                                throw new Error(errorData.message || `Error al iniciar el trámite: ${response.statusText}`);
-                            }
-
-                            const newFollowUp = await response.json();
-
-                            dispatch({ type: "ADD_USER_FOLLOW_UP", payload: newFollowUp });
-                            // Select to edit
-                            dispatch({ type: "SET_SELECTED_USER_FOLLOW_UP", payload: newFollowUp });
-                            // Redirect to the form page
-                            //navigate(`user/follow_up/${newFollowUp.follow_up_id}/form`);
-
-                        } catch (error) {
-                            console.error("Error al iniciar el formulario del trámite:", error);
-                            dispatch({ type: "SET_APP_ERROR", payload: error.message });
-                        } finally {
-                            dispatch({ type: "SET_APP_LOADING", payload: false });
-                        }
-                    }}
-                    className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-lg shadow-md transition duration-300"
-                >
-                    Rellenar Formulario
-                </button>
-            </div>
-            {/* Añadir requirements, offices, etc. */}
+  return (
+    <>
+      <div className="p-5 mb-4 bg-body-tertiary rounded-3">
+        <div className="row m-2 p-2 text-start border border-danger">
+          <div className="col-md-4 d-flex align-items-center justify-content-center">
+            <img
+              style={{ objectFit: "contain", objectPosition: "center", height: "20rem" }}
+              src={imageUrl}
+              onError={handleError}
+              className="card-img-top"
+              alt={`${typeImage}/${id}`}
+            />
+          </div>
+          <div className="col-md-8">
+            <h1 className="display-5 fw-bold">{singleItem.result.properties.name}</h1>
+            <p className="col fs-4">{singleItem.result.description || "Don't have a description"}</p>
+          </div>
         </div>
-    );
+
+        {/* Campos con cambios dinámicos */}
+        <div className="container">
+          <div className="row m-2 p-2 text-center border border-danger">
+            {resourceFields[type]?.map(field => {
+              const value = singleItem.result.properties[field.key];
+              return (
+                <div className="col-md-2 d-flex align-items-center justify-content-center" key={field.key}>
+                  <p className="mb-0">{field.label}: {value || "N/A"}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+// Use PropTypes to validate the props passed to this component, ensuring reliable behavior.
+Single.propTypes = {
+  // Although 'match' prop is defined here, it is not used in the component.
+  // Consider removing or using it as needed.
+  match: PropTypes.object
 };

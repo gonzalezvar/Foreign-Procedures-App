@@ -11,6 +11,7 @@ export const Home = () => {
 
 	const { store, dispatch } = useGlobalReducer();
 	const [selectedCategory, setSelectedCategory] = useState(null);
+	 console.log(store);
 
 	const uniqueCategories = [...new Set(procedures_categorized.map(item => item.category))];
 
@@ -37,41 +38,6 @@ export const Home = () => {
 	return (
 		<div className="text-center mt-5">
 			<div className="p-4">
-				<DropdownButton
-					id="dropdown-basic-button"
-					title={selectedCategory ? limitLength(selectedCategory, maxTitleLength) : "Seleccionar Trámite"}
-					onSelect={handleSelect}
-					className="w-100"
-					variant="info"
-				>
-					{uniqueCategories.length > 0 ? (
-						uniqueCategories.map((item) => (
-							<Dropdown.Item
-								key={item.id}
-								eventKey={item}
-								active={selectedCategory?.category === item.category}
-								className="py-1"
-								style={{ transition: 'transform 0.2s ease-in-out, background-color 0.2s ease-in-out', backgroundColor: 'black' }}
-								onMouseEnter={(e) => {
-									e.currentTarget.style.transform = 'scale(1.02)';
-									e.currentTarget.style.backgroundColor = 'grey';
-								}}
-								onMouseLeave={(e) => {
-									e.currentTarget.style.transform = 'scale(1)';
-									e.currentTarget.style.backgroundColor = 'black';
-								}}
-							>
-								<div className="d-flex flex-column">
-									<h6 className="mb-0 fw-normal" style={{ fontSize: '0.9rem' }}>
-										{limitLength(item, maxTitleLength)}
-									</h6>
-								</div>
-							</Dropdown.Item>
-						))
-					) : (
-						<Dropdown.Item disabled>No hay trámites disponibles</Dropdown.Item>
-					)}
-				</DropdownButton>
 				<ErrandTypes></ErrandTypes>
 			</div>
 		</div>

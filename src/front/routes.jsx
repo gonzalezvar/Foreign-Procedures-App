@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import { Layout } from "./pages/Layout";
 import { Home } from "./pages/Home";
-import { ErrandDetail } from "./pages/ErrandDetail";
+import { ErrandDetailLuis } from "./pages/ErrandDetailLuis";
 import { MiPerfil } from "./pages/MiPerfil";
 import { LoginPage } from "./pages/LoginPage";
 import { SignupPage } from "./pages/SignupPage";
@@ -28,7 +28,7 @@ export const router = createBrowserRouter(
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/user_profile" element={<MiPerfil />} />
-      <Route path="/tramites/:errandId" element={<ErrandDetail />} />
+      <Route path="/tramitesLuis/:errandId" element={<ErrandDetailLuis />} />
     </Route>
   )
 );
