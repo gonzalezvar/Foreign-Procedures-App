@@ -1,26 +1,13 @@
-// Import necessary hooks and components from react-router-dom and other libraries.
-import { Link, useParams } from "react-router-dom";  // To use link for navigation and useParams to get URL parameters
-import PropTypes from "prop-types";  // To define prop types for this component
-import useGlobalReducer from "../hooks/useGlobalReducer";  // Import a custom hook for accessing the global state
+import { Link, useParams } from "react-router-dom";  
+import PropTypes from "prop-types";  
+import useGlobalReducer from "../hooks/useGlobalReducer";  
 import { useFavorites } from "../hooks/favoriteReducer";
 
-// Define and export the Single component which displays individual item details.
 export const ErrandDetail = () => {
-    const { errand_id } = useParams();  // Obtenemos los parámetros de la URL
+    const { errand_id } = useParams();  
     const { store, dispatch } = useGlobalReducer();
      const { state: favoritesState, dispatch: favoriteReducer } = useFavorites();
   
-
-    //   const resourceFields = {
-    //     errands: [
-    //         { label: "Gender", key: "gender" },
-    //         { label: "Hair Color", key: "hair_color" },
-    //         { label: "Eye Color", key: "eye_color" },
-    //         { label: "Skin Color", key: "skin_color" },
-    //         { label: "Height", key: "height" },
-    //         { label: "Birth Year", key: "birth_year" },
-    //     ],
-    // };
 
     // const getLocalStorage = localStorage.getItem("errands");
     const stoOfErrands = store.content.errands.data || [];
@@ -33,28 +20,6 @@ const singleErrand = stoOfErrands.find(
 if (!singleErrand) {
     return <div>No se encontró el trámite.</div>;
 }
-
-    const indivualErrandData = stoOfErrands.map(item => ({
-        errand_id: item.errand_id,
-        errand_type_description: item.errand_type.description,
-        errand_name: item.name,
-        errand_procedures: item.procedures,
-        errand_requirements: item.requirements,
-    }))
-
-
-
-    //   if (!singleItem) {
-    //     return <div>No se encontró el elemento.</div>;
-    //   }
-
-    //   const imageUrl = `https://raw.githubusercontent.com/tbone849/star-wars-guide/refs/heads/master/build/assets/img/${typeImage}/${id}.jpg`;
-
-    //   const fallbackImage = "https://raw.githubusercontent.com/tbone849/star-wars-guide/refs/heads/master/build/assets/img/placeholder.jpg";
-
-    //   const handleError = (e) => {
-    //     e.target.src = fallbackImage;
-    //   };
 
     const isFavorite = favoritesState.favorites.some(fav => fav.id === uid);
 
