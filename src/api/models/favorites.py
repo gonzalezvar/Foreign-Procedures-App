@@ -1,7 +1,7 @@
 from sqlalchemy import String, Integer, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from api.models import db
-from typing import TYPE_CHECKING, List  # Importa List
+from typing import TYPE_CHECKING, List
 
 if TYPE_CHECKING:
     from .users import User
@@ -21,12 +21,10 @@ class Favorites(db.Model):
     errand: Mapped["Errand"] = relationship(
         "Errand", back_populates="favorites", foreign_keys=[errand_id])
 
-
     def serialize(self):
         return {
             'favorites_id': self.favorites_id,
         }
-
 
     def serialize_with_relations(self):
         data = self.serialize()

@@ -17,6 +17,7 @@ from api.routes.user_routes import user_bp
 from api.routes.errand_types_routes import errand_type_bp
 from api.routes.errand_routes import errand_bp
 from api.routes.favorites_routes import favorite_bp
+from api.routes.offices_routes import offices_bp
 
 # from models import Person
 
@@ -33,6 +34,7 @@ app.register_blueprint(user_bp)
 app.register_blueprint(errand_type_bp)
 app.register_blueprint(errand_bp)
 app.register_blueprint(favorite_bp)
+app.register_blueprint(offices_bp)
 
 
 # database condiguration
