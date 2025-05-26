@@ -45,5 +45,5 @@ class Errand(db.Model):
         data = self.serialize()
         data['errand_type'] = self.errand_type.serialize() if self.errand_type else {}
         data['offices'] = self.offices.serialize() if self.offices else {}
-        data['favorites'] = self.favorites.serialize() if self.favorites else {}
+        data['favorites'] = [f.serialize_with_relations() for f in self.favorites] if self.favorites else []
         return data

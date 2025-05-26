@@ -48,10 +48,10 @@ def delete_fav_errand(errand_id):
 
     return jsonify({"message": f"Favorite errand {errand_id} deleted"}), 200
 
-@favorite_bp.route('/user/<int:users_id>/favorites', methods=['GET'])
+@favorite_bp.route('/user/<int:users_id>', methods=['GET'])
 def get_user_favorites(users_id):
     favorites = Favorites.query.filter_by(users_id=users_id).all()
     if not favorites: 
         return jsonify({"message": "No favorite errands found for this user"}), 404
-    serialized_favorites = [favorite.serialize() for favorite in favorites]
+    serialized_favorites = [favorite.serialize_with_relations() for favorite in favorites]
     return jsonify(serialized_favorites), 200

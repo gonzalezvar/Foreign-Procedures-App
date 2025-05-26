@@ -3,25 +3,34 @@ import procedures_categorized from "../assets/img/procedures_categorized.json";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 import { useFavorites } from "../hooks/favoriteReducer";
 import { contentServices } from "../services/contentServices";
+import { favoritesServices } from "../services/favoritesServices";
 import { Link } from 'react-router-dom';
 
-export const ErrandTypes = () => {
+export const ErrandTypes = ({ errands }) => {
     const [selectedCategory, setSelectedCategory] = useState("Todas");
     const { state: favoritesState, dispatch: favoriteReducer } = useFavorites();
     const { store, dispatch } = useGlobalReducer();
 
-     useEffect(() => {
-                contentServices.getErrands(dispatch)
+    useEffect(() => {
+        contentServices.getErrands(dispatch)
+        const storedErrands = localStorage.getItem("errands");
+        if (storedErrands) {
+            dispatch({
+                type: "setData",
+                category: "errands",
+                data: JSON.parse(storedErrands),
+            });
+        }
+    }, []);
 
-    const storedErrands = localStorage.getItem("errands");
-    if (storedErrands) {
-      dispatch({
-        type: "setData",
-        category: "errands",
-        data: JSON.parse(storedErrands),
-      });
-    }
-  }, []);
+    useEffect(() => {
+        const isUserActive = store.main.auth.token;
+        const userId = store.main.auth.users_id;
+
+        if (isUserActive && userId) {
+            favoritesServices.getFavorite(dispatch, userId);
+        }
+    }, [store.user]);
 
     const errandsFromStore = store.content.errands.data || [];
     const adaptedErrands = errandsFromStore.map(item => ({
@@ -37,12 +46,32 @@ export const ErrandTypes = () => {
 
     const uniqueCategories = ["Todas", ...new Set(adaptedErrands.map(item => item.category_name))];
 
-    const handleFavorite = (e) => {
+    // const userId = userId ? store.main.auth.user_data.users_id : null
+    // console.log({userId});
+
+
+
+    const handleFavorite = (e, item) => {
         e.stopPropagation();
-        favoriteReducer({ type: "toggleFavorite", payload: { id: uid, name } });
+        const userId = store.main.user_data ? store.main.user_data.users_id : null;
+        console.log({ userId });
+    const isFavorite = favoritesState.favorites.some(fav => fav.id === item.errand_id);
+
+
+
+        if (isFavorite) {
+            // Quitar favorito
+            favoritesServices.removeFavorite(favoriteReducer, item.errand_id);
+        } else {
+            // Agregar favorito
+
+            favoritesServices.addFavorite(favoriteReducer, userId, {
+                id: item.errand_id,
+                name: item.errand_name,
+            });
+        }
     };
 
-    const isFavorite = favoritesState.favorites.some(fav => fav.id === uid);
 
     return (
         <div className="p-4">
@@ -61,7 +90,9 @@ export const ErrandTypes = () => {
                 </select>
             </div>
             <div className="row">
-                {filteredProcedures.map((item) => (
+                {filteredProcedures.map((item) => {
+                    const isFavorite = favoritesState.favorites.some(fav => fav.id === item.errand_id);
+                return (
                     <div className="col-md-4 mb-4" key={item.errand_id}>
                         <div className="card" style={{ width: '100%' }}>
                             <img
@@ -77,14 +108,14 @@ export const ErrandTypes = () => {
                                 </Link>
                                 <button
                                     className="btn btn-warning"
-                                    onClick={(e) => handleFavorite(e)}
+                                    onClick={(e) => handleFavorite(e, item)}
                                 >
                                     {isFavorite ? "❤️" : "🤍"}
                                 </button>
                             </div>
                         </div>
                     </div>
-                ))}
+                )})}
             </div>
         </div>
     );

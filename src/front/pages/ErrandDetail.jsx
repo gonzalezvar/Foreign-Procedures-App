@@ -21,12 +21,28 @@ if (!singleErrand) {
     return <div>No se encontró el trámite.</div>;
 }
 
-    const isFavorite = favoritesState.favorites.some(fav => fav.id === uid);
+   const handleFavorite = (e, item) => {
+           e.stopPropagation();
+           const userId = store.main.user_data ? store.main.user_data.users_id : null;
+           console.log({ userId });
+       const isFavorite = favoritesState.favorites.some(fav => fav.id === item.errand_id);
+   
+   
+   
+           if (isFavorite) {
+               // Quitar favorito
+               favoritesServices.removeFavorite(favoriteReducer, item.errand_id);
+           } else {
+               // Agregar favorito
+   
+               favoritesServices.addFavorite(favoriteReducer, userId, {
+                   id: item.errand_id,
+                   name: item.errand_name,
+               });
+           }
+       };
 
-     const handleFavorite = (e) => {
-        e.stopPropagation();
-        favoriteReducer({ type: "toggleFavorite", payload: { id: uid, name } });
-    };
+       const isFavorite = true
 
     return (
         <>
@@ -48,6 +64,7 @@ if (!singleErrand) {
                 >
                     {isFavorite ? "❤️" : "🤍"}
                 </button>
+                
             </div>
         </div>
     </div>

@@ -13,13 +13,13 @@ status_state = Enum('Iniciado', 'finalizado', name='status_enum')
 class Follow_up(db.Model):
     __tablename__ = "follow_up"
     follow_up_id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    user_id: Mapped[int] = mapped_column(ForeignKey('users.users_id'), nullable=False)
+    users_id: Mapped[int] = mapped_column(ForeignKey('users.users_id'), nullable=False)
     errand_name: Mapped[str] = mapped_column(String(250), nullable=False) #errand_id?
     status_type: Mapped[str] = mapped_column(status_state, nullable=False)
     expiration_date: Mapped[datetime] = mapped_column(nullable=True)
     form_data: Mapped[str] = mapped_column(String(250), nullable=True)
 
-    user: Mapped[List["User"]] = relationship("User", back_populates="follow_up", foreign_keys=[user_id])
+    user: Mapped[List["User"]] = relationship("User", back_populates="follow_up", foreign_keys=[users_id])
 
     def serialize(self):
         return {

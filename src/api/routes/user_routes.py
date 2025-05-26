@@ -44,7 +44,7 @@ def sing_in():
         access_token = create_access_token(identity=str(user.users_id))
         return jsonify({
             "token": access_token,
-            "user": user.serialize()
+            "user": user.serialize_with_relations()
         }), 200
     except Exception as e:
         print(e)

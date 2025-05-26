@@ -35,7 +35,7 @@ export const Login = () => {
         password: loginData.password.trim()
       }
       const response = await authenticationServices.login(loginUser)
-      dispatch({ type: "LOGIN", payload: { token: response.token } });
+      dispatch({ type: "LOGIN", payload: { token: response.token, user_data: response.user } });
       navigate("/");
     }
     catch (error) {
