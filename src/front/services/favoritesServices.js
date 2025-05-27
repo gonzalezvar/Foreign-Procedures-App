@@ -32,9 +32,14 @@ export const favoritesServices = {
         body: JSON.stringify({ users_id: userId }),
       });
 
+      const data = await res.json();  // <-- Aquí defines 'data'
+
       if (res.ok) {
         dispatch({ type: "addFavorite", payload: errand });
       }
+      else {
+      console.error("Error response from backend:", data);}
+
     } catch (error) {
       console.error("Error adding favorite", error);
     }

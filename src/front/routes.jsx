@@ -12,6 +12,7 @@ import { ErrandDetail } from "./pages/ErrandDetail";
 import { MiPerfil } from "./pages/MiPerfil";
 import { LoginPage } from "./pages/LoginPage";
 import { SignupPage } from "./pages/SignupPage";
+import { Favorites } from "./pages/Favorites";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -31,6 +32,7 @@ export const router = createBrowserRouter(
       <Route path="/user_profile" element={<MiPerfil />} />
       <Route path="/tramitesLuis/:errandId" element={<ErrandDetailLuis />} />
       <Route path="/errands/:errand_id" element={<ErrandDetail />} />
+      <Route path="/favorites" element={<Favorites />} />
     </Route>
   )
 );

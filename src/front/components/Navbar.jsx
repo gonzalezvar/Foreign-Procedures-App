@@ -6,7 +6,7 @@ export const Navbar = () => {
 
 
 	const { store, dispatch } = useGlobalReducer();
-	const token = store.main.auth.token;
+	const token = store?.main?.auth?.isAuthenticated;
 	console.log("Como se ve en store:", token)
 
 	const navigate = useNavigate();
@@ -27,6 +27,13 @@ export const Navbar = () => {
 					<span className="navbar-brand mb-0 h1">Home</span>
 				</Link>
 				<div className="ml-auto">
+					{token ?
+						(<Link to="/favorites">
+							<button className="btn btn-primary">Favorites</button>
+						</Link>)
+						:
+						(null)
+}
 					{token ?
 						(<Link to="/user_profile">
 							<button className="btn btn-primary">Mi perfil</button>

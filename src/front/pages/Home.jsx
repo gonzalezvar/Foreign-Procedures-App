@@ -6,17 +6,17 @@ import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { Signup } from "../components/Signup.jsx";
 import { Login } from "../components/Login.jsx";
 import { ErrandTypes } from '../components/ErrandTypes.jsx';
-import get_offices from "../../get_offices.py";
+// import get_offices from "../../get_offices.py";
 
 export const Home = () => {
 
-	useEffect(() => {
-		offices = get_offices()
-		console.log("Offices:", offices);
-	}
-		, []);
+	// useEffect(() => {
+	// 	offices = get_offices()
+	// 	console.log("Offices:", offices);
+	// }
+	// 	, []);
 
-	const { store, _ } = useGlobalReducer();
+	const { store, dispatch } = useGlobalReducer();
 	const [selectedCategory, setSelectedCategory] = useState(null);
 	console.log(store);
 

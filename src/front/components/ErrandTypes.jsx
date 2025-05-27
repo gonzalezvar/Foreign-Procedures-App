@@ -10,6 +10,7 @@ export const ErrandTypes = ({ errands }) => {
     const [selectedCategory, setSelectedCategory] = useState("Todas");
     const { state: favoritesState, dispatch: favoriteReducer } = useFavorites();
     const { store, dispatch } = useGlobalReducer();
+    const userId = store?.main?.user_data?.users_id;
 
     useEffect(() => {
         contentServices.getErrands(dispatch)
@@ -25,7 +26,7 @@ export const ErrandTypes = ({ errands }) => {
 
     useEffect(() => {
         const isUserActive = store.main.auth.token;
-        const userId = store.main.auth.users_id;
+
 
         if (isUserActive && userId) {
             favoritesServices.getFavorite(dispatch, userId);
@@ -53,11 +54,8 @@ export const ErrandTypes = ({ errands }) => {
 
     const handleFavorite = (e, item) => {
         e.stopPropagation();
-        const userId = store.main.user_data ? store.main.user_data.users_id : null;
-        console.log({ userId });
-    const isFavorite = favoritesState.favorites.some(fav => fav.id === item.errand_id);
 
-
+        const isFavorite = favoritesState.favorites.some(fav => fav.id === item.errand_id);
 
         if (isFavorite) {
             // Quitar favorito
@@ -92,30 +90,32 @@ export const ErrandTypes = ({ errands }) => {
             <div className="row">
                 {filteredProcedures.map((item) => {
                     const isFavorite = favoritesState.favorites.some(fav => fav.id === item.errand_id);
-                return (
-                    <div className="col-md-4 mb-4" key={item.errand_id}>
-                        <div className="card" style={{ width: '100%' }}>
-                            <img
-                                src="https://plus.unsplash.com/premium_photo-1661329930662-19a43503782f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                                className="card-img-top"
-                                alt="errand"
-                            />
-                            <div className="card-body">
-                                <h5 className="card-title">{item.errand_name}</h5>
-                                <p className="card-text">{item.category_name}</p>
-                                <Link to={`/errands/${item.errand_id}`} className="btn btn-primary">
-                                    Ver más
-                                </Link>
-                                <button
-                                    className="btn btn-warning"
-                                    onClick={(e) => handleFavorite(e, item)}
-                                >
-                                    {isFavorite ? "❤️" : "🤍"}
-                                </button>
+                    return (
+                        <div className="col-md-4 mb-4" key={item.errand_id}>
+                            <div className="card" style={{ width: '100%' }}>
+                                <img
+                                    src="https://plus.unsplash.com/premium_photo-1661329930662-19a43503782f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                    className="card-img-top"
+                                    alt="errand"
+                                />
+                                <div className="card-body">
+                                    <h5 className="card-title">{item.errand_name}</h5>
+                                    <p className="card-text">{item.category_name}</p>
+                                    <Link to={`/errands/${item.errand_id}`} className="btn btn-primary">
+                                        Ver más
+                                    </Link>
+                                    {store?.main?.user_data?.users_id && (
+                                        <button
+                                            className="btn btn-warning"
+                                            onClick={(e) => handleFavorite(e, item)}
+                                        >
+                                            {isFavorite ? "❤️" : "🤍"}
+                                        </button>)}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                )})}
+                    )
+                })}
             </div>
         </div>
     );
