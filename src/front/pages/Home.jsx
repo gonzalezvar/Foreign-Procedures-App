@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Dropdown, DropdownButton } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import procedures_categorized from "../assets/img/procedures_categorized.json";
@@ -6,12 +6,19 @@ import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { Signup } from "../components/Signup.jsx";
 import { Login } from "../components/Login.jsx";
 import { ErrandTypes } from '../components/ErrandTypes.jsx';
+import get_offices from "../../get_offices.py";
 
 export const Home = () => {
 
-	const { store, dispatch } = useGlobalReducer();
+	useEffect(() => {
+		offices = get_offices()
+		console.log("Offices:", offices);
+	}
+		, []);
+
+	const { store, _ } = useGlobalReducer();
 	const [selectedCategory, setSelectedCategory] = useState(null);
-	 console.log(store);
+	console.log(store);
 
 	const uniqueCategories = [...new Set(procedures_categorized.map(item => item.category))];
 

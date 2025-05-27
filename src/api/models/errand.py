@@ -25,7 +25,7 @@ class Errand(db.Model):
 
     office_id: Mapped[int] = mapped_column(
         Integer, ForeignKey('offices.office_id'), nullable=False)
-    office: Mapped["Offices"] = relationship(
+    offices: Mapped["Offices"] = relationship(
         "Offices", back_populates="errand_list")
 
     favorites: Mapped[List["Favorites"]] = relationship(
