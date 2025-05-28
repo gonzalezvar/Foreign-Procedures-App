@@ -5,6 +5,8 @@ import { useFavorites } from "../hooks/favoriteReducer";
 import { contentServices } from "../services/contentServices";
 import { favoritesServices } from "../services/favoritesServices";
 import { Link } from 'react-router-dom';
+import CardActions from '@mui/material/CardActions';
+import Button from '@mui/material/Button';
 
 export const ErrandTypes = ({ errands }) => {
     const [selectedCategory, setSelectedCategory] = useState("Todas");
@@ -73,9 +75,9 @@ export const ErrandTypes = ({ errands }) => {
 
     return (
         <div className="p-4">
-            <h1>Lista de Trámites</h1>
+            <h1 class="display-4 fw-bold text-center mb-3">Lista de Trámites</h1>
             <div className="mb-3">
-                <label htmlFor="category-select" className="form-label">Filtrar por Categoría:</label>
+                <label htmlFor="category-select" className="form-label" >Filtrar por Categoría:</label>
                 <select
                     id="category-select"
                     className="form-select"
@@ -101,16 +103,18 @@ export const ErrandTypes = ({ errands }) => {
                                 <div className="card-body">
                                     <h5 className="card-title">{item.errand_name}</h5>
                                     <p className="card-text">{item.category_name}</p>
-                                    <Link to={`/errands/${item.errand_id}`} className="btn btn-primary">
-                                        Ver más
-                                    </Link>
-                                    {store?.main?.user_data?.users_id && (
-                                        <button
-                                            className="btn btn-warning"
-                                            onClick={(e) => handleFavorite(e, item)}
-                                        >
-                                            {isFavorite ? "❤️" : "🤍"}
-                                        </button>)}
+                                    <CardActions>
+                                        <Button variant="contained" size="large">
+                                            <Link style={{ color: 'white', textDecoration: 'none' }} to={`/errands/${item.errand_id}`}>
+                                                Ver más
+                                            </Link>
+                                        </Button>
+                                        {store?.main?.user_data?.users_id && (
+                                            <Button ariant="contained" size="large" style={{ textDecoration: 'none', backgroundColor: 'orange', }} onClick={(e) => handleFavorite(e, item)}>
+                                                {isFavorite ? "❤️" : "🤍"}
+                                            </Button>
+                                        )}
+                                    </CardActions>
                                 </div>
                             </div>
                         </div>
@@ -120,3 +124,27 @@ export const ErrandTypes = ({ errands }) => {
         </div>
     );
 };
+
+
+/*<Card sx={{ maxWidth: 345 }}>
+              <CardMedia
+                sx={{ height: 140 }}
+                image="/static/images/cards/contemplative-reptile.jpg"
+                title="green iguana"
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  Lizard
+                </Typography>
+                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                  Lizards are a widespread group of squamate reptiles, with over 6,000
+                  species, ranging across all continents except Antarctica
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <Button size="small">Share</Button>
+                <Button size="small">Learn More</Button>
+              </CardActions>
+            </Card>
+          );
+        }*/

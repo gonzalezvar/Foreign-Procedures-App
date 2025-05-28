@@ -9,7 +9,9 @@ export const Layout = () => {
     return (
         <ScrollToTop>
             <Navbar />
+            <div className="min-vh-100">
             <Outlet />
+            </div>
             <Footer />
         </ScrollToTop>
     )

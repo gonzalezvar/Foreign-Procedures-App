@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 import { useEffect } from "react";
+import Logo2 from "../assets/img/Logo2.png";
 
 export const Navbar = () => {
 
@@ -21,31 +22,31 @@ export const Navbar = () => {
 	}
 
 	return (
-		<nav className="navbar navbar-light bg-light">
+		<nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
 			<div className="container">
-				<Link to="/">
-					<span className="navbar-brand mb-0 h1">Home</span>
-				</Link>
-				<div className="ml-auto">
+				<Link to="/" className="navbar-brand fw-bold fs-4">
+                    <img src={Logo2} alt="Logo página" className="img-fluid" style={{ height: "100px", width: "auto" }} />
+                </Link>
+				<div className="ms-auto d-flex gap-2">
 					{token ?
 						(<Link to="/favorites">
-							<button className="btn btn-primary">Favorites</button>
-						</Link>)
-						:
-						(null)
-}
-					{token ?
-						(<Link to="/user_profile">
-							<button className="btn btn-primary">Mi perfil</button>
+							<button className="btn btn-outline-primary">Favorites</button>
 						</Link>)
 						:
 						(null)
 					}
 					{token ?
-						(<button type="button" className="btn btn-primary" onClick={logOutNavbar}>Logout</button>)
+						(<Link to="/user_profile">
+							<button className="btn btn-outline-primary">Mi perfil</button>
+						</Link>)
+						:
+						(null)
+					}
+					{token ?
+						(<button type="button" className="btn btn-outline-danger" onClick={logOutNavbar}>Logout</button>)
 						:
 						(<Link to="/login">
-							<button className="btn btn-primary">Login</button>
+							<button className="btn btn-outline-primary">Login</button>
 						</Link>)
 					}
 				</div>

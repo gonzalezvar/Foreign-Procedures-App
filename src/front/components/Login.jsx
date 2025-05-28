@@ -46,36 +46,45 @@ export const Login = () => {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <div className="container">
-          <ul className="list-group">
-            <TextField
-              label="Email"
-              variant="outlined"
+      <div className="container d-flex align-items-center justify-content-center min-vh-100">
+        <div className="card p-4 shadow-lg" style={{ maxWidth: "400px", width: "100%" }}>
+          <h3 className="text-center mb-4 text-primary">Iniciar Sesión</h3>
+          <div className="mb-3">
+            <label htmlFor="email" className="form-label">Correo electrónico</label>
+            <input
+              type="email"
+              className="form-control"
+              id="email"
               name="email"
               value={loginData.email}
               onChange={handleChange}
-              fullWidth
               required
-              type="email"
-              helperText="Ingrese un correo electrónico válido"
             />
-            <TextField
-              label="Password"
-              variant="outlined"
+          </div>
+          <div className="mb-3">
+            <label htmlFor="password" className="form-label">Contraseña</label>
+            <input
+              type="password"
+              className="form-control"
+              id="password"
               name="password"
               value={loginData.password}
               onChange={handleChange}
-              fullWidth
               required
-              type="password"
             />
-            <button type="submit" className="btn btn-primary m-2">Login</button>
-          </ul>
+          </div>
+          <button type="submit" className="btn btn-primary w-100">Ingresar</button>
+          <hr />
+          <button
+            type="button"
+            className="btn btn-outline-secondary w-100"
+            onClick={() => navigate("/signup")}
+          >
+            ¿No tienes cuenta? Regístrate
+          </button>
         </div>
-      </form>
-      <div>
-        <button type="button" className="btn btn-primary m-2" onClick={() => navigate("/signup")}>Don't have an user? Signup here</button>
       </div>
+    </form>
     </>
   );
 };
