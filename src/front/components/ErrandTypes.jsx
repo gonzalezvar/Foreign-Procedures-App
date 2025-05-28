@@ -72,7 +72,6 @@ export const ErrandTypes = ({ errands }) => {
         }
     };
 
-
     return (
         <div className="p-4">
             <h1 class="display-4 fw-bold text-center mb-3">Lista de Trámites</h1>
@@ -110,7 +109,7 @@ export const ErrandTypes = ({ errands }) => {
                                             </Link>
                                         </Button>
                                         {store?.main?.user_data?.users_id && (
-                                            <Button ariant="contained" size="large" style={{ textDecoration: 'none', backgroundColor: 'orange', }} onClick={(e) => handleFavorite(e, item)}>
+                                            <Button variant="contained" size="large" style={{ textDecoration: 'none', backgroundColor: 'orange', }} onClick={(e) => handleFavorite(e, item)}>
                                                 {isFavorite ? "❤️" : "🤍"}
                                             </Button>
                                         )}

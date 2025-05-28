@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import PropTypes from "prop-types";  
 import useGlobalReducer from "../hooks/useGlobalReducer";  
 import { useFavorites } from "../hooks/favoriteReducer";
+import Button from '@mui/material/Button';
 
 export const ErrandDetail = () => {
     const { errand_id } = useParams();  
@@ -58,12 +59,9 @@ if (!singleErrand) {
                 <p className="card-text">Descripción del tipo de trámite{singleErrand.errand_type.description}</p>
                 <p className="card-text">Procedimiento{singleErrand.procedures}</p>
                 <p className="card-text">Requerimientos:{singleErrand.requirements}</p>
-                <button
-                    className="btn btn-warning"
-                    onClick={(e) => handleFavorite(e)}
-                >
+                 <Button variant="contained" size="large" style={{ textDecoration: 'none', backgroundColor: 'orange', }} onClick={(e) => handleFavorite(e)}>
                     {isFavorite ? "❤️" : "🤍"}
-                </button>
+                </Button>
                 
             </div>
         </div>
