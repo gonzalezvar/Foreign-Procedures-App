@@ -25,6 +25,7 @@ flask-bcrypt = "*"
 flask-jwt-extended = "*"
 requests = "*"
 pdfplumber = "*"
+flask-mail = "*"
 
 [requires]
 python_version = "3.13"
