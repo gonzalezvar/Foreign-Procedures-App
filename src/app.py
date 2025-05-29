@@ -30,11 +30,11 @@ app.url_map.strict_slashes = False
 jwt = JWTManager(app)
 CORS(app)
 
-app.register_blueprint(user_bp)
-app.register_blueprint(errand_type_bp)
-app.register_blueprint(errand_bp)
-app.register_blueprint(favorite_bp)
-app.register_blueprint(offices_bp)
+app.register_blueprint(user_bp, url_prefix='/api')
+app.register_blueprint(errand_type_bp, url_prefix='/api')
+app.register_blueprint(errand_bp, url_prefix='/api')
+app.register_blueprint(favorite_bp, url_prefix='/api')
+app.register_blueprint(offices_bp, url_prefix='/api')
 
 
 # database condiguration
