@@ -74,7 +74,19 @@ export const ErrandTypes = ({ errands }) => {
 
     return (
         <div className="p-4">
-            <h1 class="display-4 fw-bold text-center mb-3">Lista de Trámites</h1>
+            <h1 className="display-5 fw-bold text-primary mb-3"
+                style={{
+                    transition: 'transform 0.3s',
+                    cursor: 'pointer',
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+                onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+            >
+                🛂 Trámites de Extranjería
+            </h1>
+            <p className="lead text-muted">
+                Selecciona una categoría para ver los procedimientos disponibles.
+            </p>
             <div className="mb-3">
                 <label htmlFor="category-select" className="form-label" >Filtrar por Categoría:</label>
                 <select

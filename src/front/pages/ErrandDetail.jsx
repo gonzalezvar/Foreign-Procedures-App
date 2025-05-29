@@ -1,71 +1,71 @@
-import { Link, useParams } from "react-router-dom";  
-import PropTypes from "prop-types";  
-import useGlobalReducer from "../hooks/useGlobalReducer";  
+import { Link, useParams } from "react-router-dom";
+import PropTypes from "prop-types";
+import useGlobalReducer from "../hooks/useGlobalReducer";
 import { useFavorites } from "../hooks/favoriteReducer";
 import Button from '@mui/material/Button';
 
 export const ErrandDetail = () => {
-    const { errand_id } = useParams();  
+    const { errand_id } = useParams();
     const { store, dispatch } = useGlobalReducer();
-     const { state: favoritesState, dispatch: favoriteReducer } = useFavorites();
-  
+    const { state: favoritesState, dispatch: favoriteReducer } = useFavorites();
+
 
     // const getLocalStorage = localStorage.getItem("errands");
     const stoOfErrands = store.content.errands.data || [];
 
 
-const singleErrand = stoOfErrands.find(
-    (item) => item.errand_id === parseInt(errand_id)
-);
+    const singleErrand = stoOfErrands.find(
+        (item) => item.errand_id === parseInt(errand_id)
+    );
 
-if (!singleErrand) {
-    return <div>No se encontró el trámite.</div>;
-}
+    if (!singleErrand) {
+        return <div>No se encontró el trámite.</div>;
+    }
 
-   const handleFavorite = (e, item) => {
-           e.stopPropagation();
-           const userId = store.main.user_data ? store.main.user_data.users_id : null;
-           console.log({ userId });
-       const isFavorite = favoritesState.favorites.some(fav => fav.id === item.errand_id);
-   
-   
-   
-           if (isFavorite) {
-               // Quitar favorito
-               favoritesServices.removeFavorite(favoriteReducer, item.errand_id);
-           } else {
-               // Agregar favorito
-   
-               favoritesServices.addFavorite(favoriteReducer, userId, {
-                   id: item.errand_id,
-                   name: item.errand_name,
-               });
-           }
-       };
+    const handleFavorite = (e, item) => {
+        e.stopPropagation();
+        const userId = store.main.user_data ? store.main.user_data.users_id : null;
+        console.log({ userId });
+        const isFavorite = favoritesState.favorites.some(fav => fav.id === item.errand_id);
 
-       const isFavorite = true
+
+
+        if (isFavorite) {
+            // Quitar favorito
+            favoritesServices.removeFavorite(favoriteReducer, item.errand_id);
+        } else {
+            // Agregar favorito
+
+            favoritesServices.addFavorite(favoriteReducer, userId, {
+                id: item.errand_id,
+                name: item.errand_name,
+            });
+        }
+    };
+
+    const isFavorite = true
 
     return (
         <>
-           <div className="col-md-4 mb-4">
-        <div className="card" style={{ width: '100%' }}>
-            <img
-                src="https://plus.unsplash.com/premium_photo-1661329930662-19a43503782f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                className="card-img-top"
-                alt="errand"
-            />
-            <div className="card-body">
-                <h5 className="card-title">{singleErrand.name}</h5>
-                <p className="card-text">Descripción del tipo de trámite{singleErrand.errand_type.description}</p>
-                <p className="card-text">Procedimiento{singleErrand.procedures}</p>
-                <p className="card-text">Requerimientos:{singleErrand.requirements}</p>
-                 <Button variant="contained" size="large" style={{ textDecoration: 'none', backgroundColor: 'orange', }} onClick={(e) => handleFavorite(e)}>
-                    {isFavorite ? "❤️" : "🤍"}
-                </Button>
-                
+            <div className="col-md-4 mb-4">
+                <div className="card" style={{ width: '100%' }}>
+                    <img
+                        src="https://plus.unsplash.com/premium_photo-1661329930662-19a43503782f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        className="card-img-top"
+                        alt="errand"
+                    />
+                    <div className="card-body">
+                        <h5 className="card-title">{singleErrand.name}</h5>
+                        <p className="card-text">Descripción del tipo de trámite{singleErrand.errand_type.description}</p>
+                        <p className="card-text">Procedimiento{singleErrand.procedures}</p>
+                        <p className="card-text">Requerimientos:{singleErrand.requirements}</p>
+                        <Button variant="contained" size="large" style={{ textDecoration: 'none', backgroundColor: 'orange', }} onClick={(e) => handleFavorite(e)}>
+                            {isFavorite ? "❤️" : "🤍"}
+                        </Button>
+
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
         </>
     );
 };

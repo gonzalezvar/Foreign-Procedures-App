@@ -17,15 +17,15 @@ export const MiPerfil = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const data = await authenticationServices.getMyTask(); 
-        setUserData(data); 
+        const data = await authenticationServices.getMyTask();
+        setUserData(data);
       } catch (err) {
         console.error("Error al obtener los datos:", err);
       } finally {
         setLoading(false);
       }
     };
-    fetchUserData(); 
+    fetchUserData();
   }, [tokenExist]);
 
   if (loading) {

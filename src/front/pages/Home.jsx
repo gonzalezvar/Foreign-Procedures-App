@@ -6,6 +6,7 @@ import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { Signup } from "../components/Signup.jsx";
 import { Login } from "../components/Login.jsx";
 import { ErrandTypes } from '../components/ErrandTypes.jsx';
+import { motion, useScroll, useSpring } from "framer-motion";
 // import get_offices from "../../get_offices.py";
 
 export const Home = () => {
@@ -21,7 +22,6 @@ export const Home = () => {
 	console.log(store);
 
 	const uniqueCategories = [...new Set(procedures_categorized.map(item => item.category))];
-
 
 	const handleSelect = (eventKey) => {
 		setSelectedCategory(eventKey);
@@ -42,8 +42,29 @@ export const Home = () => {
 
 	const maxTitleLength = 25;
 
+	const { scrollYProgress } = useScroll();
+	const scaleX = useSpring(scrollYProgress, {
+		stiffness: 100,
+		damping: 30,
+		restDelta: 0.001
+	});
+
 	return (
 		<div className="text-center mt-5">
+			{/* 🔵 Barra de progreso del scroll */}
+			<motion.div
+				style={{
+					position: "fixed",
+					top: 0,
+					left: 0,
+					right: 0,
+					height: "4px",
+					background: "#0d6efd",
+					transformOrigin: "0%",
+					scaleX
+				}}
+			/>
+
 			<div className="p-4">
 				<ErrandTypes></ErrandTypes>
 			</div>
