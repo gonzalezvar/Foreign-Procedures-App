@@ -29,7 +29,6 @@ export const router = createBrowserRouter(
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/user_profile" element={<MiPerfil />} />
-  
       <Route path="/errands/:errand_id" element={<ErrandDetail />} />
       <Route path="/favorites" element={<Favorites />} />
     </Route>
