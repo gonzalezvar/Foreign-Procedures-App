@@ -5,9 +5,9 @@ from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity
 from api.models.follow_up import Follow_up
 
 
-follow_up_bp = Blueprint('user_follow_up', __name__, url_prefix='/')
+follow_up_bp = Blueprint('user_follow_up', __name__)
 
-@follow_up_bp.route("/api/user_follow_ups", methods=["POST"])
+@follow_up_bp.route("/user_follow_ups", methods=["POST"])
 @jwt_required() # Requiere JWT para acceder
 def create_user_follow_up():
     current_user_id = get_jwt_identity()

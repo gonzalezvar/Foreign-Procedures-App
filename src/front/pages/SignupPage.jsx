@@ -6,6 +6,7 @@ export const SignupPage = () => {
             <div className="card p-4 shadow-lg" style={{ maxWidth: "500px", width: "100%" }}>
                 <h3 className="text-center mb-4 text-success">Crear Cuenta</h3>
                 <Signup />
+                
             </div>
         </div>
     );

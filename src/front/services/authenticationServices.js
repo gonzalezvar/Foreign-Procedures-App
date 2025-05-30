@@ -4,17 +4,14 @@ console.log(baseUrl);
 export const authenticationServices = {
   signUp: async ({ email, password }) => {
     try {
-      const request = await fetch(
-        `${baseUrl}/user/create`,
-        {
-          method: "POST",
-          headers: {
-            accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email, password }),
-        }
-      );
+      const request = await fetch(`${baseUrl}/api/user/create`, {
+        method: "POST",
+        headers: {
+          accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
       const response = await request.json();
       console.log("API response:", response);
       console.log(response);
@@ -24,17 +21,14 @@ export const authenticationServices = {
 
   login: async ({ email, password }) => {
     try {
-      const request = await fetch(
-        `${baseUrl}/user/login`,
-        {
-          method: "POST",
-          headers: {
-            accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email, password }),
-        }
-      );
+      const request = await fetch(`${baseUrl}/api/user/login`, {
+        method: "POST",
+        headers: {
+          accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
       const response = await request.json();
       console.log("API response:", response);
       console.log(response);
@@ -47,13 +41,13 @@ export const authenticationServices = {
     // Retrieve token from localStorage
     const token = localStorage.getItem("jwt-token");
     console.log(token);
-    
+
     try {
-      const resp = await fetch(`${baseUrl}/home`, {
+      const resp = await fetch(`${baseUrl}/api/home`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": "Bearer " + token, // ⬅⬅⬅ authorization token
+          Authorization: "Bearer " + token, // ⬅⬅⬅ authorization token
         },
       });
       if (resp.status === 403) {

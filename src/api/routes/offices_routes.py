@@ -1,10 +1,10 @@
 from flask import request, jsonify, Blueprint
 from api.models import db, Errand, Offices
 
-offices_bp = Blueprint('office_custom', __name__, url_prefix='/offices')
+offices_bp = Blueprint('office_custom', __name__)
 
 
-@offices_bp.route('/', methods=['GET'])
+@offices_bp.route('/offices', methods=['GET'])
 def get_all_offices():
     try:
         all_offices = Offices.query.all()
@@ -14,7 +14,7 @@ def get_all_offices():
         return jsonify({"message": f"Error retrieving offices: {str(e)}"}), 500
 
 
-@offices_bp.route('/<int:office_id>', methods=['GET'])
+@offices_bp.route('/offices/<int:office_id>', methods=['GET'])
 def get_office(office_id):
     try:
         office = Offices.query.get(office_id)
@@ -25,7 +25,7 @@ def get_office(office_id):
         return jsonify({"message": f"Error retrieving office: {str(e)}"}), 500
 
 
-@offices_bp.route('/', methods=['POST'])
+@offices_bp.route('/offices', methods=['POST'])
 def create_office():
     data = request.get_json()
     if not data:
@@ -55,7 +55,7 @@ def create_office():
     return jsonify(new_office.serialize()), 201
 
 
-@offices_bp.route('/<int:office_id>', methods=['PUT'])
+@offices_bp.route('/offices/<int:office_id>', methods=['PUT'])
 def update_office(office_id):
     office = Offices.query.get(office_id)
 
@@ -80,7 +80,7 @@ def update_office(office_id):
         return jsonify({"message": f"Error updating office: {str(e)}"}), 500
 
 
-@offices_bp.route('/<int:office_id>', methods=['DELETE'])
+@offices_bp.route('/offices/<int:office_id>', methods=['DELETE'])
 def delete_office(office_id):
     try:
         office = Offices.query.get(office_id)
