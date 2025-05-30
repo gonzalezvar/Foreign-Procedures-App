@@ -1,11 +1,11 @@
 from flask import request, jsonify, Blueprint
 from api.models import db, User, Errand, Favorites
 
-favorite_bp = Blueprint('favorite_custom', __name__, url_prefix='/favorite')
+favorite_bp = Blueprint('favorite_custom', __name__)
 
 
 
-@favorite_bp.route('/errand/<int:errand_id>', methods=['POST'])
+@favorite_bp.route('/favorite/errand/<int:errand_id>', methods=['POST'])
 def add_favorite(errand_id):
     data_request = request.get_json()
     print(data_request)
@@ -36,7 +36,7 @@ def add_favorite(errand_id):
         return jsonify({"error": "No se ha agregado el favorite"})
 
 
-@favorite_bp.route('/errand/<int:errand_id>', methods=['DELETE'])
+@favorite_bp.route('/favorite/errand/<int:errand_id>', methods=['DELETE'])
 def delete_fav_errand(errand_id):
     favorite = Favorites.query.filter_by(errand_id=errand_id).first()
 
@@ -48,7 +48,7 @@ def delete_fav_errand(errand_id):
 
     return jsonify({"message": f"Favorite errand {errand_id} deleted"}), 200
 
-@favorite_bp.route('/user/<int:users_id>', methods=['GET'])
+@favorite_bp.route('/favorite/user/<int:users_id>', methods=['GET'])
 def get_user_favorites(users_id):
     favorites = Favorites.query.filter_by(users_id=users_id).all()
     if not favorites: 

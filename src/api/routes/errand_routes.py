@@ -2,16 +2,16 @@ from flask import Blueprint, jsonify, request
 from api.models.errand import Errand
 from api.models import db
 
-errand_bp = Blueprint('errand_custom', __name__, url_prefix='/')
+errand_bp = Blueprint('errand_custom', __name__)
 
 
-@errand_bp.route('/api/errands', methods=['GET'])
+@errand_bp.route('/errands', methods=['GET'])
 def get_errands():
     errands = Errand.query.all()
     return jsonify([e.serialize_with_relations() for e in errands]), 200
 
 
-@errand_bp.route('/api/errands', methods=['POST'])
+@errand_bp.route('/errands', methods=['POST'])
 def create_errand():
     data = request.get_json()
     new_errand = Errand(
@@ -27,13 +27,13 @@ def create_errand():
     return jsonify(new_errand.serialize()), 201
 
 
-@errand_bp.route('/api/errands/<int:errand_id>', methods=['GET'])
+@errand_bp.route('/errands/<int:errand_id>', methods=['GET'])
 def get_individual_errand(errand_id):
     errand = Errand.query.get_or_404(errand_id)
     return jsonify(errand.serialize()), 200
 
 
-@errand_bp.route('/api/errands/<int:errand_id>', methods=['PUT'])
+@errand_bp.route('/errands/<int:errand_id>', methods=['PUT'])
 def update_errand(errand_id):
     errand = Errand.query.get_or_404(errand_id)
     data = request.get_json()

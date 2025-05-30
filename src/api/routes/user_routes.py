@@ -9,7 +9,7 @@ from flask_mail import Message
 import os
 
 user_bp = Blueprint(
-    'user_custom', __name__, url_prefix='/')
+    'user_custom', __name__)
 
 CORS(user_bp)
 

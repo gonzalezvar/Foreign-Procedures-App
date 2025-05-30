@@ -1,10 +1,9 @@
 import { baseUrl } from "./contentServices";
 
-
 export const favoritesServices = {
   getFavorite: async (dispatch, userId) => {
     try {
-      const request = await fetch(`${baseUrl}/user/${userId}`, {
+      const request = await fetch(`${baseUrl}/api/user/${userId}`, {
         headers: {
           accept: "application/json",
         },
@@ -24,22 +23,21 @@ export const favoritesServices = {
     } catch (error) {}
   },
 
- addFavorite: async (dispatch, userId, errand) => {
+  addFavorite: async (dispatch, userId, errand) => {
     try {
-      const res = await fetch(`${baseUrl}/favorite/errand/${errand.id}`, {
+      const res = await fetch(`${baseUrl}/api/favorite/errand/${errand.id}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ users_id: userId }),
       });
 
-      const data = await res.json();  // <-- Aquí defines 'data'
+      const data = await res.json(); // <-- Aquí defines 'data'
 
       if (res.ok) {
         dispatch({ type: "addFavorite", payload: errand });
+      } else {
+        console.error("Error response from backend:", data);
       }
-      else {
-      console.error("Error response from backend:", data);}
-
     } catch (error) {
       console.error("Error adding favorite", error);
     }
@@ -47,7 +45,7 @@ export const favoritesServices = {
 
   removeFavorite: async (dispatch, errandId) => {
     try {
-      const res = await fetch(`${baseUrl}/favorite/errand/${errandId}`, {
+      const res = await fetch(`${baseUrl}/api/favorite/errand/${errandId}`, {
         method: "DELETE",
       });
 
@@ -57,5 +55,5 @@ export const favoritesServices = {
     } catch (error) {
       console.error("Error removing favorite", error);
     }
-  }
+  },
 };
