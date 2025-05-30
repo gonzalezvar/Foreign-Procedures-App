@@ -16,7 +16,7 @@ class Offices(db.Model):
     coordinates: Mapped[str] = mapped_column(String(250), nullable=True)
 
     errand_list: Mapped[List["Errand"]] = relationship(
-        "Errand", back_populates="office")
+        "Errand", back_populates="offices")
 
     def serialize(self):
         return {

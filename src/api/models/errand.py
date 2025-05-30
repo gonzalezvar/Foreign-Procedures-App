@@ -23,10 +23,10 @@ class Errand(db.Model):
     errand_type: Mapped["Errand_type"] = relationship(
         "Errand_type", back_populates="errand", foreign_keys=[errand_type_id])
 
-    office_id: Mapped[int] = mapped_column(
-        Integer, ForeignKey('offices.office_id'), nullable=False)
-    office: Mapped["Offices"] = relationship(
-        "Offices", back_populates="errand_list")
+    office_id: Mapped[Optional[int]] = mapped_column(
+        ForeignKey('offices.office_id'), nullable=True)
+    offices: Mapped[Optional["Offices"]] = relationship(
+        "Offices", back_populates="errand_list", foreign_keys=[office_id])
 
     favorites: Mapped[List["Favorites"]] = relationship(
         "Favorites", back_populates="errand")
@@ -44,7 +44,7 @@ class Errand(db.Model):
         data = self.serialize()
         data['errand_type'] = self.errand_type.serialize(
         ) if self.errand_type else {}
-        data['office'] = self.office.serialize() if self.office else {}
+        data['offices'] = self.offices.serialize() if self.offices else {}
         data['favorites'] = [f.serialize_with_relations()
                              for f in self.favorites] if self.favorites else []
         return data

@@ -25,8 +25,9 @@ export const Navbar = () => {
 		<nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
 			<div className="container">
 				<Link to="/" className="navbar-brand fw-bold fs-4">
-                    <img src={Logo2} alt="Logo página" className="img-fluid" style={{ height: "100px", width: "auto" }} />
-                </Link>
+					<img src={Logo2} alt="Logo página" className="img-fluid" style={{ height: "50px", width: "auto" }} />
+
+				</Link>
 				<div className="ms-auto d-flex gap-2">
 					{token ?
 						(<Link to="/favorites">
