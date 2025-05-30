@@ -7,6 +7,7 @@ import { favoritesServices } from "../services/favoritesServices";
 import { Link } from 'react-router-dom';
 import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
+import { motion } from "framer-motion";
 
 export const ErrandTypes = ({ errands }) => {
     const [selectedCategory, setSelectedCategory] = useState("Todas");
@@ -104,7 +105,13 @@ export const ErrandTypes = ({ errands }) => {
                 {filteredProcedures.map((item) => {
                     const isFavorite = favoritesState.favorites.some(fav => fav.id === item.errand_id);
                     return (
-                        <div className="col-md-4 mb-4" key={item.errand_id}>
+                        <motion.div key={item.errand_id}
+                            className="col-md-4 mb-4"
+                            initial={{ y: 50, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            transition={{ type: "spring", stiffness: 100, damping: 10 }}
+                            whileHover={{ scale: 1.05 }}
+                        >
                             <div className="card" style={{ width: '100%' }}>
                                 <img
                                     src="https://plus.unsplash.com/premium_photo-1661329930662-19a43503782f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -128,7 +135,7 @@ export const ErrandTypes = ({ errands }) => {
                                     </CardActions>
                                 </div>
                             </div>
-                        </div>
+                        </motion.div>
                     )
                 })}
             </div>

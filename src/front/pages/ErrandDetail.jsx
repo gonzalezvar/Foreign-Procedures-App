@@ -3,6 +3,9 @@ import PropTypes from "prop-types";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 import { useFavorites } from "../hooks/favoriteReducer";
 import Button from '@mui/material/Button';
+import { motion } from "framer-motion";
+
+
 
 export const ErrandDetail = () => {
     const { errand_id } = useParams();
@@ -46,28 +49,45 @@ export const ErrandDetail = () => {
     const isFavorite = true
 
     return (
+
         <>
-            <div className="col-md-4 mb-4">
-                <div className="card" style={{ width: '100%' }}>
-                    <img
-                        src="https://plus.unsplash.com/premium_photo-1661329930662-19a43503782f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                        className="card-img-top"
-                        alt="errand"
-                    />
-                    <div className="card-body">
-                        <h5 className="card-title">{singleErrand.name}</h5>
-                        <p className="card-text">Descripción del tipo de trámite{singleErrand.errand_type.description}</p>
-                        <p className="card-text">Procedimiento{singleErrand.procedures}</p>
-                        <p className="card-text">Requerimientos:{singleErrand.requirements}</p>
-                        <Button variant="contained" size="large" style={{ textDecoration: 'none', backgroundColor: 'orange', }} onClick={(e) => handleFavorite(e)}>
+            <div className="col-md-4 mb-4 mx-auto bg-white">
+                <img
+                    src="https://plus.unsplash.com/premium_photo-1661329930662-19a43503782f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    className="card-img-top"
+                    alt="errand"
+                />
+                <div className="card-body d-flex flex-column justify-content-between">
+                    <div className="rounded mt-2">
+                        <h5 className="card-title mx-auto ">{singleErrand.name}</h5>
+                        <hr />
+                        <p className="card-text">
+                            <strong>Tipo de trámite:</strong> {singleErrand.errand_type.description}
+                        </p>
+                        <p className="card-text">
+                            <strong>Procedimiento:</strong> {singleErrand.procedures}
+                        </p>
+                        <p className="card-text">
+                            <strong>Requerimientos:</strong> {singleErrand.requirements}
+                        </p>
+                    </div>
+                    <div className="mt-3 text-end">
+                        <Button
+                            variant="contained"
+                            size="large"
+                            style={{ textDecoration: 'none', backgroundColor: 'orange' }}
+                            onClick={(e) => handleFavorite(e)}
+                        >
                             {isFavorite ? "❤️" : "🤍"}
                         </Button>
-
                     </div>
                 </div>
+
             </div>
         </>
+
     );
+
 };
 
 // Use PropTypes to validate the props passed to this component, ensuring reliable behavior.
