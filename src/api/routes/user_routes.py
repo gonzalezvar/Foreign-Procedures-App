@@ -34,6 +34,18 @@ def private_route():
     return jsonify(response_body), 200
 
 
+@user_bp.route('/user/actualization', methods=['GET']) 
+@jwt_required()
+def get_user_profile():
+    user_id = get_jwt_identity()
+    user = User.query.get(user_id)
+
+    if user:
+        return jsonify(user.serialize_with_relations()), 200
+    else:
+        return jsonify({"message": "Usuario no encontrado"}), 404
+
+
 @user_bp.route('/user/login', methods=["POST"])
 def sing_in():
     data_request = request.get_json()

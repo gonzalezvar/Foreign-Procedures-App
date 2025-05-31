@@ -11,19 +11,19 @@ keyword_categories = {
         "description": "Permite residir por estudios, formación o movilidad académica."
     },
     "prácticas": {
-        "name": "Estancia por Prácticas y Voluntariado",
+        "name": "Estancia por Prácticas y Voluntariado", # Nota: Esta categoría comparte "prácticas" y "voluntariado"
         "description": "Permite realizar prácticas formativas y participar en voluntariados."
     },
     "voluntariado": {
         "name": "Estancia por Prácticas y Voluntariado",
         "description": "Permite participar en programas de voluntariado."
     },
-    "residencia temporal": {
-        "name": "Residencia Temporal y No Lucrativa",
-        "description": "Autorizaciones temporales, iniciales o renovaciones, incluidas no lucrativas."
+    "residencia temporal": { # Esta es una keyword muy general, puede ser sobrescrita por otras más específicas
+        "name": "Residencia Temporal General",
+        "description": "Autorizaciones temporales, iniciales o renovaciones, incluidas no lucrativas, y otras circunstancias especiales."
     },
     "no lucrativa": {
-        "name": "Residencia Temporal y No Lucrativa",
+        "name": "Residencia Temporal General",
         "description": "Permite residir sin actividad laboral con medios económicos propios."
     },
     "trabajo por cuenta ajena": {
@@ -48,28 +48,94 @@ keyword_categories = {
     },
     "colaboración con autoridades": {
         "name": "Circunstancias Excepcionales y Arraigos",
-        "description": "Residencia por colaboración con autoridades policiales o judiciales."
+        "description": "Residencia por colaboración con autoridades policiales, fiscales o judiciales."
     },
     "larga duración": {
         "name": "Residencia de Larga Duración y Movilidad UE",
         "description": "Permite residencia permanente nacional o movilidad dentro de la UE."
     },
     "búsqueda de empleo": {
-        "name": "Búsqueda de Empleo y Otros",
-        "description": "Permite búsqueda activa de empleo o inicio de proyectos empresariales."
+        "name": "Búsqueda de Empleo y Prácticas",
+        "description": "Permite búsqueda activa de empleo, inicio de proyectos empresariales o realización de prácticas formativas."
+    },
+    "excepción a la autorización de trabajo": {
+        "name": "Otras Residencias Temporales Específicas",
+        "description": "Autorizaciones de residencia temporal para casos específicos como excepciones laborales, retorno voluntario, o vínculos con nacionales españoles."
+    },
+    "retorno voluntario": {
+        "name": "Otras Residencias Temporales Específicas",
+        "description": "Autorizaciones de residencia temporal para casos específicos como excepciones laborales, retorno voluntario, o vínculos con nacionales españoles."
+    },
+    "familiares de nacionalidad española": {
+        "name": "Otras Residencias Temporales Específicas",
+        "description": "Autorizaciones de residencia temporal para casos específicos como excepciones laborales, retorno voluntario, o vínculos con nacionales españoles."
+    },
+    "actividades de temporada": {
+        "name": "Trabajo Temporal y Migración Circular",
+        "description": "Autorizaciones de residencia y trabajo para actividades de temporada, gestión colectiva de contrataciones en origen (GECCO), y migración circular."
+    },
+    "gestión colectiva de contrataciones en origen": {
+        "name": "Trabajo Temporal y Migración Circular",
+        "description": "Autorizaciones de residencia y trabajo para actividades de temporada, gestión colectiva de contrataciones en origen (GECCO), y migración circular."
+    },
+    "trabajadores transfronterizos": {
+        "name": "Trabajadores Transfronterizos",
+        "description": "Autorizaciones de trabajo para ciudadanos extranjeros que residen en un país y trabajan en otro, cruzando la frontera."
+    },
+    "menores extranjeros": {
+        "name": "Residencia y Desplazamiento de Menores y Discapacitados",
+        "description": "Autorizaciones de residencia y desplazamiento temporal para menores extranjeros (acompañados o no), incluyendo fines médicos, vacacionales, o de escolarización, y para personas con discapacidad."
+    },
+    "desplazamiento temporal de menores": {
+        "name": "Residencia y Desplazamiento de Menores y Discapacitados",
+        "description": "Autorizaciones de residencia y desplazamiento temporal para menores extranjeros (acompañados o no), incluyendo fines médicos, vacacionales, o de escolarización, y para personas con discapacidad."
+    },
+    "contratación de no residentes": {
+        "name": "Contratación de No Residentes y Trámites Complementarios",
+        "description": "Normativas sobre la contratación de ciudadanos extranjeros no residentes y procedimientos administrativos complementarios como la legalización de documentos."
+    },
+    "legalización y traducción de documentos": {
+        "name": "Contratación de No Residentes y Trámites Complementarios",
+        "description": "Normativas sobre la contratación de ciudadanos extranjeros no residentes y procedimientos administrativos complementarios como la legalización de documentos."
+    },
+    "familiar de ciudadano de la unión europea": {
+        "name": "Residencia de Familiares de Ciudadanos de la Unión",
+        "description": "Tarjetas de residencia para familiares de ciudadanos de la Unión Europea, incluyendo la residencia permanente."
+    },
+    "penados extranjeros": {
+        "name": "Trabajo para Personas en Régimen Especial",
+        "description": "Autorizaciones de trabajo para penados extranjeros en régimen abierto o libertad condicional."
     }
 }
+
 
 TEMP_PDF = "temp_procedure.pdf"
 
 
 def extract_procedure_section(pdf_text):
-    pattern = re.compile(
-        r'(Procedimiento.*?)(?:\n[A-ZÁÉÍÓÚÑ\s]+:|\Z)', re.DOTALL | re.IGNORECASE)
-    match = pattern.search(pdf_text)
-    if match:
-        return match.group(1).strip()
-    return None
+     # Buscar TODAS las apariciones de la palabra "PROCEDIMIENTO" como sección (con salto de línea después)
+    matches = list(re.finditer(r'\bPROCEDIMIENTO\b\s*\n', pdf_text, re.IGNORECASE))
+
+    if len(matches) == 0:
+        return None
+
+    # Usar la última aparición (normalmente el índice aparece primero)
+    start_index = matches[-1].end()
+    rest_of_text = pdf_text[start_index:]
+
+    # Buscar el siguiente título en mayúsculas como final (mínimo 4 letras y con salto de línea o dos puntos)
+    end_match = re.search(r'\n[A-ZÁÉÍÓÚÑ\s]{4,}(\n|:)', rest_of_text)
+    end_index = end_match.start() if end_match else len(rest_of_text)
+
+    # Cortar desde procedimiento hasta el fin detectado
+    raw_section = rest_of_text[:end_index]
+
+    # Limpieza
+    clean_section = re.sub(r'\n{2,}', '\n', raw_section.strip())
+    clean_section = "PROCEDIMIENTO\n" + clean_section  # Añadir encabezado nuevamente
+    final_section_for_frontend = clean_section.replace('\n', '<br />')
+
+    return final_section_for_frontend
 
 
 def extract_text_from_pdf(pdf_path):
