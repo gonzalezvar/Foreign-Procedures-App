@@ -1,11 +1,11 @@
 // Import necessary components from react-router-dom and other parts of the application.
 import { Link } from "react-router-dom";
-import useGlobalReducer from "../hooks/useGlobalReducer";  // Custom hook for accessing the global state.
+import useGlobalReducer from "../hooks/useGlobalReducer";
 import React, { useEffect, useState } from 'react';
 import { authenticationServices } from "../services/authenticationServices";
 
 export const MiPerfil = () => {
-  // Access the global state and dispatch function using the useGlobalReducer hook.
+
   const { store, dispatch } = useGlobalReducer()
 
   const tokenExist = localStorage.getItem("jwt-token")
@@ -31,7 +31,6 @@ export const MiPerfil = () => {
   if (loading) {
     return <p className="text-center">Cargando...</p>;
   }
-
   return (
     <div className="container">
       <div>
