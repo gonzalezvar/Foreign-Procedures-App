@@ -24,8 +24,8 @@ eralchemy2 = "*"
 flask-bcrypt = "*"
 flask-jwt-extended = "*"
 requests = "*"
-pdfplumber = "*"
 flask-mail = "*"
+pdfplumber = "*"
 
 [requires]
 python_version = "3.13"

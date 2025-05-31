@@ -11,15 +11,17 @@ import { motion } from "framer-motion";
 
 export const ErrandTypes = ({ errands }) => {
     const [selectedCategory, setSelectedCategory] = useState("Todas");
-    const { state: favoritesState, dispatch: favoriteReducer } = useFavorites();
-    const { store, dispatch } = useGlobalReducer();
+    const { state: favoritesState, dispatch: favoriteDispatch } = useFavorites();
+    const { store, dispatch: globalDispatch } = useGlobalReducer();
     const userId = store?.main?.user_data?.users_id;
+    const isLoggedIn = !!store?.main?.auth?.token;
+    const globalUserFavorites = store?.main?.user_data?.favorites;
 
     useEffect(() => {
-        contentServices.getErrands(dispatch)
+        contentServices.getErrands(globalDispatch)
         const storedErrands = localStorage.getItem("errands");
         if (storedErrands) {
-            dispatch({
+            globalDispatch({
                 type: "setData",
                 category: "errands",
                 data: JSON.parse(storedErrands),
@@ -27,14 +29,33 @@ export const ErrandTypes = ({ errands }) => {
         }
     }, []);
 
+    // useEffect(() => {
+    //     const isUserActive = store.main.auth.token;
+    //     if (isUserActive && userId) {
+    //         favoritesServices.getFavorite(globalDispatch, userId);
+    //     }
+    // }, [store.user]);
+
+    // --- EL CAMBIO CLAVE ESTÁ AQUÍ ---
+    // useEffect para sincronizar los favoritos del usuario logueado con el estado local de favoritos
     useEffect(() => {
-        const isUserActive = store.main.auth.token;
+        if (isLoggedIn && globalUserFavorites && globalUserFavorites.length > 0) {
+            // Mapea los favoritos del store global al formato que espera tu favoriteReducer
+            const adaptedGlobalFavorites = globalUserFavorites.map(fav => ({
+                id: fav.errand.errand_id,
+                name: fav.errand.name
+            }));
+            // Despacha la acción SET_FAVORITES (o la que uses para establecer la lista completa)
+            // Asegúrate de que tu favoriteReducer tenga un case 'SET_FAVORITES' o 'setFavorites'
+            // que reemplace la lista actual por el payload.
+            favoriteDispatch({ type: "setFavorites", payload: adaptedGlobalFavorites });
 
-
-        if (isUserActive && userId) {
-            favoritesServices.getFavorite(dispatch, userId);
+        } else if (!isLoggedIn) {
+            // Si el usuario cierra sesión, limpia los favoritos del estado local
+            favoriteDispatch({ type: "setFavorites", payload: [] });
         }
-    }, [store.user]);
+    }, [isLoggedIn, globalUserFavorites, favoriteDispatch]); // Depende de isLoggedIn y globalUserFavorites
+
 
     const errandsFromStore = store.content.errands.data || [];
     const adaptedErrands = errandsFromStore.map(item => ({
@@ -62,11 +83,11 @@ export const ErrandTypes = ({ errands }) => {
 
         if (isFavorite) {
             // Quitar favorito
-            favoritesServices.removeFavorite(favoriteReducer, item.errand_id);
+            favoritesServices.removeFavorite(favoriteDispatch, globalDispatch, item.errand_id);
         } else {
             // Agregar favorito
 
-            favoritesServices.addFavorite(favoriteReducer, userId, {
+            favoritesServices.addFavorite(favoriteDispatch, globalDispatch, userId, {
                 id: item.errand_id,
                 name: item.errand_name,
             });

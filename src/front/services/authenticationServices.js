@@ -61,6 +61,31 @@ export const authenticationServices = {
       return data;
     } catch (error) {}
   },
+
+  userDataActualization: async () => {
+    // Retrieve token from localStorage
+    const token = localStorage.getItem("jwt-token");
+    console.log(token);
+
+    try {
+      const resp = await fetch(`${baseUrl}/api/user/actualization`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+      });
+      if (resp.status === 403) {
+        throw new Error("Missing or invalid token");
+      }
+      if (!resp.ok) {
+        throw new Error("There was a problem in the request");
+      }
+      const data = await resp.json();
+      console.log("This is the data you requested", data);
+      return data;
+    } catch (error) {}
+  },
 };
 
 // const resp = await fetch(`https://your_api.com/token`, {
