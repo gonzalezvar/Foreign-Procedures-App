@@ -11,24 +11,18 @@ import { motion } from "framer-motion";
 
 export const ErrandTypes = ({ errands }) => {
     const [selectedCategory, setSelectedCategory] = useState("Todas");
-<<<<<<< HEAD
     const [searchTerm, setSearchTerm] = useState("");
     const { state: favoritesState, dispatch: favoriteReducer } = useFavorites();
     const { store, dispatch } = useGlobalReducer();
-=======
     const { state: favoritesState, dispatch: favoriteDispatch } = useFavorites();
     const { store, dispatch: globalDispatch } = useGlobalReducer();
->>>>>>> e62c872d39dac66a1043de3a766f48c9b44cc3df
     const userId = store?.main?.user_data?.users_id;
     const isLoggedIn = !!store?.main?.auth?.token;
     const globalUserFavorites = store?.main?.user_data?.favorites;
 
     useEffect(() => {
-<<<<<<< HEAD
         contentServices.getErrands(dispatch);
-=======
         contentServices.getErrands(globalDispatch)
->>>>>>> e62c872d39dac66a1043de3a766f48c9b44cc3df
         const storedErrands = localStorage.getItem("errands");
         if (storedErrands) {
             globalDispatch({
@@ -49,63 +43,55 @@ export const ErrandTypes = ({ errands }) => {
     // --- EL CAMBIO CLAVE ESTÁ AQUÍ ---
     // useEffect para sincronizar los favoritos del usuario logueado con el estado local de favoritos
     useEffect(() => {
-<<<<<<< HEAD
         const isUserActive = store.main.auth.token;
         if (isUserActive && userId) {
             favoritesServices.getFavorite(dispatch, userId);
-        }
-    }, [store.user]); // Dependency array should probably be [store.main.auth.token, userId] if you want it to re-run when token or userId changes
-=======
-        if (isLoggedIn && globalUserFavorites && globalUserFavorites.length > 0) {
-            // Mapea los favoritos del store global al formato que espera tu favoriteReducer
-            const adaptedGlobalFavorites = globalUserFavorites.map(fav => ({
-                id: fav.errand.errand_id,
-                name: fav.errand.name
-            }));
-            // Despacha la acción SET_FAVORITES (o la que uses para establecer la lista completa)
-            // Asegúrate de que tu favoriteReducer tenga un case 'SET_FAVORITES' o 'setFavorites'
-            // que reemplace la lista actual por el payload.
-            favoriteDispatch({ type: "setFavorites", payload: adaptedGlobalFavorites });
+            if (isLoggedIn && globalUserFavorites && globalUserFavorites.length > 0) {
+                // Mapea los favoritos del store global al formato que espera tu favoriteReducer
+                const adaptedGlobalFavorites = globalUserFavorites.map(fav => ({
+                    id: fav.errand.errand_id,
+                    name: fav.errand.name
+                }));
+                // Despacha la acción SET_FAVORITES (o la que uses para establecer la lista completa)
+                // Asegúrate de que tu favoriteReducer tenga un case 'SET_FAVORITES' o 'setFavorites'
+                // que reemplace la lista actual por el payload.
+                favoriteDispatch({ type: "setFavorites", payload: adaptedGlobalFavorites });
 
-        } else if (!isLoggedIn) {
-            // Si el usuario cierra sesión, limpia los favoritos del estado local
-            favoriteDispatch({ type: "setFavorites", payload: [] });
-        }
-    }, [isLoggedIn, globalUserFavorites, favoriteDispatch]); // Depende de isLoggedIn y globalUserFavorites
+            } else if (!isLoggedIn) {
+                // Si el usuario cierra sesión, limpia los favoritos del estado local
+                favoriteDispatch({ type: "setFavorites", payload: [] });
+            }
+        }, [store.user]); // Dependency array should probably be [store.main.auth.token, userId] if you want it to re-run when token or userId changes
+}, [isLoggedIn, globalUserFavorites, favoriteDispatch]); // Depende de isLoggedIn y globalUserFavorites
 
->>>>>>> e62c872d39dac66a1043de3a766f48c9b44cc3df
 
-    const errandsFromStore = store.content.errands.data || [];
-    const adaptedErrands = errandsFromStore.map(item => ({
-        errand_id: item.errand_id,
-        category_name: item.errand_type?.name || "Sin categoría", // Added optional chaining
-        category_description: item.errand_type?.description, // Added optional chaining
-        errand_name: item.name
-    }));
+const errandsFromStore = store.content.errands.data || [];
+const adaptedErrands = errandsFromStore.map(item => ({
+    errand_id: item.errand_id,
+    category_name: item.errand_type?.name || "Sin categoría", // Added optional chaining
+    category_description: item.errand_type?.description, // Added optional chaining
+    errand_name: item.name
+}));
 
-    const filteredProcedures = adaptedErrands.filter(item =>
-        (selectedCategory === "Todas" || item.category_name === selectedCategory) &&
-        item.errand_name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+const filteredProcedures = adaptedErrands.filter(item =>
+    (selectedCategory === "Todas" || item.category_name === selectedCategory) &&
+    item.errand_name.toLowerCase().includes(searchTerm.toLowerCase())
+);
 
-    const uniqueCategories = ["Todas", ...new Set(adaptedErrands.map(item => item.category_name))];
+const uniqueCategories = ["Todas", ...new Set(adaptedErrands.map(item => item.category_name))];
 
-    const handleFavorite = (e, item) => {
-        e.stopPropagation();
-        const isFavorite = favoritesState.favorites.some(fav => fav.id === item.errand_id);
-        if (isFavorite) {
-<<<<<<< HEAD
-            favoritesServices.removeFavorite(favoriteReducer, item.errand_id);
-        } else {
-            favoritesServices.addFavorite(favoriteReducer, userId, {
-=======
-            // Quitar favorito
-            favoritesServices.removeFavorite(favoriteDispatch, globalDispatch, item.errand_id);
-        } else {
+const handleFavorite = (e, item) => {
+    e.stopPropagation();
+    const isFavorite = favoritesState.favorites.some(fav => fav.id === item.errand_id);
+    if (isFavorite) {
+        favoritesServices.removeFavorite(favoriteReducer, item.errand_id);
+        // Quitar favorito
+        favoritesServices.removeFavorite(favoriteDispatch, globalDispatch, item.errand_id);
+    } else {
+        favoritesServices.addFavorite(favoriteReducer, userId, {
             // Agregar favorito
 
             favoritesServices.addFavorite(favoriteDispatch, globalDispatch, userId, {
->>>>>>> e62c872d39dac66a1043de3a766f48c9b44cc3df
                 id: item.errand_id,
                 name: item.errand_name,
             });
@@ -222,3 +208,27 @@ export const ErrandTypes = ({ errands }) => {
         </div>
     );
 };
+
+
+/*<Card sx={{ maxWidth: 345 }}>
+              <CardMedia
+                sx={{ height: 140 }}
+                image="/static/images/cards/contemplative-reptile.jpg"
+                title="green iguana"
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  Lizard
+                </Typography>
+                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                  Lizards are a widespread group of squamate reptiles, with over 6,000
+                  species, ranging across all continents except Antarctica
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <Button size="small">Share</Button>
+                <Button size="small">Learn More</Button>
+              </CardActions>
+            </Card>
+          );
+        }*/
