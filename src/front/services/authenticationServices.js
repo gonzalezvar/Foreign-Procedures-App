@@ -99,6 +99,30 @@ export const authenticationServices = {
       return data;
     } catch (error) {}
   },
+
+  forgotPassword: async ({ email }) => {
+    try {
+      const resp = await fetch(`${baseUrl}/api/forgot-password`, {
+        method: "POST",
+        headers: {
+          accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+      if (resp.status === 403) {
+        throw new Error("Missing or invalid email");
+      }
+      if (!resp.ok) {
+        throw new Error("There was a problem in the request");
+      }
+      const data = await resp.json();
+      console.log("This is the data you requested", data);
+      return data;
+    } catch (error) {
+      console.log("Problema para enviar el correo de recuperar contraseña:", error);
+    }
+  },
 };
 
 // const resp = await fetch(`https://your_api.com/token`, {

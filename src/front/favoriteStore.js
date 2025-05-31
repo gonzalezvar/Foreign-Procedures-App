@@ -1,9 +1,7 @@
 export const initialFavoritesState = () => {
-  // const storedData = localStorage.getItem('starWarsFavorites');  // Verificar si hay datos guardados en Local Storage
-  // const parsedData = storedData ? JSON.parse(storedData) : null;  // Si hay datos, parsearlos, si no, null
 
   return {
-    favorites: [], // Cargar los favoritos desde Local Storage o vacío
+    favorites: [], 
   };
 };
 

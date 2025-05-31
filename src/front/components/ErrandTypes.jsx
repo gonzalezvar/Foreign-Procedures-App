@@ -20,8 +20,6 @@ export const ErrandTypes = ({ errands }) => {
     const isLoading = store?.content?.errands?.loading;
 
     console.log(isLoading);
-    
-
 
     // useEffect(() => {
     //     contentServices.getErrands(globalDispatch)
@@ -95,8 +93,6 @@ export const ErrandTypes = ({ errands }) => {
             });
         }
     };
-
-
 
     return (
         <div className="p-4">

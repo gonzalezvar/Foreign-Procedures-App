@@ -42,19 +42,19 @@ app.register_blueprint(offices_bp, url_prefix='/api')
 
 # Configuración de mail para recuperar contraseña
 
-app.config['MAIL_SERVER'] = 'sandbox.smtp.mailtrap.io'
-app.config['MAIL_PORT'] = 2525
-app.config['MAIL_USERNAME'] = os.getenv("MAILTRAP_USER")
-app.config['MAIL_PASSWORD'] = os.getenv("MAILTRAP_PASS")
-app.config['MAIL_DEFAULT_SENDER'] = 'celfinalproject@gmail.com'
+# app.config['MAIL_SERVER'] = 'sandbox.smtp.mailtrap.io'
+# app.config['MAIL_PORT'] = 2525
+# app.config['MAIL_USERNAME'] = os.getenv("MAILTRAP_USER")
+# app.config['MAIL_PASSWORD'] = os.getenv("MAILTRAP_PASS")
+# app.config['MAIL_DEFAULT_SENDER'] = 'celfinalproject@gmail.com'
 
-# app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-# app.config['MAIL_PORT'] = 587
-# app.config['MAIL_USE_TLS'] = True
-# app.config['MAIL_USE_SSL'] = False
-# app.config['MAIL_USERNAME'] = os.getenv("MAIL_SENDER")
-# app.config['MAIL_PASSWORD'] = os.getenv("APP_MAIL_KEY")
-# app.config['MAIL_DEFAULT_SENDER'] = os.getenv("MAIL_SENDER")
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USE_SSL'] = False
+app.config['MAIL_USERNAME'] = os.getenv("MAIL_SENDER")
+app.config['MAIL_PASSWORD'] = os.getenv("APP_MAIL_KEY")
+app.config['MAIL_DEFAULT_SENDER'] = os.getenv("MAIL_SENDER")
 
 # database condiguration
 db_url = os.getenv("DATABASE_URL")

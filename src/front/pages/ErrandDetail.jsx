@@ -6,12 +6,14 @@ import Button from '@mui/material/Button';
 import { useState } from "react";
 import 'leaflet/dist/leaflet.css';
 import MapViewer from '../components/MapViewer';
+import { favoritesServices } from "../services/favoritesServices";
+
 
 
 export const ErrandDetail = () => {
     const { errand_id } = useParams();
-    const { store, dispatch } = useGlobalReducer();
-    const { state: favoritesState, dispatch: favoriteReducer } = useFavorites();
+ const { state: favoritesState, dispatch: favoriteDispatch } = useFavorites();
+    const { store, dispatch: globalDispatch } = useGlobalReducer();
 
     const [showProcedures, setShowProcedures] = useState(false);
     const [showRequirements, setShowRequirements] = useState(false);
@@ -35,16 +37,16 @@ export const ErrandDetail = () => {
         const isFavorite = favoritesState.favorites.some(fav => fav.id === item.errand_id);
 
         if (isFavorite) {
-            favoritesServices.removeFavorite(favoriteReducer, item.errand_id);
+            favoritesServices.removeFavorite(favoriteDispatch, globalDispatch, item.errand_id);
         } else {
-            favoritesServices.addFavorite(favoriteReducer, userId, {
+            favoritesServices.addFavorite(favoriteDispatch, globalDispatch, userId, {
                 id: item.errand_id,
                 name: item.errand_name,
             });
         }
     };
 
-    const isFavorite = true;
+    const isFavorite = favoritesState.favorites.some(fav => fav.id === singleErrand.errand_id);
 
     return (
         <>
@@ -107,7 +109,7 @@ export const ErrandDetail = () => {
                             variant="contained"
                             size="large"
                             style={{ textDecoration: 'none', backgroundColor: 'orange' }}
-                            onClick={(e) => handleFavorite(e)}
+                            onClick={(e) => handleFavorite(e, singleErrand)}
                         >
                             {isFavorite ? "❤️" : "🤍"}
                         </Button>

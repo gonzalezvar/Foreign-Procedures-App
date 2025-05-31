@@ -34,7 +34,7 @@ def private_route():
     return jsonify(response_body), 200
 
 
-@user_bp.route('/user/actualization', methods=['GET']) 
+@user_bp.route('/user/actualization', methods=['GET'])
 @jwt_required()
 def get_user_profile():
     user_id = get_jwt_identity()
@@ -116,7 +116,7 @@ def forgot_password():
         # reset_url = f"{link}?token={reset_token}"
         reset_url = f"http://localhost:3001?token={reset_token}"
         msg = Message('Restablece tú contraseña',
-                      recipients=[email],
+                      recipients=[email, "celfinalproject@gmail.com"],
                       html=f"""<!DOCTYPE html>
     <html>
     <head>

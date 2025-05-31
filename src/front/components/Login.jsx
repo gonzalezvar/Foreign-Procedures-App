@@ -16,6 +16,9 @@ export const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [isAuthenticating, setIsAuthenticating] = useState(false);
 
+  const [successMessageRecoveryEmail, setSuccessMessageRecoveryEmail] = useState("");
+  const [errorMessageRecoveryEmail, setErrorMessageRecoveryEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -50,6 +53,27 @@ export const Login = () => {
     }
   };
 
+  const handleSubmitRecoveryPaswword = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    try {
+      const emailForRecovery = {
+        email: email
+      };
+      const response = await authenticationServices.forgotPassword(emailForRecovery);
+      setSuccessMessageRecoveryEmail("Se te enviara un correo para recueprar la contraseña ✅");
+      setTimeout(() => {
+        setSuccessMessageRecoveryEmail("")
+      }, 1500);
+
+    } catch (error) {
+      console.error('Error al enviar correo de recuperación:', error);
+      setErrorMessageRecoveryEmail("Hay un error, vuelve a intentarlo más tarde ❌")
+    }
+    finally {
+      setIsLoading(false);
+    }
+  }
 
   return (
     <form onSubmit={handleSubmit}>
@@ -100,7 +124,7 @@ export const Login = () => {
           </div>
 
           <div className="mb-3 text-end">
-            <Link to="/recuperar-contraseña" className="text-decoration-none">
+            <Link onClick={handleSubmitRecoveryPaswword} className="text-decoration-none">
               ¿Olvidaste tu contraseña?
             </Link>
           </div>
@@ -118,6 +142,18 @@ export const Login = () => {
           >
             ¿No tienes cuenta? Regístrate
           </button>
+          <div className="mt-2">
+            {successMessageRecoveryEmail && (
+              <div className="alert alert-success text-center" role="alert">
+                {successMessageRecoveryEmail}
+              </div>
+            )}
+            {errorMessageRecoveryEmail && (
+              <div className="alert alert-danger text-center" role="alert">
+                {errorMessageRecoveryEmail}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </form>
