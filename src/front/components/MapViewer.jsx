@@ -3,14 +3,15 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-import icon from 'leaflet/dist/images/marker-icon.png';
+
+
 import iconRetina from 'leaflet/dist/images/marker-icon-2x.png';
 import shadow from 'leaflet/dist/images/marker-shadow.png';
 
 // Corregir íconos por defecto de Leaflet
 L.Icon.Default.mergeOptions({
-    iconUrl: icon,
-    iconRetinaUrl: iconRetina,
+    iconUrl: '/icons/marker.png',
+    // iconRetinaUrl: iconRetina,
     shadowUrl: shadow,
 });
 
