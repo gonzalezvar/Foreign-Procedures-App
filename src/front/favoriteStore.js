@@ -58,6 +58,13 @@ export const favoritesReducer = (state = initialFavoritesState(), action) => {
       // localStorage.setItem('favorites', JSON.stringify(toggledState));
       return toggledState;
 
+   case "setFavorites":
+      return {
+        ...state,
+        favorites: action.payload, 
+      };
+
+
     default:
       return state;
   }
