@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_fb26a1f01d5902c000461efd9bba4100 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_fb26a1f01d5902c000461efd9bba4100" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_fb26a1f01d5902c000461efd9bba4100 = L.map(
+                "map_fb26a1f01d5902c000461efd9bba4100",
+                {
+                    center: [39.472949, -0.376151],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 13,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_8e67ce27dc0ff106e6a24fa84e94e16b = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_8e67ce27dc0ff106e6a24fa84e94e16b.addTo(map_fb26a1f01d5902c000461efd9bba4100);
+        
+    
+            var marker_de95206d1d78eb14f95b3b8fd11cf302 = L.marker(
+                [39.491238599999996, -0.36802819999999997],
+                {
+}
+            ).addTo(map_fb26a1f01d5902c000461efd9bba4100);
+        
+    
+            var icon_7cc67069c67405ff42d2c134797d032f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_4825a8f7e000ef40a34aacb29822ad36 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ae29382f589395f2f03d238cc4dc625e = $(`<div id="html_ae29382f589395f2f03d238cc4dc625e" style="width: 100.0%; height: 100.0%;"><b>Oficina d'Estrangeria</b><br>Carrer de la Diputada Clara Campoamor, 23, Rascanya, 46019 València, Valencia</div>`)[0];
+                popup_4825a8f7e000ef40a34aacb29822ad36.setContent(html_ae29382f589395f2f03d238cc4dc625e);
+            
+        
+
+        marker_de95206d1d78eb14f95b3b8fd11cf302.bindPopup(popup_4825a8f7e000ef40a34aacb29822ad36)
+        ;
+
+        
+    
+    
+                marker_de95206d1d78eb14f95b3b8fd11cf302.setIcon(icon_7cc67069c67405ff42d2c134797d032f);
+            
+    
+            var marker_139b793669cb71b7bce7f1a14ea783fb = L.marker(
+                [39.46029970000001, -0.41114059999999997],
+                {
+}
+            ).addTo(map_fb26a1f01d5902c000461efd9bba4100);
+        
+    
+            var icon_11f6a14ec131ed26a857cb7e5ae8ef5c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_2f23a099848163c2680bb314c6b570ee = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_38d6476a15c79a75c08d3c06cd578f69 = $(`<div id="html_38d6476a15c79a75c08d3c06cd578f69" style="width: 100.0%; height: 100.0%;"><b>Oficina de extranjería</b><br>Carrer dels Gremis, 6, Patraix, 46014 València, Valencia</div>`)[0];
+                popup_2f23a099848163c2680bb314c6b570ee.setContent(html_38d6476a15c79a75c08d3c06cd578f69);
+            
+        
+
+        marker_139b793669cb71b7bce7f1a14ea783fb.bindPopup(popup_2f23a099848163c2680bb314c6b570ee)
+        ;
+
+        
+    
+    
+                marker_139b793669cb71b7bce7f1a14ea783fb.setIcon(icon_11f6a14ec131ed26a857cb7e5ae8ef5c);
+            
+    
+            var marker_70e3419e98333b86d046f70d954d5b8f = L.marker(
+                [39.4785031, -0.3803627],
+                {
+}
+            ).addTo(map_fb26a1f01d5902c000461efd9bba4100);
+        
+    
+            var icon_cc88e3b6b161a28cfed29f09479bb959 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_1d1b2612613202edf298b679b49e89a7 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c3d4bd334e15f19f6f8aa9752bac8658 = $(`<div id="html_c3d4bd334e15f19f6f8aa9752bac8658" style="width: 100.0%; height: 100.0%;"><b>Centre de Suport de la Immigració</b><br>Carrer del Pou, s/n, Ciutat Vella, 46003 València, Valencia</div>`)[0];
+                popup_1d1b2612613202edf298b679b49e89a7.setContent(html_c3d4bd334e15f19f6f8aa9752bac8658);
+            
+        
+
+        marker_70e3419e98333b86d046f70d954d5b8f.bindPopup(popup_1d1b2612613202edf298b679b49e89a7)
+        ;
+
+        
+    
+    
+                marker_70e3419e98333b86d046f70d954d5b8f.setIcon(icon_cc88e3b6b161a28cfed29f09479bb959);
+            
+    
+            var marker_b805419f8836ba9336da2c86c7adb11a = L.marker(
+                [39.4818934, -0.3912487],
+                {
+}
+            ).addTo(map_fb26a1f01d5902c000461efd9bba4100);
+        
+    
+            var icon_b33dafcc0b6174059cd7befb3837e8cc = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_dffb41973902f34f7b946087ef174105 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_448b15fd887a3863a9135e2f4c377f63 = $(`<div id="html_448b15fd887a3863a9135e2f4c377f63" style="width: 100.0%; height: 100.0%;"><b>Subdelegación del Gobierno - Atención al ciudadano y Registro</b><br>C. de Joaquim Ballester, 39, Campanar, 46009 València, Valencia</div>`)[0];
+                popup_dffb41973902f34f7b946087ef174105.setContent(html_448b15fd887a3863a9135e2f4c377f63);
+            
+        
+
+        marker_b805419f8836ba9336da2c86c7adb11a.bindPopup(popup_dffb41973902f34f7b946087ef174105)
+        ;
+
+        
+    
+    
+                marker_b805419f8836ba9336da2c86c7adb11a.setIcon(icon_b33dafcc0b6174059cd7befb3837e8cc);
+            
+    
+            var marker_ba8ec89a7fc93629868a640811fc1625 = L.marker(
+                [39.6602137, -0.21792140000000002],
+                {
+}
+            ).addTo(map_fb26a1f01d5902c000461efd9bba4100);
+        
+    
+            var icon_4ac50e6f58f8047f96a5591764a36a48 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_14a45777e32571717a118ba4f208a4dd = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_35a3439bbf4ce25e02fa69fdfe6ff43f = $(`<div id="html_35a3439bbf4ce25e02fa69fdfe6ff43f" style="width: 100.0%; height: 100.0%;"><b>Comisaria de Policia de Sagunt</b><br>Carrer Progrés, 35, 46520 Port de Sagunt, Valencia</div>`)[0];
+                popup_14a45777e32571717a118ba4f208a4dd.setContent(html_35a3439bbf4ce25e02fa69fdfe6ff43f);
+            
+        
+
+        marker_ba8ec89a7fc93629868a640811fc1625.bindPopup(popup_14a45777e32571717a118ba4f208a4dd)
+        ;
+
+        
+    
+    
+                marker_ba8ec89a7fc93629868a640811fc1625.setIcon(icon_4ac50e6f58f8047f96a5591764a36a48);
+            
+    
+            var marker_7e25e75c5a5f46a665ac829354e7c620 = L.marker(
+                [39.4693816, -0.37750629999999996],
+                {
+}
+            ).addTo(map_fb26a1f01d5902c000461efd9bba4100);
+        
+    
+            var icon_21d7fd138030507587f107154a0ff58c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_0ca583fb7c288d241eec6afa9c092834 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ce19e36e3ead3ae2aa2921e5818ac407 = $(`<div id="html_ce19e36e3ead3ae2aa2921e5818ac407" style="width: 100.0%; height: 100.0%;"><b>Mi Abogado Extranjería</b><br>Calle del Periodista Azzati, 5, Planta 5, puerta 10, Ciutat Vella, 46002 Valencia</div>`)[0];
+                popup_0ca583fb7c288d241eec6afa9c092834.setContent(html_ce19e36e3ead3ae2aa2921e5818ac407);
+            
+        
+
+        marker_7e25e75c5a5f46a665ac829354e7c620.bindPopup(popup_0ca583fb7c288d241eec6afa9c092834)
+        ;
+
+        
+    
+    
+                marker_7e25e75c5a5f46a665ac829354e7c620.setIcon(icon_21d7fd138030507587f107154a0ff58c);
+            
+    
+            var marker_699c6d76ed6bcbba63a3236f18ace198 = L.marker(
+                [39.470765199999995, -0.3787529],
+                {
+}
+            ).addTo(map_fb26a1f01d5902c000461efd9bba4100);
+        
+    
+            var icon_04dbaf5683f77c0cfaadde7817890652 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_56c2c2878799ad1262b0964f9ae92e7f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_19672f62810dca67bc03de056e6db51e = $(`<div id="html_19672f62810dca67bc03de056e6db51e" style="width: 100.0%; height: 100.0%;"><b>ESPACUBA. Trámites de Extranjería. Nacionalidad Española y Residencia. Obtención y Legalización de documentos de Cuba.</b><br>Carrer de les Garrigues, 5, 8-L, Ciutat Vella, 46001 Valencia</div>`)[0];
+                popup_56c2c2878799ad1262b0964f9ae92e7f.setContent(html_19672f62810dca67bc03de056e6db51e);
+            
+        
+
+        marker_699c6d76ed6bcbba63a3236f18ace198.bindPopup(popup_56c2c2878799ad1262b0964f9ae92e7f)
+        ;
+
+        
+    
+    
+                marker_699c6d76ed6bcbba63a3236f18ace198.setIcon(icon_04dbaf5683f77c0cfaadde7817890652);
+            
+    
+            var marker_11e806a018cb230d63b957d756aced09 = L.marker(
+                [39.460482899999995, -0.4105628],
+                {
+}
+            ).addTo(map_fb26a1f01d5902c000461efd9bba4100);
+        
+    
+            var icon_cf1889c7b62296e92bbe712f20757890 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d008d7d4a00179b79521118bbb50e400 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e3aa3d7cb1fa9ef8eab5496b2510dff7 = $(`<div id="html_e3aa3d7cb1fa9ef8eab5496b2510dff7" style="width: 100.0%; height: 100.0%;"><b>Comisaría de Valencia Patraix - Expedición TIE (Tarjetas)</b><br>Carrer dels Gremis, 7, Patraix, 46014 València, Valencia</div>`)[0];
+                popup_d008d7d4a00179b79521118bbb50e400.setContent(html_e3aa3d7cb1fa9ef8eab5496b2510dff7);
+            
+        
+
+        marker_11e806a018cb230d63b957d756aced09.bindPopup(popup_d008d7d4a00179b79521118bbb50e400)
+        ;
+
+        
+    
+    
+                marker_11e806a018cb230d63b957d756aced09.setIcon(icon_cf1889c7b62296e92bbe712f20757890);
+            
+    
+            var marker_5ea67e2758d4ba68186b00c29b0821c7 = L.marker(
+                [39.4562179, -0.3696967],
+                {
+}
+            ).addTo(map_fb26a1f01d5902c000461efd9bba4100);
+        
+    
+            var icon_066b0db46333318f7b5ae3b7d44765c9 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_9fae0e43977a53c9381d0fa7a4e778ae = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_836cad2d292312414dbf92e57becc9b3 = $(`<div id="html_836cad2d292312414dbf92e57becc9b3" style="width: 100.0%; height: 100.0%;"><b>Centre d'Internament d'Estrangers</b><br>C/ dels Sapadors, 48, Quatre Carreres, 46006 València, Valencia</div>`)[0];
+                popup_9fae0e43977a53c9381d0fa7a4e778ae.setContent(html_836cad2d292312414dbf92e57becc9b3);
+            
+        
+
+        marker_5ea67e2758d4ba68186b00c29b0821c7.bindPopup(popup_9fae0e43977a53c9381d0fa7a4e778ae)
+        ;
+
+        
+    
+    
+                marker_5ea67e2758d4ba68186b00c29b0821c7.setIcon(icon_066b0db46333318f7b5ae3b7d44765c9);
+            
+</script>
+</html>

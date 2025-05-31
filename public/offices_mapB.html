@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_0a2978cc7c46247c0ee13bdf0a9ae96c {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_0a2978cc7c46247c0ee13bdf0a9ae96c" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_0a2978cc7c46247c0ee13bdf0a9ae96c = L.map(
+                "map_0a2978cc7c46247c0ee13bdf0a9ae96c",
+                {
+                    center: [41.378961, 2.166203],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 13,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_5e6fa69115d2e11a28e70a4fb2d171f0 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_5e6fa69115d2e11a28e70a4fb2d171f0.addTo(map_0a2978cc7c46247c0ee13bdf0a9ae96c);
+        
+    
+            var marker_a39ad1300d2261b51f407ce022eef97b = L.marker(
+                [41.4036299, 2.1633372],
+                {
+}
+            ).addTo(map_0a2978cc7c46247c0ee13bdf0a9ae96c);
+        
+    
+            var icon_5816ac0fcba3d3490e159de4e5c9e001 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_3c5d3bd1cfca6f4b23b8a62facef8ea8 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_df76eb71b0b12595c24b5c030c663cd6 = $(`<div id="html_df76eb71b0b12595c24b5c030c663cd6" style="width: 100.0%; height: 100.0%;"><b>Oficina D'Estrangeria</b><br>Pg. de St. Joan, 189, 193, Gràcia, 08037 Barcelona</div>`)[0];
+                popup_3c5d3bd1cfca6f4b23b8a62facef8ea8.setContent(html_df76eb71b0b12595c24b5c030c663cd6);
+            
+        
+
+        marker_a39ad1300d2261b51f407ce022eef97b.bindPopup(popup_3c5d3bd1cfca6f4b23b8a62facef8ea8)
+        ;
+
+        
+    
+    
+                marker_a39ad1300d2261b51f407ce022eef97b.setIcon(icon_5816ac0fcba3d3490e159de4e5c9e001);
+            
+    
+            var marker_9c09940965ff63d2f762fa55aa0c9367 = L.marker(
+                [41.415775499999995, 2.1897858],
+                {
+}
+            ).addTo(map_0a2978cc7c46247c0ee13bdf0a9ae96c);
+        
+    
+            var icon_6645543e52cd526afd42bb933931f733 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_e25e28087feaf31794ca2e9eb1a34c17 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_4d4c1da1a6e00e752ce98fc524b914c6 = $(`<div id="html_4d4c1da1a6e00e752ce98fc524b914c6" style="width: 100.0%; height: 100.0%;"><b>SEU 2. Oficina d'Estrangeria Barcelona</b><br>Carrer de Múrcia, 42, Sant Andreu, 08027 Barcelona</div>`)[0];
+                popup_e25e28087feaf31794ca2e9eb1a34c17.setContent(html_4d4c1da1a6e00e752ce98fc524b914c6);
+            
+        
+
+        marker_9c09940965ff63d2f762fa55aa0c9367.bindPopup(popup_e25e28087feaf31794ca2e9eb1a34c17)
+        ;
+
+        
+    
+    
+                marker_9c09940965ff63d2f762fa55aa0c9367.setIcon(icon_6645543e52cd526afd42bb933931f733);
+            
+    
+            var marker_079b19e11e5913ba82f3afb132e7c573 = L.marker(
+                [41.3861646, 2.1685942],
+                {
+}
+            ).addTo(map_0a2978cc7c46247c0ee13bdf0a9ae96c);
+        
+    
+            var icon_56067359644b87fbd1548d53e91d1cb0 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_205b8cf4b708d286c3977ae7067d5bf8 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ace7a2a67b8c9ab33655febd0e9230d5 = $(`<div id="html_ace7a2a67b8c9ab33655febd0e9230d5" style="width: 100.0%; height: 100.0%;"><b>Delegación del Gobierno Oficina de Información y Atención Al Ciudadano</b><br>Carrer de Bergara, 12, L'Eixample, 08002 Barcelona</div>`)[0];
+                popup_205b8cf4b708d286c3977ae7067d5bf8.setContent(html_ace7a2a67b8c9ab33655febd0e9230d5);
+            
+        
+
+        marker_079b19e11e5913ba82f3afb132e7c573.bindPopup(popup_205b8cf4b708d286c3977ae7067d5bf8)
+        ;
+
+        
+    
+    
+                marker_079b19e11e5913ba82f3afb132e7c573.setIcon(icon_56067359644b87fbd1548d53e91d1cb0);
+            
+    
+            var marker_a077c71bf96ec642d61b08b9eaff4009 = L.marker(
+                [41.386235899999996, 2.1685996999999997],
+                {
+}
+            ).addTo(map_0a2978cc7c46247c0ee13bdf0a9ae96c);
+        
+    
+            var icon_b2a5d96e4740e6a362c215bbdb6258ba = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_634f43692bf1de69119b647dfb594c5d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_259a132e9f6941c3ea61afaea3fe683c = $(`<div id="html_259a132e9f6941c3ea61afaea3fe683c" style="width: 100.0%; height: 100.0%;"><b>extranjeria</b><br>Carrer de Bergara, 12, L'Eixample, 08002 Barcelona</div>`)[0];
+                popup_634f43692bf1de69119b647dfb594c5d.setContent(html_259a132e9f6941c3ea61afaea3fe683c);
+            
+        
+
+        marker_a077c71bf96ec642d61b08b9eaff4009.bindPopup(popup_634f43692bf1de69119b647dfb594c5d)
+        ;
+
+        
+    
+    
+                marker_a077c71bf96ec642d61b08b9eaff4009.setIcon(icon_b2a5d96e4740e6a362c215bbdb6258ba);
+            
+    
+            var marker_8a4a39cca931955c1392636d882332a5 = L.marker(
+                [41.3923965, 2.1626073999999997],
+                {
+}
+            ).addTo(map_0a2978cc7c46247c0ee13bdf0a9ae96c);
+        
+    
+            var icon_69f3cc730545678bcf54e0292f03e747 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_c2a0b2b642c5e49bbfb5cc98da99ebfc = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_5084dccfc5a408ca3cc4df9af4b71d36 = $(`<div id="html_5084dccfc5a408ca3cc4df9af4b71d36" style="width: 100.0%; height: 100.0%;"><b>Barcelona Extranjería Abogados, Slp</b><br>Carrer de València, 243, 4-2, Eixample, 08007 Barcelona</div>`)[0];
+                popup_c2a0b2b642c5e49bbfb5cc98da99ebfc.setContent(html_5084dccfc5a408ca3cc4df9af4b71d36);
+            
+        
+
+        marker_8a4a39cca931955c1392636d882332a5.bindPopup(popup_c2a0b2b642c5e49bbfb5cc98da99ebfc)
+        ;
+
+        
+    
+    
+                marker_8a4a39cca931955c1392636d882332a5.setIcon(icon_69f3cc730545678bcf54e0292f03e747);
+            
+    
+            var marker_580b100587223b1aaad306cd77fce2b3 = L.marker(
+                [41.403716599999996, 2.1633009],
+                {
+}
+            ).addTo(map_0a2978cc7c46247c0ee13bdf0a9ae96c);
+        
+    
+            var icon_23f756628f1443767058586fc91b2a2c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_c8867662c5b301fdd0a50fa80d8dca95 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_b64c5df850bd9c29de9192fcfce10528 = $(`<div id="html_b64c5df850bd9c29de9192fcfce10528" style="width: 100.0%; height: 100.0%;"><b>Delegació Del Govern Àrea Funcional De Treball i Immigració</b><br>Pg. de St. Joan, 189, 193, Gràcia, 08037 Barcelona</div>`)[0];
+                popup_c8867662c5b301fdd0a50fa80d8dca95.setContent(html_b64c5df850bd9c29de9192fcfce10528);
+            
+        
+
+        marker_580b100587223b1aaad306cd77fce2b3.bindPopup(popup_c8867662c5b301fdd0a50fa80d8dca95)
+        ;
+
+        
+    
+    
+                marker_580b100587223b1aaad306cd77fce2b3.setIcon(icon_23f756628f1443767058586fc91b2a2c);
+            
+    
+            var marker_74718290c306ba703dcaa188b2da2367 = L.marker(
+                [41.3955671, 2.1650662],
+                {
+}
+            ).addTo(map_0a2978cc7c46247c0ee13bdf0a9ae96c);
+        
+    
+            var icon_f92dcdd6013946d88be6ac97ef93d07d = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_457214884948bccfee5977685ece2a52 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d872ccd9776d1ccf0c77b15fd5b19fb4 = $(`<div id="html_d872ccd9776d1ccf0c77b15fd5b19fb4" style="width: 100.0%; height: 100.0%;"><b>Registro Extranjeria</b><br>Carrer de Mallorca, 278, L'Eixample, 08037 Barcelona</div>`)[0];
+                popup_457214884948bccfee5977685ece2a52.setContent(html_d872ccd9776d1ccf0c77b15fd5b19fb4);
+            
+        
+
+        marker_74718290c306ba703dcaa188b2da2367.bindPopup(popup_457214884948bccfee5977685ece2a52)
+        ;
+
+        
+    
+    
+                marker_74718290c306ba703dcaa188b2da2367.setIcon(icon_f92dcdd6013946d88be6ac97ef93d07d);
+            
+    
+            var marker_dfe9d17cd064aa9f11911c62dddcb909 = L.marker(
+                [41.3954683, 2.1648945],
+                {
+}
+            ).addTo(map_0a2978cc7c46247c0ee13bdf0a9ae96c);
+        
+    
+            var icon_dc929f2d4db7f964dd0cde84d81cefe9 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_10def4a90d848cedca4a2a43fcd0076e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_da4221c3b5fb3e7442e6e6b5002407da = $(`<div id="html_da4221c3b5fb3e7442e6e6b5002407da" style="width: 100.0%; height: 100.0%;"><b>Delegation of the Government of Spain to Catalonia</b><br>Carrer de Mallorca, 278, L'Eixample, 08037 Barcelona</div>`)[0];
+                popup_10def4a90d848cedca4a2a43fcd0076e.setContent(html_da4221c3b5fb3e7442e6e6b5002407da);
+            
+        
+
+        marker_dfe9d17cd064aa9f11911c62dddcb909.bindPopup(popup_10def4a90d848cedca4a2a43fcd0076e)
+        ;
+
+        
+    
+    
+                marker_dfe9d17cd064aa9f11911c62dddcb909.setIcon(icon_dc929f2d4db7f964dd0cde84d81cefe9);
+            
+    
+            var marker_8d3f651bb91676457c2d815c01432178 = L.marker(
+                [41.3910163, 2.1585693],
+                {
+}
+            ).addTo(map_0a2978cc7c46247c0ee13bdf0a9ae96c);
+        
+    
+            var icon_3acc32449dafc1fc97856a691eee8fa0 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_36248f6dc215c9422bfefc6e9365834a = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_6df455ade41c7e7f1d29f026176f1f22 = $(`<div id="html_6df455ade41c7e7f1d29f026176f1f22" style="width: 100.0%; height: 100.0%;"><b>Policía Nacional</b><br>Carrer de Mallorca, 213, L'Eixample, 08008 Barcelona</div>`)[0];
+                popup_36248f6dc215c9422bfefc6e9365834a.setContent(html_6df455ade41c7e7f1d29f026176f1f22);
+            
+        
+
+        marker_8d3f651bb91676457c2d815c01432178.bindPopup(popup_36248f6dc215c9422bfefc6e9365834a)
+        ;
+
+        
+    
+    
+                marker_8d3f651bb91676457c2d815c01432178.setIcon(icon_3acc32449dafc1fc97856a691eee8fa0);
+            
+    
+            var marker_aa9b5df8900a42b244f97ec4cec4576f = L.marker(
+                [41.3887327, 2.1757006999999997],
+                {
+}
+            ).addTo(map_0a2978cc7c46247c0ee13bdf0a9ae96c);
+        
+    
+            var icon_bf1c1937f6ac7ea50f06f7b4e6ba7150 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_934e338d77a8ebac3d8089a1c2630835 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_6d7886c2db7bb349e17c682434f9a6e4 = $(`<div id="html_6d7886c2db7bb349e17c682434f9a6e4" style="width: 100.0%; height: 100.0%;"><b>UNION Extranjería</b><br>Carrer d'Ortigosa, 14-16, Planta 2 Oficina 4, Ciutat Vella, 08003 Barcelona</div>`)[0];
+                popup_934e338d77a8ebac3d8089a1c2630835.setContent(html_6d7886c2db7bb349e17c682434f9a6e4);
+            
+        
+
+        marker_aa9b5df8900a42b244f97ec4cec4576f.bindPopup(popup_934e338d77a8ebac3d8089a1c2630835)
+        ;
+
+        
+    
+    
+                marker_aa9b5df8900a42b244f97ec4cec4576f.setIcon(icon_bf1c1937f6ac7ea50f06f7b4e6ba7150);
+            
+    
+            var marker_6032d2ac94634cdf400902cb1263d78e = L.marker(
+                [41.3861995, 2.1686989],
+                {
+}
+            ).addTo(map_0a2978cc7c46247c0ee13bdf0a9ae96c);
+        
+    
+            var icon_2dd7893593e2a4278851146ef5e35eef = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_5b5d1cc9568181dbbd2271784a6bdc87 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_4492453141c1d24586962a16d52845ad = $(`<div id="html_4492453141c1d24586962a16d52845ad" style="width: 100.0%; height: 100.0%;"><b>Delegació del Govern Espanyol a Catalunya - Registre Central</b><br>Carrer de Bergara, 12, L'Eixample, 08002 Barcelona</div>`)[0];
+                popup_5b5d1cc9568181dbbd2271784a6bdc87.setContent(html_4492453141c1d24586962a16d52845ad);
+            
+        
+
+        marker_6032d2ac94634cdf400902cb1263d78e.bindPopup(popup_5b5d1cc9568181dbbd2271784a6bdc87)
+        ;
+
+        
+    
+    
+                marker_6032d2ac94634cdf400902cb1263d78e.setIcon(icon_2dd7893593e2a4278851146ef5e35eef);
+            
+    
+            var marker_db39d9eee475cee3e1d3f0409df53d6e = L.marker(
+                [41.4172912, 2.1988072],
+                {
+}
+            ).addTo(map_0a2978cc7c46247c0ee13bdf0a9ae96c);
+        
+    
+            var icon_beea58e6667b9380ff5f25cc1e9318a6 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_261e17cd05a4ae113d60c20c40df1eee = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_de07854428d6c9f8a9f641a6154a099a = $(`<div id="html_de07854428d6c9f8a9f641a6154a099a" style="width: 100.0%; height: 100.0%;"><b>Citacion NIE</b><br>Carrer de Guipúscoa, 74, Sant Martí, 08020 Barcelona</div>`)[0];
+                popup_261e17cd05a4ae113d60c20c40df1eee.setContent(html_de07854428d6c9f8a9f641a6154a099a);
+            
+        
+
+        marker_db39d9eee475cee3e1d3f0409df53d6e.bindPopup(popup_261e17cd05a4ae113d60c20c40df1eee)
+        ;
+
+        
+    
+    
+                marker_db39d9eee475cee3e1d3f0409df53d6e.setIcon(icon_beea58e6667b9380ff5f25cc1e9318a6);
+            
+    
+            var marker_67386f891a4f2a0bbc5f5001f484380d = L.marker(
+                [41.4039595, 2.1630409999999998],
+                {
+}
+            ).addTo(map_0a2978cc7c46247c0ee13bdf0a9ae96c);
+        
+    
+            var icon_1f4012417328e9346269e174d8d07683 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_44c87dd6d3d9dd68ccdf199a187f6cb2 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_3d57b922d64f12cdd33c72c97bd7f8b9 = $(`<div id="html_3d57b922d64f12cdd33c72c97bd7f8b9" style="width: 100.0%; height: 100.0%;"><b>TUEXTRANJERIA S.L</b><br>Pg. de St. Joan, 197, Gràcia, 08037 Barcelona</div>`)[0];
+                popup_44c87dd6d3d9dd68ccdf199a187f6cb2.setContent(html_3d57b922d64f12cdd33c72c97bd7f8b9);
+            
+        
+
+        marker_67386f891a4f2a0bbc5f5001f484380d.bindPopup(popup_44c87dd6d3d9dd68ccdf199a187f6cb2)
+        ;
+
+        
+    
+    
+                marker_67386f891a4f2a0bbc5f5001f484380d.setIcon(icon_1f4012417328e9346269e174d8d07683);
+            
+    
+            var marker_e5918b5c7e1c3c7a2c2f7d2eef3d9393 = L.marker(
+                [41.396279, 2.1648699],
+                {
+}
+            ).addTo(map_0a2978cc7c46247c0ee13bdf0a9ae96c);
+        
+    
+            var icon_3534016543a1d9fa9d5bbe13f84ddabe = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_e631db1c3cadd2e72644936d15aaecc7 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_223083a9cf66a630d58cd6a91de4552d = $(`<div id="html_223083a9cf66a630d58cd6a91de4552d" style="width: 100.0%; height: 100.0%;"><b>NACIONALIDADES | Trámites de extranjería</b><br>Carrer de Roger de Llúria, 108, 2B, Eixample, 08037 Barcelona</div>`)[0];
+                popup_e631db1c3cadd2e72644936d15aaecc7.setContent(html_223083a9cf66a630d58cd6a91de4552d);
+            
+        
+
+        marker_e5918b5c7e1c3c7a2c2f7d2eef3d9393.bindPopup(popup_e631db1c3cadd2e72644936d15aaecc7)
+        ;
+
+        
+    
+    
+                marker_e5918b5c7e1c3c7a2c2f7d2eef3d9393.setIcon(icon_3534016543a1d9fa9d5bbe13f84ddabe);
+            
+    
+            var marker_197dddb378ec50699c837b0ef8a38796 = L.marker(
+                [41.390779099999996, 2.1401295],
+                {
+}
+            ).addTo(map_0a2978cc7c46247c0ee13bdf0a9ae96c);
+        
+    
+            var icon_9c16214bd09e649eea39133bf14c972c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_3508a333b1ae3286437f99e39093683f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c4495df292a6c4e74c7f59c226460a4e = $(`<div id="html_c4495df292a6c4e74c7f59c226460a4e" style="width: 100.0%; height: 100.0%;"><b>EXTRANJERISTAS</b><br>Carrer de Déu i Mata, 158, Entlo. 7, Les Corts, 08029 Barcelona</div>`)[0];
+                popup_3508a333b1ae3286437f99e39093683f.setContent(html_c4495df292a6c4e74c7f59c226460a4e);
+            
+        
+
+        marker_197dddb378ec50699c837b0ef8a38796.bindPopup(popup_3508a333b1ae3286437f99e39093683f)
+        ;
+
+        
+    
+    
+                marker_197dddb378ec50699c837b0ef8a38796.setIcon(icon_9c16214bd09e649eea39133bf14c972c);
+            
+    
+            var marker_4ff551466efc6a0cd7c58c6da0a8e24d = L.marker(
+                [41.396046999999996, 2.1563439],
+                {
+}
+            ).addTo(map_0a2978cc7c46247c0ee13bdf0a9ae96c);
+        
+    
+            var icon_dc4217ffa6cded677e3a222a1fd372c9 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_54fdf41235bf945861350bf09e45558d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d57133eabb81792d6872eff420b0e156 = $(`<div id="html_d57133eabb81792d6872eff420b0e156" style="width: 100.0%; height: 100.0%;"><b>Gestexpert Consulting-Abogados/Asesores</b><br>Av. Diagonal, 468, Planta 8, Gràcia, 08006 Barcelona</div>`)[0];
+                popup_54fdf41235bf945861350bf09e45558d.setContent(html_d57133eabb81792d6872eff420b0e156);
+            
+        
+
+        marker_4ff551466efc6a0cd7c58c6da0a8e24d.bindPopup(popup_54fdf41235bf945861350bf09e45558d)
+        ;
+
+        
+    
+    
+                marker_4ff551466efc6a0cd7c58c6da0a8e24d.setIcon(icon_dc4217ffa6cded677e3a222a1fd372c9);
+            
+    
+            var marker_ad3a69520d6d71a4e07595a99cb4ecb9 = L.marker(
+                [41.3754165, 2.1273914],
+                {
+}
+            ).addTo(map_0a2978cc7c46247c0ee13bdf0a9ae96c);
+        
+    
+            var icon_0f68d673f8f558c04edaa4b534dd2ca1 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_30de320c5e8062d90be49dc58da7c1e6 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_5d93f664ae528e63e7ddc3f3646e7351 = $(`<div id="html_5d93f664ae528e63e7ddc3f3646e7351" style="width: 100.0%; height: 100.0%;"><b>EXTRANJERIA FOREIGNER</b><br>Carrer de Sugranyes, Sants-Montjuïc, 08028 Barcelona</div>`)[0];
+                popup_30de320c5e8062d90be49dc58da7c1e6.setContent(html_5d93f664ae528e63e7ddc3f3646e7351);
+            
+        
+
+        marker_ad3a69520d6d71a4e07595a99cb4ecb9.bindPopup(popup_30de320c5e8062d90be49dc58da7c1e6)
+        ;
+
+        
+    
+    
+                marker_ad3a69520d6d71a4e07595a99cb4ecb9.setIcon(icon_0f68d673f8f558c04edaa4b534dd2ca1);
+            
+    
+            var marker_efb8ca41771816e792bda0e991ce9cc3 = L.marker(
+                [41.397290999999996, 2.1539197999999997],
+                {
+}
+            ).addTo(map_0a2978cc7c46247c0ee13bdf0a9ae96c);
+        
+    
+            var icon_1a21b668e3dbccf3b186b25c36846613 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_287b8a38f7ef55a2067e53001ce4c853 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_89f8e7a645b1fb98f3ae399ede9db121 = $(`<div id="html_89f8e7a645b1fb98f3ae399ede9db121" style="width: 100.0%; height: 100.0%;"><b>Comisaría De Policía Nacional Eixample</b><br>Carrer de Guadalajara, 1, 3, Sarrià-Sant Gervasi, 08006 Barcelona</div>`)[0];
+                popup_287b8a38f7ef55a2067e53001ce4c853.setContent(html_89f8e7a645b1fb98f3ae399ede9db121);
+            
+        
+
+        marker_efb8ca41771816e792bda0e991ce9cc3.bindPopup(popup_287b8a38f7ef55a2067e53001ce4c853)
+        ;
+
+        
+    
+    
+                marker_efb8ca41771816e792bda0e991ce9cc3.setIcon(icon_1a21b668e3dbccf3b186b25c36846613);
+            
+    
+            var marker_6439d077e952d5763222ccb770961101 = L.marker(
+                [41.417213700000005, 2.1987571999999997],
+                {
+}
+            ).addTo(map_0a2978cc7c46247c0ee13bdf0a9ae96c);
+        
+    
+            var icon_4b5ff6133c65c148c53e50731675b3eb = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_304f3825ba4df37c8c829ac014a39b11 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2ee420d8e157b19b2e33ea64725973e0 = $(`<div id="html_2ee420d8e157b19b2e33ea64725973e0" style="width: 100.0%; height: 100.0%;"><b>Oficina de Tramitació del DNI i del Passaport</b><br>Carrer de Guipúscoa, 82, Sant Martí, 08020 Barcelona</div>`)[0];
+                popup_304f3825ba4df37c8c829ac014a39b11.setContent(html_2ee420d8e157b19b2e33ea64725973e0);
+            
+        
+
+        marker_6439d077e952d5763222ccb770961101.bindPopup(popup_304f3825ba4df37c8c829ac014a39b11)
+        ;
+
+        
+    
+    
+                marker_6439d077e952d5763222ccb770961101.setIcon(icon_4b5ff6133c65c148c53e50731675b3eb);
+            
+    
+            var marker_28b2309f4e2f433cd77e30fff01005ad = L.marker(
+                [41.377961299999996, 2.1450491],
+                {
+}
+            ).addTo(map_0a2978cc7c46247c0ee13bdf0a9ae96c);
+        
+    
+            var icon_6e5b312f49c2156684018b9d6263a901 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_24c8a548c2afb36a100ce62b6acf8188 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_fd7d385846ea32de32a51aba3cb537e2 = $(`<div id="html_fd7d385846ea32de32a51aba3cb537e2" style="width: 100.0%; height: 100.0%;"><b>Servei d'Atenció a Immigrants, Emigrants i Refugiats (SAIER). Seu central</b><br>Carrer de Tarragona, 141, Sants-Montjuïc, 08014 Barcelona</div>`)[0];
+                popup_24c8a548c2afb36a100ce62b6acf8188.setContent(html_fd7d385846ea32de32a51aba3cb537e2);
+            
+        
+
+        marker_28b2309f4e2f433cd77e30fff01005ad.bindPopup(popup_24c8a548c2afb36a100ce62b6acf8188)
+        ;
+
+        
+    
+    
+                marker_28b2309f4e2f433cd77e30fff01005ad.setIcon(icon_6e5b312f49c2156684018b9d6263a901);
+            
+</script>
+</html>
