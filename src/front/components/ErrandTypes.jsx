@@ -16,6 +16,7 @@ export const ErrandTypes = ({ errands }) => {
     const userId = store?.main?.user_data?.users_id;
     const isLoggedIn = !!store?.main?.auth?.token;
     const globalUserFavorites = store?.main?.user_data?.favorites;
+    const [searchTerm, setSearchTerm] = useState("");
 
     useEffect(() => {
         contentServices.getErrands(globalDispatch)
@@ -65,9 +66,10 @@ export const ErrandTypes = ({ errands }) => {
         errand_name: item.name
     }));
 
-    const filteredProcedures = selectedCategory === "Todas"
-        ? adaptedErrands
-        : adaptedErrands.filter(item => item.category_name === selectedCategory);
+    const filteredProcedures = adaptedErrands.filter(item =>
+        (selectedCategory === "Todas" || item.category_name === selectedCategory) &&
+        item.errand_name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
     const uniqueCategories = ["Todas", ...new Set(adaptedErrands.map(item => item.category_name))];
 
@@ -96,6 +98,21 @@ export const ErrandTypes = ({ errands }) => {
 
     return (
         <div className="p-4">
+            <div className="mb-4"> {/* Added margin-bottom for spacing */}
+                <div className="input-group rounded-pill border border-2" style={{ borderColor: '#dee2e6' }}> {/* Added rounded-pill and border for visual resemblance */}
+                    <span className="input-group-text bg-white border-0 ps-3 rounded-start-pill"> {/* Adjusted padding and removed border */}
+                        <i className="bi bi-search text-muted"></i> {/* Text-muted for lighter icon color */}
+                    </span>
+                    <input
+                        type="text"
+                        className="form-control border-0 pe-3 rounded-end-pill" // Removed border and added rounded-end-pill
+                        placeholder="Buscar trámite..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        style={{ outline: 'none', boxShadow: 'none' }}
+                    />
+                </div>
+            </div>
             <h1 className="display-5 fw-bold text-primary mb-3"
                 style={{
                     transition: 'transform 0.3s',
