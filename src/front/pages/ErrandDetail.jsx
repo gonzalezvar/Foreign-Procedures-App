@@ -4,6 +4,9 @@ import useGlobalReducer from "../hooks/useGlobalReducer";
 import { useFavorites } from "../hooks/favoriteReducer";
 import Button from '@mui/material/Button';
 import { useState } from "react";
+import 'leaflet/dist/leaflet.css';
+import MapViewer from '../components/MapViewer';
+
 
 export const ErrandDetail = () => {
     const { errand_id } = useParams();
@@ -14,6 +17,9 @@ export const ErrandDetail = () => {
     const [showRequirements, setShowRequirements] = useState(false);
 
     const stoOfErrands = store.content.errands.data || [];
+
+    const latitude = 48.8566;
+    const longitude = 2.3522;
 
     const singleErrand = stoOfErrands.find(
         (item) => item.errand_id === parseInt(errand_id)
@@ -106,6 +112,11 @@ export const ErrandDetail = () => {
                                 )}
                             </div>
                         )}
+
+                        <div>
+                            <h2>Mapa de ubicación</h2>
+                            <MapViewer latitude={latitude} longitude={longitude} placeName="París, Francia" />
+                        </div>
                     </div>
 
                     <div className="mt-3 text-end">

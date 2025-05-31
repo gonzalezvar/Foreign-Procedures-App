@@ -14,6 +14,12 @@ export const Favorites = () => {
     const DELAY_TIME = 3000; // 3 segundos de retardo
     const [notification, setNotification] = useState(null);
     const timeoutRef = useRef(null); // Usar useRef para almacenar el ID del timeout
+    const [showPopup, setShowPopup] = useState(false);
+    const [popupMessage, setPopupMessage] = useState("");
+    const popupTimeoutRef = useRef(null); // Nuevo ref para el timeout del popup
+    const [popupErrandId, setPopupErrandId] = useState(null);
+
+
 
 
     // --- ¡NUEVO useEffect AQUÍ! ---
@@ -38,14 +44,38 @@ export const Favorites = () => {
     const favoriteErrands = store?.main?.user_data?.favorites || [];
 
     const handleFavorite = (e, item) => {
-        // ... (validaciones) ...
+        // ... (validaciones - asegúrate de que existen y funcionan aquí) ...
 
-        // Determinar si el favorito está actualmente en la lista local y el tipo de acción
+        // Limpiar cualquier timeout de popup anterior si se hace clic muy rápido
+        if (popupTimeoutRef.current) {
+            clearTimeout(popupTimeoutRef.current);
+        }
+        // Limpiar cualquier timeout de acción pendiente anterior
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+            setNotification(null); // Limpiar la notificación anterior
+            // Opcional: Revertir la acción local si el usuario clica para deshacer antes del delay
+            // Aquí deberías añadir lógica para revertir pendingAction si el item clickeado es el mismo
+            // que estaba pendiente y se está clicando para deshacer.
+            if (pendingAction && pendingAction.errandId === item.errand_id) {
+                // Si la acción pendiente era añadir, ahora se está quitando (localmente)
+                // Si la acción pendiente era quitar, ahora se está añadiendo (localmente)
+                // Revertimos la acción local para que el corazón refleje el estado real
+                if (pendingAction.type === 'add') {
+                    favoriteDispatch({ type: "removeFavorite", payload: { id: item.errand_id } });
+                } else {
+                    favoriteDispatch({ type: "addFavorite", payload: { id: item.errand_id, name: item.name } });
+                }
+                setPendingAction(null); // La acción se ha deshecho
+                return; // Salir, no programar nueva acción para este click
+            }
+        }
+
+
         const isCurrentlyFavorite = favoritesState.favorites.some(fav => fav.id === item.errand_id);
         const actionType = isCurrentlyFavorite ? 'remove' : 'add';
 
         // 1. Actualizar el estado local (favoriteDispatch) de inmediato para feedback visual
-        //    Esto hace que el corazón cambie y el item aparezca/desaparezca de la lista
         if (actionType === 'remove') {
             favoriteDispatch({ type: "removeFavorite", payload: { id: item.errand_id } });
         } else {
@@ -55,20 +85,39 @@ export const Favorites = () => {
         // 2. Establecer la acción como pendiente para poder cancelarla y mostrar mensaje
         setPendingAction({ errandId: item.errand_id, type: actionType, previousState: isCurrentlyFavorite });
 
-        // 3. Mostrar mensaje de notificación sobre la acción pendiente
+        // 3. Mostrar mensaje de notificación sobre la acción pendiente (la que se puede deshacer)
         const pendingMessage = actionType === 'remove'
             ? `"${item.name}" se eliminará en ${DELAY_TIME / 1000}s. Clic de nuevo para deshacer.`
             : `"${item.name}" se añadirá en ${DELAY_TIME / 1000}s. Clic de nuevo para deshacer.`;
         setNotification({ message: pendingMessage, type: "info", dismissable: false });
-        // ^^^ Este es el mensaje "Has quitado/añadido" que indica la acción pendiente
 
-        // 4. Guardar el ID del timeout y programar la ejecución real
+
+        // 4. PROGRAMAR LA ACCIÓN REAL DESPUÉS DEL RETRASO (DELAY_TIME)
         timeoutRef.current = setTimeout(() => {
             executeFavoriteAction(actionType, { id: item.errand_id, name: item.name });
             setNotification(null); // Limpiar mensaje de "pendiente" una vez ejecutado
+            setPendingAction(null); // Limpiar la acción pendiente
         }, DELAY_TIME);
-    };
 
+
+        // === LÓGICA DEL POPUP DE "DECISIÓN PERMANENTE" ===
+        // Este popup debe aparecer INMEDIATAMENTE y desaparecer a los 3 segundos.
+        const permanentMessage = actionType === 'remove'
+            ? "La decisión de eliminar/añadir favoritos se hará permanente en 2 segundos." // Mensaje para cuando se quita
+            : "La decisión de eliminar/añadir favoritos se hará permanente en 2 segundos."; // Mensaje para cuando se añade
+
+        setPopupMessage(permanentMessage);
+        setPopupErrandId(item.errand_id); // Asociar el popup al ítem
+        setShowPopup(true); // Muestra el popup
+
+        // Oculta el popup después de 3 segundos (su propio temporizador)
+        popupTimeoutRef.current = setTimeout(() => {
+            setShowPopup(false);
+            setPopupMessage("");  // Limpiar el mensaje después de ocultar
+            setPopupErrandId(null);
+        }, 3000); // 3000 milisegundos = 3 segundos
+
+    };
     // ...
 
     // En executeFavoriteAction (se llama después del delay)
@@ -113,6 +162,27 @@ export const Favorites = () => {
                                         >
                                             {isFavorite ? "❤️" : "🤍"}
                                         </button>
+                                        {/* Ventana emergente (Popup/Toast) */}
+                                        {showPopup && popupErrandId === item.errand_id && (
+                                            <div
+                                                style={{ // Estilos básicos para el popup. Considera usar CSS modules o clases.
+                                                    position: 'fixed',
+                                                    bottom: '20px',
+                                                    left: '50%',
+                                                    transform: 'translateX(-50%)',
+                                                    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                                                    color: 'white',
+                                                    padding: '10px 20px',
+                                                    borderRadius: '5px',
+                                                    zIndex: '1000', // Asegura que esté por encima de otros elementos
+                                                    textAlign: 'center',
+                                                    fontSize: '1em',
+                                                    whiteSpace: 'nowrap'
+                                                }}
+                                            >
+                                                {popupMessage}
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                             </div>
