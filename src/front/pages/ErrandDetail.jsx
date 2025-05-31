@@ -48,7 +48,6 @@ export const ErrandDetail = () => {
 
     return (
         <>
-            {/* Estilos CSS para la clase limited-height */}
             <style>
                 {`
                 .limited-height {
@@ -57,7 +56,6 @@ export const ErrandDetail = () => {
                 }
                 `}
             </style>
-
             <div className="col-md-6 mb-4 mx-auto bg-white mt-5 rounded shadow-sm p-3">
                 <img
                     src="https://plus.unsplash.com/premium_photo-1661329930662-19a43503782f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -72,8 +70,6 @@ export const ErrandDetail = () => {
                         <p className="card-text">
                             <strong>Tipo de trámite:</strong> {singleErrand.errand_type.description}
                         </p>
-
-                        {/* Toggle: Procedimientos */}
                         {singleErrand.procedures && (
                             <div className="mb-3">
                                 <button
@@ -86,30 +82,18 @@ export const ErrandDetail = () => {
                                     </span>
                                 </button>
                                 {showProcedures && (
-                                    <div className="mt-2 border rounded p-2 bg-light limited-height">
+                                    <div className="mt-2 border rounded p-2 bg-light overflow-auto" style={{ maxHeight: "300px" }}>
                                         {singleErrand.procedures}
                                     </div>
                                 )}
                             </div>
                         )}
-
-                        {/* Toggle: Requerimientos */}
                         {singleErrand.requirements && (
                             <div className="mb-3">
-                                <button
-                                    className="btn btn-outline-secondary w-100 text-start d-flex justify-content-between align-items-center"
-                                    onClick={() => setShowRequirements(!showRequirements)}
-                                >
-                                    Requerimientos
-                                    <span className={`ms-2 transition ${showRequirements ? 'rotate-180' : ''}`} style={{ transition: 'transform 0.3s' }}>
-                                        ▼
-                                    </span>
-                                </button>
-                                {showRequirements && (
-                                    <div className="mt-2 border rounded p-2 bg-light limited-height">
-                                        {singleErrand.requirements}
-                                    </div>
-                                )}
+                                <h6 className="fw-bold">Requerimientos</h6>
+                                <div className="mt-2 border rounded p-2 bg-light overflow-auto" style={{ maxHeight: "300px" }}>
+                                    {singleErrand.requirements}
+                                </div>
                             </div>
                         )}
 
@@ -118,7 +102,6 @@ export const ErrandDetail = () => {
                             <MapViewer latitude={latitude} longitude={longitude} placeName="París, Francia" />
                         </div>
                     </div>
-
                     <div className="mt-3 text-end">
                         <Button
                             variant="contained"
