@@ -14,8 +14,6 @@ export const Login = () => {
 
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [isAuthenticating, setIsAuthenticating] = useState(false);
-
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,28 +25,28 @@ export const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsAuthenticating(true);
     try {
       const loginUser = {
         email: loginData.email.trim(),
         password: loginData.password.trim()
       };
       const response = await authenticationServices.login(loginUser);
-      setSuccessMessage("Login correcto ✅");
-      setTimeout(() => {
-        setSuccessMessage("");
-        navigate("/");
-        dispatch({ type: "LOGIN", payload: { token: response.token, user_data: response.user } });
-      }, 1500);
-
-    } catch (error) {
-      console.error('Error al iniciar sesión:', error);
-      setErrorMessage("Credenciales inválidas. Por favor intenta de nuevo ❌");
+      dispatch({ type: "LOGIN", payload: { token: response.token, user_data: response.user } });
+       setSuccessMessage("Login correcto ✅");
+          setTimeout(() => {
+            setSuccessMessage("");
+            navigate("/");
+          }, 1500);
+        
+      } catch (error) {
+          console.error('Error al iniciar sesión:', error);
+            setErrorMessage("Credenciales inválidas. Por favor intenta de nuevo ❌");
       setTimeout(() => setErrorMessage(""), 1500);
-    } finally {
-      setIsAuthenticating(false);
-    }
-  };
+        }
+    };
+    
+         
+
 
 
   return (

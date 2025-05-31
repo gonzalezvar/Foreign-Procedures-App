@@ -13,10 +13,16 @@ export const authenticationServices = {
         body: JSON.stringify({ email, password }),
       });
       const response = await request.json();
+      if (!request.ok) {
+        throw new Error(response.message || "Error al crear cuenta");
+      }
       console.log("API response:", response);
       console.log(response);
       return response;
-    } catch (error) {}
+    } catch (error) {
+      console.error("Error al crear cuenta:", error);
+      throw error;
+    }
   },
 
   login: async ({ email, password }) => {
@@ -30,11 +36,18 @@ export const authenticationServices = {
         body: JSON.stringify({ email, password }),
       });
       const response = await request.json();
+
+      if (!request.ok) {
+        throw new Error(response.message || "Error al iniciar sesión");
+      }
       console.log("API response:", response);
       console.log(response);
       localStorage.setItem("jwt-token", response.token);
       return response;
-    } catch (error) {}
+    } catch (error) {
+      console.error("Error en login:", error);
+      throw error;
+    }
   },
 
   getMyTask: async () => {

@@ -5,6 +5,7 @@ import { Footer } from "../components/Footer"
 import useGlobalReducer from "../hooks/useGlobalReducer"
 import { useEffect } from 'react';
 import { authenticationServices } from "../services/authenticationServices";
+import { contentServices } from "../services/contentServices"
 
 // Base component that maintains the navbar and footer throughout the page and the scroll to top functionality.
 export const Layout = () => {
@@ -36,6 +37,32 @@ export const Layout = () => {
         fetchUserDataOnNavigation();
     }, [location.pathname, store.main.auth.token, globalDispatch]); // Dependencias: pathname, token y globalDispatch
 
+
+    useEffect(() => {
+  const localErrands = localStorage.getItem("errands");
+  let shouldFetch = true;
+
+  if (localErrands) {
+    try {
+      const parsed = JSON.parse(localErrands);
+      const isExpired = Date.now() - parsed.timestamp > 1000 * 60 * 60;
+      if (!isExpired) {
+        globalDispatch({
+          type: "setData",
+          category: "errands",
+          data: parsed.data,
+        });
+        shouldFetch = false;
+      }
+    } catch (error) {
+      console.error("Error reading errands from storage in layout:", error);
+    }
+  }
+
+  if (shouldFetch) {
+    contentServices.getErrands(globalDispatch);
+  }
+}, []);
 
     return (
         <ScrollToTop>

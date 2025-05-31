@@ -15,14 +15,15 @@ export const contentServices = {
       dispatch({
         type: "setData",
         category: "errands",
-        data: errands, // guardar el arreglo completo
+        data: errands,
       });
 
-            localStorage.setItem("errands", JSON.stringify(errands));
+           localStorage.setItem("errands", JSON.stringify({ data: errands, timestamp: Date.now() }));
 
       return errands;
       
     } catch (error) {}
+    
   },
 
 };
