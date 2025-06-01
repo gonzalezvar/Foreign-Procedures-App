@@ -22,9 +22,9 @@ class Follow_up(db.Model):
     # Posible implementación a futuro de almacennaje de información de una consulta para una API IA, por ejemplo
     form_data: Mapped[str] = mapped_column(String(2038), nullable=True)
     # # Para intentar en un futuro agregar documentos de los users
-    documentacion: Mapped[str] = mapped_column(String(2038), nullable=True)
+    documentation: Mapped[str] = mapped_column(String(2038), nullable=True)
     # permitir al usuario agregar una descripcion del tramite
-    descripcion: Mapped[str] = mapped_column(String(2038), nullable=True)
+    description: Mapped[str] = mapped_column(String(2038), nullable=True)
 
     # Relationships
     user: Mapped["User"] = relationship(
@@ -38,8 +38,8 @@ class Follow_up(db.Model):
             # format expiration_date to string
             "reference_date": self.reference_date.strftime('%Y-%m-%d') if self.reference_date else None,
             "form_data": self.form_data,
-            "documentacion": self.documentacion,
-            "descripcion": self.descripcion
+            "documentation": self.documentation,
+            "description": self.description
         }
 
     def serialize_with_relations(self):
