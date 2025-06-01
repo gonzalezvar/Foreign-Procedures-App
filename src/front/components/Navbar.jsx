@@ -30,6 +30,13 @@ export const Navbar = () => {
 				</Link>
 				<div className="ms-auto d-flex gap-2">
 					{token ?
+						(<Link to="/follow_up">
+							<button className="btn btn-outline-primary">Seguimiento de trámites</button>
+						</Link>)
+						:
+						(null)
+					}
+					{token ?
 						(<Link to="/favorites">
 							<button className="btn btn-outline-primary">Favorites</button>
 						</Link>)

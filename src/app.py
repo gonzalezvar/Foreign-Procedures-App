@@ -1,26 +1,27 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
+from extensions import mail
+from api.routes.follow_up_routes import follow_up_bp
+from api.routes.offices_routes import offices_bp
+from api.routes.favorites_routes import favorite_bp
+from api.routes.errand_routes import errand_bp
+from api.routes.errand_types_routes import errand_type_bp
+from api.routes.user_routes import user_bp
+from flask_cors import CORS
+from flask_jwt_extended import JWTManager
+from api.routes.routes import api
+from api.commands import setup_commands
+from api.admin import setup_admin
+from api.models import db, Errand, Errand_type, Favorites, Offices, Follow_up, User
+from api.utils import *
+from flask_swagger import swagger
+from flask_migrate import Migrate
+from flask import Flask, request, jsonify, url_for, send_from_directory
 import os
 from dotenv import load_dotenv
 load_dotenv()
-from flask import Flask, request, jsonify, url_for, send_from_directory
-from flask_migrate import Migrate
-from flask_swagger import swagger
 # from api.utils import APIException, generate_sitemap
-from api.utils import *
-from api.models import db, Errand, Errand_type, Favorites, Offices, Follow_up, User
-from api.admin import setup_admin
-from api.commands import setup_commands
-from api.routes.routes import api
-from flask_jwt_extended import JWTManager
-from flask_cors import CORS
-from api.routes.user_routes import user_bp
-from api.routes.errand_types_routes import errand_type_bp
-from api.routes.errand_routes import errand_bp
-from api.routes.favorites_routes import favorite_bp
-from api.routes.offices_routes import offices_bp
-from extensions import mail
 
 # from models import Person
 
@@ -39,6 +40,7 @@ app.register_blueprint(errand_type_bp, url_prefix='/api')
 app.register_blueprint(errand_bp, url_prefix='/api')
 app.register_blueprint(favorite_bp, url_prefix='/api')
 app.register_blueprint(offices_bp, url_prefix='/api')
+app.register_blueprint(follow_up_bp, url_prefix='/api')
 
 # Configuración de mail para recuperar contraseña
 

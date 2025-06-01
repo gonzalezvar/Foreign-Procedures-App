@@ -120,7 +120,40 @@ export const authenticationServices = {
       console.log("This is the data you requested", data);
       return data;
     } catch (error) {
-      console.log("Problema para enviar el correo de recuperar contraseña:", error);
+      console.log(
+        "Problema para enviar el correo de recuperar contraseña:",
+        error
+      );
+    }
+  },
+
+  createFollowUp: async ({ errand_name, status_type, expiration_date }) => {
+    const token = localStorage.getItem("jwt-token");
+
+    try {
+      const response = await fetch(`${baseUrl}/api/user_follow_ups`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+        body: JSON.stringify({
+          errand_name,
+          status_type,
+          expiration_date,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Error al crear tarea de seguimiento");
+      }
+
+      return data;
+    } catch (error) {
+      console.error("Error al crear seguimiento:", error);
+      throw error;
     }
   },
 };
