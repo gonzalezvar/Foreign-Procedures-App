@@ -12,7 +12,7 @@ import { favoritesServices } from "../services/favoritesServices";
 
 export const ErrandDetail = () => {
     const { errand_id } = useParams();
- const { state: favoritesState, dispatch: favoriteDispatch } = useFavorites();
+    const { state: favoritesState, dispatch: favoriteDispatch } = useFavorites();
     const { store, dispatch: globalDispatch } = useGlobalReducer();
 
     const [showProcedures, setShowProcedures] = useState(false);
@@ -94,7 +94,7 @@ export const ErrandDetail = () => {
                             <div className="mb-3">
                                 <h6 className="fw-bold">Requerimientos</h6>
                                 <div className="mt-2 border rounded p-2 bg-light overflow-auto" style={{ maxHeight: "300px" }}>
-                                    {singleErrand.requirements}
+                                    <a href={singleErrand.requirements}>Página oficial de requisitos</a>
                                 </div>
                             </div>
                         )}
