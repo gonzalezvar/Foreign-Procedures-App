@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import procedures_categorized from "../assets/img/procedures_categorized.json";
+import { useState, useEffect } from 'react';
 import useGlobalReducer from "../hooks/useGlobalReducer";
 import { useFavorites } from "../hooks/favoriteReducer";
-import { contentServices } from "../services/contentServices";
 import { favoritesServices } from "../services/favoritesServices";
 import { Link } from 'react-router-dom';
 import CardActions from '@mui/material/CardActions';
@@ -19,74 +17,53 @@ export const ErrandTypes = ({ errands }) => {
     const globalUserFavorites = store?.main?.user_data?.favorites;
     const isLoading = store?.content?.errands?.loading;
 
-    console.log(isLoading);
-
-    // useEffect(() => {
-    //     contentServices.getErrands(globalDispatch)
-    //     // const storedErrands = localStorage.getItem("errands");
-    //     // if (storedErrands) {
-    //     //     globalDispatch({
-    //     //         type: "setData",
-    //     //         category: "errands",
-    //     //         data: JSON.parse(storedErrands),
-    //     //     });
-    //     // }
-    // }, []);
-
-    // useEffect(() => {
-    //     const isUserActive = store.main.auth.token;
-    //     if (isUserActive && userId) {
-    //         favoritesServices.getFavorite(globalDispatch, userId);
-    //     }
-    // }, [store.user]);
-
-    // --- EL CAMBIO CLAVE ESTÁ AQUÍ ---
-    // useEffect para sincronizar los favoritos del usuario logueado con el estado local de favoritos
+    // useEffect To sync the user's favorites with the local favorites state
     useEffect(() => {
         if (isLoggedIn && globalUserFavorites && globalUserFavorites.length > 0) {
-            // Mapea los favoritos del store global al formato que espera tu favoriteReducer
+            // Maps favorites from the global store to the format expected by the favoriteReducer
             const adaptedGlobalFavorites = globalUserFavorites.map(fav => ({
                 id: fav.errand.errand_id,
                 name: fav.errand.name
             }));
-            // Despacha la acción SET_FAVORITES (o la que uses para establecer la lista completa)
-            // Asegúrate de que tu favoriteReducer tenga un case 'SET_FAVORITES' o 'setFavorites'
-            // que reemplace la lista actual por el payload.
+            // Update the local favorites state with the user's favorites
             favoriteDispatch({ type: "setFavorites", payload: adaptedGlobalFavorites });
 
         } else if (!isLoggedIn) {
-            // Si el usuario cierra sesión, limpia los favoritos del estado local
+            // If the user is logged out, clear the local favorites state
             favoriteDispatch({ type: "setFavorites", payload: [] });
         }
-    }, [isLoggedIn, globalUserFavorites, favoriteDispatch]); // Depende de isLoggedIn y globalUserFavorites
+    }, [isLoggedIn, globalUserFavorites, favoriteDispatch]);
 
-
+    // Extract errands from the store
     const errandsFromStore = store.content.errands.data || [];
+    // Adapt the errands data to include category and errand names
     const adaptedErrands = errandsFromStore.map(item => ({
         errand_id: item.errand_id,
-        category_name: item.errand_type?.name || "Sin categoría", // Added optional chaining
-        category_description: item.errand_type?.description, // Added optional chaining
+        category_name: item.errand_type?.name || "Sin categoría",
+        category_description: item.errand_type?.description,
         errand_name: item.name
     }));
 
+    // Filter errands based on selected category and search term
     const filteredProcedures = adaptedErrands.filter(item =>
         (selectedCategory === "Todas" || item.category_name === selectedCategory) &&
         item.errand_name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
+    // Get unique categories from the adapted errands
     const uniqueCategories = ["Todas", ...new Set(adaptedErrands.map(item => item.category_name))];
 
+    // Handle favorite toggle
     const handleFavorite = (e, item) => {
         e.stopPropagation();
 
         const isFavorite = favoritesState.favorites.some(fav => fav.id === item.errand_id);
 
         if (isFavorite) {
-            // Quitar favorito
+            // Remove favorite
             favoritesServices.removeFavorite(favoriteDispatch, globalDispatch, item.errand_id);
         } else {
-            // Agregar favorito
-
+            // Add favorite
             favoritesServices.addFavorite(favoriteDispatch, globalDispatch, userId, {
                 id: item.errand_id,
                 name: item.errand_name,
@@ -102,14 +79,14 @@ export const ErrandTypes = ({ errands }) => {
                 </div>
             ) : (
                 <>
-                    <div className="mb-4"> {/* Added margin-bottom for spacing */}
-                        <div className="input-group rounded-pill border border-2" style={{ borderColor: '#dee2e6' }}> {/* Added rounded-pill and border for visual resemblance */}
-                            <span className="input-group-text bg-white border-0 ps-3 rounded-start-pill"> {/* Adjusted padding and removed border */}
-                                <i className="bi bi-search text-muted"></i> {/* Text-muted for lighter icon color */}
+                    <div className="mb-4"> {/* Search bar */}
+                        <div className="input-group rounded-pill border border-2" style={{ borderColor: '#dee2e6' }}>
+                            <span className="input-group-text bg-white border-0 ps-3 rounded-start-pill">
+                                <i className="bi bi-search text-muted"></i>
                             </span>
                             <input
                                 type="text"
-                                className="form-control border-0 pe-3 rounded-end-pill" // Removed border and added rounded-end-pill
+                                className="form-control border-0 pe-3 rounded-end-pill"
                                 placeholder="Buscar trámite..."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -130,7 +107,7 @@ export const ErrandTypes = ({ errands }) => {
                     <p className="lead text-muted">
                         Selecciona una categoría para ver los procedimientos disponibles.
                     </p>
-                    <div className="mb-3">
+                    <div className="mb-3"> {/* Category filter */}
                         <label htmlFor="category-select" className="form-label" >Filtrar por Categoría:</label>
                         <select
                             id="category-select"
@@ -143,7 +120,7 @@ export const ErrandTypes = ({ errands }) => {
                             ))}
                         </select>
                     </div>
-                    <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+                    <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4"> {/* Errands grid */}
                         {filteredProcedures.map((item) => {
                             const isFavorite = favoritesState.favorites.some(fav => fav.id === item.errand_id);
                             return (

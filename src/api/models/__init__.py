@@ -5,4 +5,3 @@ from .errand_types import Errand_type
 from .favorites import Favorites
 from .offices import Offices
 from .follow_up import Follow_up
-

@@ -18,6 +18,7 @@ class Errand(db.Model):
     "segun lo investigado con el maximo de caracteres que puede haber en una url es de 2083"
     country: Mapped[str] = mapped_column(String(250), nullable=False)
 
+    # Relationships
     errand_type_id: Mapped[int] = mapped_column(
         ForeignKey('errand_type.errand_type_id'), nullable=False)
     errand_type: Mapped["Errand_type"] = relationship(
