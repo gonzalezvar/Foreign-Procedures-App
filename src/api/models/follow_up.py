@@ -4,7 +4,6 @@ from api.models import db
 from typing import TYPE_CHECKING, List
 from datetime import datetime
 
-
 if TYPE_CHECKING:
     from .users import User
 
@@ -27,6 +26,7 @@ class Follow_up(db.Model):
     # permitir al usuario agregar una descripcion del tramite
     descripcion: Mapped[str] = mapped_column(String(2038), nullable=True)
 
+    # Relationships
     user: Mapped["User"] = relationship(
         "User", back_populates="follow_up", foreign_keys=[users_id])
 
@@ -35,6 +35,7 @@ class Follow_up(db.Model):
             "follow_up_id": self.follow_up_id,
             "errand_name": self.errand_name,
             "status_type": self.status_type,
+            # format expiration_date to string
             "reference_date": self.reference_date.strftime('%Y-%m-%d') if self.reference_date else None,
             "form_data": self.form_data,
             "documentacion": self.documentacion,

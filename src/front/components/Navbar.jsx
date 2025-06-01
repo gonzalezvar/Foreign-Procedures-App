@@ -17,7 +17,7 @@ export const Navbar = () => {
 		localStorage.removeItem("jwt-token");
 		dispatch({ type: "LOGOUT" });
 		navigate("/login");
-		console.log("Token después de logout:", localStorage.getItem("jwt-token")); // debe ser null
+		console.log("Token después de logout:", localStorage.getItem("jwt-token"));
 	}
 
 	return (

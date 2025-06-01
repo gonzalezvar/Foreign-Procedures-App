@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import useGlobalReducer from "../hooks/useGlobalReducer";
 import { useFavorites } from "../hooks/favoriteReducer";
 import { favoritesServices } from "../services/favoritesServices";
@@ -24,22 +24,24 @@ export const ErrandTypes = ({ errands }) => {
    
     useEffect(() => {
         if (isLoggedIn && globalUserFavorites && globalUserFavorites.length > 0) {
-           
+           // Maps favorites from the global store to the format expected by the favoriteReducer
             const adaptedGlobalFavorites = globalUserFavorites.map(fav => ({
                 id: fav.errand.errand_id,
                 name: fav.errand.name
             }));
-           
+           // Update the local favorites state with the user's favorites
             favoriteDispatch({ type: "setFavorites", payload: adaptedGlobalFavorites });
 
         } else if (!isLoggedIn) {
-          
+            // If the user is logged out, clear the local favorites state
             favoriteDispatch({ type: "setFavorites", payload: [] });
         }
     }, [isLoggedIn, globalUserFavorites, favoriteDispatch]); 
 
 
+    // Extract errands from the store
     const errandsFromStore = store.content.errands.data || [];
+    // Adapt the errands data to include category and errand names
     const adaptedErrands = errandsFromStore.map(item => ({
         errand_id: item.errand_id,
         category_name: item.errand_type?.name || "Sin categoría", 
@@ -47,24 +49,26 @@ export const ErrandTypes = ({ errands }) => {
         errand_name: item.name
     }));
 
+    // Filter errands based on selected category and search term
     const filteredProcedures = adaptedErrands.filter(item =>
         (selectedCategory === "Todas" || item.category_name === selectedCategory) &&
         item.errand_name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
+    // Get unique categories from the adapted errands
     const uniqueCategories = ["Todas", ...new Set(adaptedErrands.map(item => item.category_name))];
 
+    // Handle favorite toggle
     const handleFavorite = (e, item) => {
         e.stopPropagation();
 
         const isFavorite = favoritesState.favorites.some(fav => fav.id === item.errand_id);
 
         if (isFavorite) {
-          
+          // Remove favorite
             favoritesServices.removeFavorite(favoriteDispatch, globalDispatch, item.errand_id);
         } else {
-           
-
+            // Add favorite
             favoritesServices.addFavorite(favoriteDispatch, globalDispatch, userId, {
                 id: item.errand_id,
                 name: item.errand_name,
@@ -108,7 +112,7 @@ export const ErrandTypes = ({ errands }) => {
                     <p className="lead text-muted">
                         Selecciona una categoría para ver los procedimientos disponibles.
                     </p>
-                    <div className="mb-3">
+                    <div className="mb-3"> {/* Category filter */}
                         <label htmlFor="category-select" className="form-label" >Filtrar por Categoría:</label>
                         <select
                             id="category-select"
@@ -121,7 +125,7 @@ export const ErrandTypes = ({ errands }) => {
                             ))}
                         </select>
                     </div>
-                    <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+                    <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4"> {/* Errands grid */}
                         {filteredProcedures.map((item) => {
                             const isFavorite = favoritesState.favorites.some(fav => fav.id === item.errand_id);
                             return (

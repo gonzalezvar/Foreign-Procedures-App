@@ -15,7 +15,6 @@ export const Signup = () => {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setSignUpData((prevState) => ({
@@ -23,7 +22,6 @@ export const Signup = () => {
       [name]: value
     }));
   };
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -47,7 +45,7 @@ export const Signup = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit}> {/* Register form */}
       <div className="container d-flex align-items-center justify-content-center min-vh-100">
         <div className="card p-4 shadow-lg" style={{ maxWidth: "500px", width: "100%" }}>
           <h3 className="text-center mb-4 text-success">Crear Cuenta</h3>

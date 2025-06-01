@@ -15,6 +15,7 @@ class User(db.Model):
         String(250), unique=True, nullable=False)
     password: Mapped[str] = mapped_column(String(250), nullable=False)
 
+    # Relationships
     favorites: Mapped[List["Favorites"]] = relationship(
         "Favorites", back_populates="user")
     follow_up: Mapped[List["Follow_up"]] = relationship(
@@ -28,6 +29,8 @@ class User(db.Model):
 
     def serialize_with_relations(self):
         data = self.serialize()
-        data['favorites'] = [f.serialize_with_relations() for f in self.favorites] if self.favorites else []
-        data['follow_up'] = [fo.serialize_with_relations() for fo in self.follow_up] if self.follow_up else []
+        data['favorites'] = [f.serialize_with_relations()
+                             for f in self.favorites] if self.favorites else []
+        data['follow_up'] = [fo.serialize_with_relations()
+                             for fo in self.follow_up] if self.follow_up else []
         return data

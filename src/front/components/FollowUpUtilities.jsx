@@ -23,7 +23,6 @@ export const FollowUpForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // setIsAuthenticating(true);
         try {
             const followUpPost = {
                 errand_name: followUpData.errand_name.trim(),
@@ -33,17 +32,15 @@ export const FollowUpForm = () => {
                         ? followUpData.reference_date
                         : null
             };
-            const response = await authenticationServices.createFollowUp(followUpPost);
             const userData = await authenticationServices.userDataActualization();
             dispatch({ type: "SET_USER_DATA", payload: userData });
         } catch (error) {
             console.error('Error al crear tarea:', error);
-        } finally {
         }
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}> {/*Follow up form*/}
             <div className="container d-flex align-items-center justify-content-center mt-4 mb-4">
                 <div className="card p-4 shadow-sm" style={{ maxWidth: "400px", width: "100%" }}>
                     <div className="mb-3">
@@ -75,6 +72,7 @@ export const FollowUpForm = () => {
                             <option value="Finalizado">Finalizado</option>
                         </select>
                     </div>
+                    {/* Show expiration date only if status is "finalizado" */}
                     {followUpData.status_type === "Finalizado" && (
                         <div className="mb-3">
                             <label className="form-label">Fecha de vencimiento</label>
@@ -88,26 +86,24 @@ export const FollowUpForm = () => {
                             />
                         </div>
                     )}
-
                     <button type="submit" className="btn btn-primary w-100 mb-2">
                         Ingresar
                     </button>
-
                 </div>
             </div>
-
         </form >
     );
 };
 
 export const FollowUpMap = () => {
-
-    const { store, dispatch } = useGlobalReducer();
-    const startRouteStoreForFolloUpErrands = store?.main?.user_data?.follow_up
+    const { store, _ } = useGlobalReducer();
+    const startRouteStoreForFollowUpErrands = store?.main?.user_data?.follow_up
+    console.log(startRouteStoreForFollowUpErrands);
 
     return (
-        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
-            {startRouteStoreForFolloUpErrands.map((item) => (
+        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4"> {/* Follow up errands map */}
+            {startRouteStoreForFollowUpErrands.map((item) => (
+                // Using Framer Motion for animations
                 <motion.div key={item.follow_up_id}
                     id={item.follow_up_id}
                     className="col-md-4 mb-4"
@@ -116,13 +112,13 @@ export const FollowUpMap = () => {
                     transition={{ type: "spring", stiffness: 100, damping: 10 }}
                     whileHover={{ scale: 1.05 }}
                 >
-                    <div className="card" style={{ width: '100%' }}>
+                    <div className="card" style={{ width: '100%' }}> {/* Card for each errand */}
                         <img
                             src="https://plus.unsplash.com/premium_photo-1661329930662-19a43503782f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                             className="card-img-top"
                             alt="errand"
                         />
-                        <div className="card-body">
+                        <div className="card-body"> { }
                             <h5 className="card-title">{item.errand_name}</h5>
                             <p className="card-text">{item.status_type}</p>
                             {item.status_type === "Iniciado" ? (<p className="card-text">Fecha de iniciación: {item.reference_date}</p>) : (<p className="card-text">Fecha de vencimiento: {item.reference_date}</p>)}
