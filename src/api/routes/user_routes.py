@@ -30,7 +30,6 @@ def private_route():
     response_body = {
         "message": f"Hola {user.email}, soy una ruta privada"
     }
-
     return jsonify(response_body), 200
 
 

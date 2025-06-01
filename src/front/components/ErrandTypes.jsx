@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import procedures_categorized from "../assets/img/procedures_categorized.json";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 import { useFavorites } from "../hooks/favoriteReducer";
-import { contentServices } from "../services/contentServices";
 import { favoritesServices } from "../services/favoritesServices";
 import { Link } from 'react-router-dom';
 import CardActions from '@mui/material/CardActions';
@@ -12,60 +10,40 @@ import { motion } from "framer-motion";
 export const ErrandTypes = ({ errands }) => {
     const [selectedCategory, setSelectedCategory] = useState("Todas");
     const [searchTerm, setSearchTerm] = useState("");
+
     const { state: favoritesState, dispatch: favoriteDispatch } = useFavorites();
     const { store, dispatch: globalDispatch } = useGlobalReducer();
+
     const userId = store?.main?.user_data?.users_id;
     const isLoggedIn = !!store?.main?.auth?.token;
     const globalUserFavorites = store?.main?.user_data?.favorites;
+
     const isLoading = store?.content?.errands?.loading;
 
-    console.log(isLoading);
 
-    // useEffect(() => {
-    //     contentServices.getErrands(globalDispatch)
-    //     // const storedErrands = localStorage.getItem("errands");
-    //     // if (storedErrands) {
-    //     //     globalDispatch({
-    //     //         type: "setData",
-    //     //         category: "errands",
-    //     //         data: JSON.parse(storedErrands),
-    //     //     });
-    //     // }
-    // }, []);
-
-    // useEffect(() => {
-    //     const isUserActive = store.main.auth.token;
-    //     if (isUserActive && userId) {
-    //         favoritesServices.getFavorite(globalDispatch, userId);
-    //     }
-    // }, [store.user]);
-
-    // --- EL CAMBIO CLAVE ESTÁ AQUÍ ---
-    // useEffect para sincronizar los favoritos del usuario logueado con el estado local de favoritos
+   
     useEffect(() => {
         if (isLoggedIn && globalUserFavorites && globalUserFavorites.length > 0) {
-            // Mapea los favoritos del store global al formato que espera tu favoriteReducer
+           
             const adaptedGlobalFavorites = globalUserFavorites.map(fav => ({
                 id: fav.errand.errand_id,
                 name: fav.errand.name
             }));
-            // Despacha la acción SET_FAVORITES (o la que uses para establecer la lista completa)
-            // Asegúrate de que tu favoriteReducer tenga un case 'SET_FAVORITES' o 'setFavorites'
-            // que reemplace la lista actual por el payload.
+           
             favoriteDispatch({ type: "setFavorites", payload: adaptedGlobalFavorites });
 
         } else if (!isLoggedIn) {
-            // Si el usuario cierra sesión, limpia los favoritos del estado local
+          
             favoriteDispatch({ type: "setFavorites", payload: [] });
         }
-    }, [isLoggedIn, globalUserFavorites, favoriteDispatch]); // Depende de isLoggedIn y globalUserFavorites
+    }, [isLoggedIn, globalUserFavorites, favoriteDispatch]); 
 
 
     const errandsFromStore = store.content.errands.data || [];
     const adaptedErrands = errandsFromStore.map(item => ({
         errand_id: item.errand_id,
-        category_name: item.errand_type?.name || "Sin categoría", // Added optional chaining
-        category_description: item.errand_type?.description, // Added optional chaining
+        category_name: item.errand_type?.name || "Sin categoría", 
+        category_description: item.errand_type?.description, 
         errand_name: item.name
     }));
 
@@ -82,10 +60,10 @@ export const ErrandTypes = ({ errands }) => {
         const isFavorite = favoritesState.favorites.some(fav => fav.id === item.errand_id);
 
         if (isFavorite) {
-            // Quitar favorito
+          
             favoritesServices.removeFavorite(favoriteDispatch, globalDispatch, item.errand_id);
         } else {
-            // Agregar favorito
+           
 
             favoritesServices.addFavorite(favoriteDispatch, globalDispatch, userId, {
                 id: item.errand_id,
@@ -102,14 +80,14 @@ export const ErrandTypes = ({ errands }) => {
                 </div>
             ) : (
                 <>
-                    <div className="mb-4"> {/* Added margin-bottom for spacing */}
-                        <div className="input-group rounded-pill border border-2" style={{ borderColor: '#dee2e6' }}> {/* Added rounded-pill and border for visual resemblance */}
-                            <span className="input-group-text bg-white border-0 ps-3 rounded-start-pill"> {/* Adjusted padding and removed border */}
-                                <i className="bi bi-search text-muted"></i> {/* Text-muted for lighter icon color */}
+                    <div className="mb-4"> 
+                        <div className="input-group rounded-pill border border-2" style={{ borderColor: '#dee2e6' }}> 
+                            <span className="input-group-text bg-white border-0 ps-3 rounded-start-pill"> 
+                                <i className="bi bi-search text-muted"></i> 
                             </span>
                             <input
                                 type="text"
-                                className="form-control border-0 pe-3 rounded-end-pill" // Removed border and added rounded-end-pill
+                                className="form-control border-0 pe-3 rounded-end-pill" 
                                 placeholder="Buscar trámite..."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -188,25 +166,3 @@ export const ErrandTypes = ({ errands }) => {
 };
 
 
-/*<Card sx={{ maxWidth: 345 }}>
-              <CardMedia
-                sx={{ height: 140 }}
-                image="/static/images/cards/contemplative-reptile.jpg"
-                title="green iguana"
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  Lizard
-                </Typography>
-                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                  Lizards are a widespread group of squamate reptiles, with over 6,000
-                  species, ranging across all continents except Antarctica
-                </Typography>
-              </CardContent>
-              <CardActions>
-                <Button size="small">Share</Button>
-                <Button size="small">Learn More</Button>
-              </CardActions>
-            </Card>
-          );
-        }*/

@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 import { useFavorites } from "../hooks/favoriteReducer";
@@ -12,18 +12,14 @@ import { favoritesServices } from "../services/favoritesServices";
 
 export const ErrandDetail = () => {
     const { errand_id } = useParams();
- const { state: favoritesState, dispatch: favoriteDispatch } = useFavorites();
+    const { state: favoritesState, dispatch: favoriteDispatch } = useFavorites();
     const { store, dispatch: globalDispatch } = useGlobalReducer();
 
     const [showProcedures, setShowProcedures] = useState(false);
-    const [showRequirements, setShowRequirements] = useState(false);
+    
+    const storeOfErrands = store.content.errands.data || [];
 
-    const stoOfErrands = store.content.errands.data || [];
-
-    const latitude = 48.8566;
-    const longitude = 2.3522;
-
-    const singleErrand = stoOfErrands.find(
+    const singleErrand = storeOfErrands.find(
         (item) => item.errand_id === parseInt(errand_id)
     );
 
@@ -101,7 +97,7 @@ export const ErrandDetail = () => {
 
                         <div>
                             <h2>Mapa de ubicación</h2>
-                            <MapViewer latitude={latitude} longitude={longitude} placeName="París, Francia" />
+                            <MapViewer/>
                         </div>
                     </div>
                     <div className="mt-3 text-end">

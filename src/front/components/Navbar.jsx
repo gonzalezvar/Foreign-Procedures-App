@@ -1,13 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
 import useGlobalReducer from "../hooks/useGlobalReducer";
-import { useEffect } from "react";
 import Logo2 from "../assets/img/Logo2.png";
 
 export const Navbar = () => {
 
 
 	const { store, dispatch } = useGlobalReducer();
-	const token = store?.main?.auth?.isAuthenticated;
+	const token = !!store?.main?.user_data?.users_id;
 	console.log("Como se ve en store:", token)
 
 	const navigate = useNavigate();

@@ -9,7 +9,7 @@ export const FollowUpForm = () => {
 
     const [followUpData, setFollowUpData] = useState({
         errand_name: "",
-        expiration_date: "",
+        reference_date: "",
         status_type: "",
     });
 
@@ -28,27 +28,17 @@ export const FollowUpForm = () => {
             const followUpPost = {
                 errand_name: followUpData.errand_name.trim(),
                 status_type: followUpData.status_type,
-                expiration_date:
-                    followUpData.status_type === "finalizado"
-                        ? followUpData.expiration_date
+                reference_date:
+                    followUpData.status_type === "Finalizado"
+                        ? followUpData.reference_date
                         : null
             };
             const response = await authenticationServices.createFollowUp(followUpPost);
             const userData = await authenticationServices.userDataActualization();
             dispatch({ type: "SET_USER_DATA", payload: userData });
-            // setSuccessMessage("Login correcto ✅");
-            // setTimeout(() => {
-            //     setSuccessMessage("");
-            //     navigate("/");
-            //     // dispatch({ type: "LOGIN", payload: { token: response.token, user_data: response.user } }); #revisar
-            // }, 1500);
-
         } catch (error) {
             console.error('Error al crear tarea:', error);
-            // setErrorMessage("Credenciales inválidas. Por favor intenta de nuevo ❌");
-            // setTimeout(() => setErrorMessage(""), 1500);
         } finally {
-            // setIsAuthenticating(false);
         }
     };
 
@@ -82,17 +72,17 @@ export const FollowUpForm = () => {
                         >
                             <option value="">Seleccionar estado</option>
                             <option value="Iniciado">Iniciado</option>
-                            <option value="finalizado">finalizado</option>
+                            <option value="Finalizado">Finalizado</option>
                         </select>
                     </div>
-                    {followUpData.status_type === "finalizado" && (
+                    {followUpData.status_type === "Finalizado" && (
                         <div className="mb-3">
                             <label className="form-label">Fecha de vencimiento</label>
                             <input
                                 type="date"
                                 className="form-control"
-                                name="expiration_date"
-                                value={followUpData.expiration_date}
+                                name="reference_date"
+                                value={followUpData.reference_date}
                                 onChange={handleChange}
                                 required
                             />
@@ -115,9 +105,6 @@ export const FollowUpMap = () => {
     const { store, dispatch } = useGlobalReducer();
     const startRouteStoreForFolloUpErrands = store?.main?.user_data?.follow_up
 
-    console.log(startRouteStoreForFolloUpErrands);
-
-
     return (
         <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
             {startRouteStoreForFolloUpErrands.map((item) => (
@@ -138,7 +125,7 @@ export const FollowUpMap = () => {
                         <div className="card-body">
                             <h5 className="card-title">{item.errand_name}</h5>
                             <p className="card-text">{item.status_type}</p>
-                            {item.status_type === "Iniciado" ? (<p className="card-text">Fecha de iniciación: {item.expiration_date}</p>) : (<p className="card-text">Fecha de vencimiento: {item.expiration_date}</p>)}
+                            {item.status_type === "Iniciado" ? (<p className="card-text">Fecha de iniciación: {item.reference_date}</p>) : (<p className="card-text">Fecha de vencimiento: {item.reference_date}</p>)}
                         </div>
                     </div>
                 </motion.div>

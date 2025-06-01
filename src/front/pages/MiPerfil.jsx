@@ -16,27 +16,6 @@ export const MiPerfil = () => {
   const [isLoading, setIsLoading] = useState(false);
 
 
-  // const [userData, setUserData] = useState(null);
-
-  // const [loading, setLoading] = useState(true);
-
-  // useEffect(() => {
-  //   const fetchUserData = async () => {
-  //     try {
-  //       const data = await authenticationServices.getMyTask();
-  //       setUserData(data);
-  //     } catch (err) {
-  //       console.error("Error al obtener los datos:", err);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-  //   fetchUserData();
-  // }, [tokenExist]);
-
-  // if (loading) {
-  //   return <p className="text-center">Cargando...</p>;
-  // }
 
   const handleSubmit = async (e) => {
     e.preventDefault();

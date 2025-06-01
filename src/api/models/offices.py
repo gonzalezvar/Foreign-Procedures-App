@@ -14,7 +14,7 @@ class Offices(db.Model):
     street_name: Mapped[str] = mapped_column(String(250), nullable=False)
     postal_code: Mapped[int] = mapped_column(Integer, nullable=True)
     coordinates: Mapped[str] = mapped_column(String(2083), nullable=True)
-    #Por si se quiere crear un diccionario con todas coordenadas den las ciudades del país lo del 2083, como máximo estimado
+    #Ampliación a futuro, por si se quiere crear un diccionario con todas coordenadas de las ciudades del país con 2083 caracteres, como máximo estimado
 
     errand_list: Mapped[List["Errand"]] = relationship(
         "Errand", back_populates="offices")

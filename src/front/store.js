@@ -1,14 +1,16 @@
+
 export const initialStore = () => {
+
   return {
     auth: {
       token: localStorage.getItem("jwt-token") || null,
       isAuthenticated: !!localStorage.getItem("jwt-token"),
     },
-    user_data: null, // { users_id: ..., email: ..., favorites: [], follow_up: [] }
+    user_data: null, 
     offices: [],
     appLoading: false,
     appError: null,
-    // { follow_up_id: ..., users_id: ..., errand_name: ..., status_type: ..., form_data: {} }
+    
     selected_errand: null,
   };
 };
@@ -38,7 +40,7 @@ export default function storeReducer(store, action = {}) {
         selected_errand: null,
       };
 
-    case "SET_USER_DATA": // To set or update
+    case "SET_USER_DATA": 
       return {
         ...store,
         user_data: {
@@ -47,7 +49,7 @@ export default function storeReducer(store, action = {}) {
         },
       };
 
-    case "ADD_USER_FOLLOW_UP": // Add new follow_up to user
+    case "ADD_USER_FOLLOW_UP": 
       if (!store.user_data) return store;
       return {
         ...store,
@@ -59,8 +61,7 @@ export default function storeReducer(store, action = {}) {
         },
       };
 
-    case "UPDATE_USER_FOLLOW_UP": // Update follow_up on user
-      // Add follow_up_id on payload
+    case "UPDATE_USER_FOLLOW_UP": 
       if (!store.user_data || !Array.isArray(store.user_data.follow_up))
         return store;
       return {
@@ -73,7 +74,7 @@ export default function storeReducer(store, action = {}) {
         },
       };
 
-    case "ADD_USER_FAVORITE": // Add new favorite to user
+    case "ADD_USER_FAVORITE": 
       if (!store.user_data) return store;
       return {
         ...store,
@@ -85,7 +86,7 @@ export default function storeReducer(store, action = {}) {
         },
       };
 
-    case "UPDATE_USER_FAVORITES": // Update favorites on user
+    case "UPDATE_USER_FAVORITES": 
       if (!store.user_data || !Array.isArray(store.user_data.favorites))
         return store;
       return {
@@ -99,7 +100,6 @@ export default function storeReducer(store, action = {}) {
       };
 
     case "REMOVE_USER_FAVORITE":
-      // Add favorite_id on payload
       if (!store.user_data || !Array.isArray(store.user_data.favorites))
         return store;
       return {

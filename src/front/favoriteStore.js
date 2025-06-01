@@ -15,7 +15,7 @@ export const favoritesReducer = (state = initialFavoritesState(), action) => {
         ...state,
         favorites: [...state.favorites, action.payload],
       };
-      // localStorage.setItem('favorites', JSON.stringify(newFavoritesState));
+      
       return newFavoritesState;
 
     case "removeFavorite":
@@ -26,7 +26,7 @@ export const favoritesReducer = (state = initialFavoritesState(), action) => {
         ...state,
         favorites: updatedFavorites,
       };
-      // localStorage.setItem('favorites', JSON.stringify(updatedState));
+      
       return updatedState;
 
     case "toggleFavorite":
@@ -45,7 +45,7 @@ export const favoritesReducer = (state = initialFavoritesState(), action) => {
       } else {
         const newToggleFavorite = {
           ...action.payload,
-          uid: action.payload.id, // uid se iguala al id único
+          uid: action.payload.id, 
         };
         toggledState = {
           ...state,
@@ -53,7 +53,7 @@ export const favoritesReducer = (state = initialFavoritesState(), action) => {
         };
       }
 
-      // localStorage.setItem('favorites', JSON.stringify(toggledState));
+      
       return toggledState;
 
    case "setFavorites":
