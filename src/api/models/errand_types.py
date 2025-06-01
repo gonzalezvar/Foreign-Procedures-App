@@ -12,7 +12,8 @@ class Errand_type(db.Model):
     errand_type_id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String(250), nullable=False)
     description: Mapped[str] = mapped_column(String(250), nullable=False)
-    
+
+    # Relationships
     errand: Mapped[List["Errand"]] = relationship(
         "Errand", back_populates="errand_type")
 

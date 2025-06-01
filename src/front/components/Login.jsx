@@ -14,7 +14,7 @@ export const Login = () => {
 
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [isAuthenticating, setIsAuthenticating] = useState(false);
+  const [_, setIsAuthenticating] = useState(false);
 
   const [successMessageRecoveryEmail, setSuccessMessageRecoveryEmail] = useState("");
   const [errorMessageRecoveryEmail, setErrorMessageRecoveryEmail] = useState("");
@@ -76,7 +76,7 @@ export const Login = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit}> {/* Log in form */}
       <div className="container d-flex align-items-center justify-content-center min-vh-100">
         <div className="card p-4 shadow-sm" style={{ maxWidth: "400px", width: "100%" }}>
           <h3 className="text-center text-primary mb-2">Bienvenido</h3>

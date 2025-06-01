@@ -4,7 +4,6 @@ from api.models import db
 from typing import TYPE_CHECKING, List
 from datetime import datetime
 
-
 if TYPE_CHECKING:
     from .users import User
 
@@ -22,6 +21,7 @@ class Follow_up(db.Model):
     expiration_date: Mapped[datetime] = mapped_column(nullable=True)
     form_data: Mapped[str] = mapped_column(String(250), nullable=True)
 
+    # Relationships
     user: Mapped["User"] = relationship(
         "User", back_populates="follow_up", foreign_keys=[users_id])
 
@@ -30,11 +30,12 @@ class Follow_up(db.Model):
             "follow_up_id": self.follow_up_id,
             "errand_name": self.errand_name,
             "status_type": self.status_type,
+            # format expiration_date to string
             "expiration_date": self.expiration_date.strftime('%Y-%m-%d') if self.expiration_date else None,
             "form_data": self.form_data
         }
-    
+
     def serialize_with_relations(self):
         data = self.serialize()
-        data['user'] =  self.user.serialize() if self.user else {}
+        data['user'] = self.user.serialize() if self.user else {}
         return data

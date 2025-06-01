@@ -1,6 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
 import useGlobalReducer from "../hooks/useGlobalReducer";
-import { useEffect } from "react";
 import Logo2 from "../assets/img/Logo2.png";
 
 export const Navbar = () => {
@@ -18,7 +17,7 @@ export const Navbar = () => {
 		localStorage.removeItem("jwt-token");
 		dispatch({ type: "LOGOUT" });
 		navigate("/login");
-		console.log("Token después de logout:", localStorage.getItem("jwt-token")); // debe ser null
+		console.log("Token después de logout:", localStorage.getItem("jwt-token"));
 	}
 
 	return (
