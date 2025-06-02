@@ -98,12 +98,10 @@ export const FollowUpForm = () => {
 export const FollowUpMap = () => {
     const { store, _ } = useGlobalReducer();
     const startRouteStoreForFollowUpErrands = store?.main?.user_data?.follow_up
-    console.log(startRouteStoreForFollowUpErrands);
 
     return (
         <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4"> {/* Follow up errands map */}
             {startRouteStoreForFollowUpErrands.map((item) => (
-                // Using Framer Motion for animations
                 <motion.div key={item.follow_up_id}
                     id={item.follow_up_id}
                     className="col-md-4 mb-4"

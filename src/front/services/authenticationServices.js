@@ -1,5 +1,4 @@
 const baseUrl = import.meta.env.VITE_BACKEND_URL;
-console.log(baseUrl);
 
 export const authenticationServices = {
   signUp: async ({ email, password }) => {
@@ -17,7 +16,6 @@ export const authenticationServices = {
         throw new Error(response.message || "Error al crear cuenta");
       }
       console.log("API response:", response);
-      console.log(response);
       return response;
     } catch (error) {
       console.error("Error al crear cuenta:", error);
@@ -40,8 +38,6 @@ export const authenticationServices = {
       if (!request.ok) {
         throw new Error(response.message || "Error al iniciar sesión");
       }
-      console.log("API response:", response);
-      console.log(response);
       localStorage.setItem("jwt-token", response.token);
       return response;
     } catch (error) {
@@ -50,33 +46,8 @@ export const authenticationServices = {
     }
   },
 
-  getMyTask: async () => {
-    const token = localStorage.getItem("jwt-token");
-    console.log(token);
-
-    try {
-      const resp = await fetch(`${baseUrl}/api/home`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + token,
-        },
-      });
-      if (resp.status === 403) {
-        throw new Error("Missing or invalid token");
-      }
-      if (!resp.ok) {
-        throw new Error("There was a problem in the request");
-      }
-      const data = await resp.json();
-      console.log("This is the data you requested", data);
-      return data;
-    } catch (error) {}
-  },
-
   userDataActualization: async () => {
     const token = localStorage.getItem("jwt-token");
-    console.log(token);
 
     try {
       const resp = await fetch(`${baseUrl}/api/user/actualization`, {
@@ -93,9 +64,11 @@ export const authenticationServices = {
         throw new Error("There was a problem in the request");
       }
       const data = await resp.json();
-      console.log("This is the data you requested", data);
       return data;
-    } catch (error) {}
+    } catch (error) {
+      console.error("No se actualizo:", error);
+      throw error;
+    }
   },
 
   forgotPassword: async ({ email }) => {
@@ -115,13 +88,13 @@ export const authenticationServices = {
         throw new Error("There was a problem in the request");
       }
       const data = await resp.json();
-      console.log("This is the data you requested", data);
       return data;
     } catch (error) {
-      console.log(
+      console.error(
         "Problema para enviar el correo de recuperar contraseña:",
         error
       );
+      throw error;
     }
   },
 

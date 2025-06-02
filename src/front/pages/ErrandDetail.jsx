@@ -96,7 +96,6 @@ export const ErrandDetail = () => {
                                 </div>
                             </div>
                         )}
-
                         <div>
                             <h2>Mapa de ubicación</h2>
                             <MapViewer/>

@@ -7,17 +7,14 @@ export const Navbar = () => {
 
 	const { store, dispatch } = useGlobalReducer();
 	const token = !!store?.main?.user_data?.users_id;
-	console.log("Como se ve en store:", token)
 
 	const navigate = useNavigate();
 
 
 	const logOutNavbar = () => {
-		console.log("Token antes de logout:", localStorage.getItem("jwt-token"))
 		localStorage.removeItem("jwt-token");
 		dispatch({ type: "LOGOUT" });
 		navigate("/login");
-		console.log("Token después de logout:", localStorage.getItem("jwt-token"));
 	}
 
 	return (

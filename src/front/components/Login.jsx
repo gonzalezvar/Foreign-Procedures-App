@@ -14,7 +14,7 @@ export const Login = () => {
 
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [_, setIsAuthenticating] = useState(false);
+  const [isAuthenticating, setIsAuthenticating] = useState(false);
 
   const [successMessageRecoveryEmail, setSuccessMessageRecoveryEmail] = useState("");
   const [errorMessageRecoveryEmail, setErrorMessageRecoveryEmail] = useState("");
