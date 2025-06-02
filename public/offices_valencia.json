@@ -1,54 +1,68 @@
 [
     {
         "name": "Oficina d'Estrangeria",
-        "address": "Carrer de la Diputada Clara Campoamor, 23, Rascanya, 46019 València, Valencia"
+        "address": "Carrer de la Diputada Clara Campoamor, 23, Rascanya, 46019 València, Valencia",
+        "latitude": 39.491238599999996,
+        "longitude": -0.36802819999999997
     },
     {
         "name": "Oficina de extranjería",
-        "address": "Carrer dels Gremis, 6, Patraix, 46014 València, Valencia"
+        "address": "Carrer dels Gremis, 6, Patraix, 46014 València, Valencia",
+        "latitude": 39.46029970000001,
+        "longitude": -0.41114059999999997
     },
     {
         "name": "Centre de Suport de la Immigració",
-        "address": "Carrer del Pou, s/n, Ciutat Vella, 46003 València, Valencia"
-    },
-    {
-        "name": "Policia Nacional",
-        "address": "C/ de Bailèn, 9, Extramurs, 46007 València, Valencia"
-    },
-    {
-        "name": "Mi Abogado Extranjería",
-        "address": "Calle del Periodista Azzati, 5, Planta 5, puerta 10, Ciutat Vella, 46002 Valencia"
-    },
-    {
-        "name": "Policía Nacional",
-        "address": "C. del Hospital, 32, Ciutat Vella, 46001 Valencia"
+        "address": "Carrer del Pou, s/n, Ciutat Vella, 46003 València, Valencia",
+        "latitude": 39.4785031,
+        "longitude": -0.3803627
     },
     {
         "name": "Subdelegación del Gobierno - Atención al ciudadano y Registro",
-        "address": "C. de Joaquim Ballester, 39, Campanar, 46009 València, Valencia"
+        "address": "C. de Joaquim Ballester, 39, Campanar, 46009 València, Valencia",
+        "latitude": 39.4818934,
+        "longitude": -0.3912487
     },
     {
         "name": "Policía Nacional",
-        "address": "C/ dels Sapadors, 52, Quatre Carreres, 46006 València, Valencia"
+        "address": "C/ dels Sapadors, 52, Quatre Carreres, 46006 València, Valencia",
+        "latitude": 39.4557441,
+        "longitude": -0.3671623
+    },
+    {
+        "name": "Mi Abogado Extranjería",
+        "address": "Calle del Periodista Azzati, 5, Planta 5, puerta 10, Ciutat Vella, 46002 Valencia",
+        "latitude": 39.4693816,
+        "longitude": -0.37750629999999996
     },
     {
         "name": "Centre d'Internament d'Estrangers",
-        "address": "C/ dels Sapadors, 48, Quatre Carreres, 46006 València, Valencia"
-    },
-    {
-        "name": "Comissaria de policia",
-        "address": "Carrer dels Gremis, 6, Patraix, 46014 València, Valencia"
-    },
-    {
-        "name": "Comisaria de Policia de Sagunt",
-        "address": "Carrer Progrés, 35, 46520 Port de Sagunt, Valencia"
+        "address": "C/ dels Sapadors, 48, Quatre Carreres, 46006 València, Valencia",
+        "latitude": 39.4562179,
+        "longitude": -0.3696967
     },
     {
         "name": "ESPACUBA. Trámites de Extranjería. Nacionalidad Española y Residencia. Obtención y Legalización de documentos de Cuba.",
-        "address": "Carrer de les Garrigues, 5, 8-L, Ciutat Vella, 46001 Valencia"
+        "address": "Carrer de les Garrigues, 5, 8-L, Ciutat Vella, 46001 Valencia",
+        "latitude": 39.470765199999995,
+        "longitude": -0.3787529
+    },
+    {
+        "name": "Comissaria de policia",
+        "address": "Carrer dels Gremis, 6, Patraix, 46014 València, Valencia",
+        "latitude": 39.4603465,
+        "longitude": -0.41079360000000004
+    },
+    {
+        "name": "Comisaria de Policia de Sagunt",
+        "address": "Carrer Progrés, 35, 46520 Port de Sagunt, Valencia",
+        "latitude": 39.6602137,
+        "longitude": -0.21792140000000002
     },
     {
         "name": "Comisaría de Valencia Patraix - Expedición TIE (Tarjetas)",
-        "address": "Carrer dels Gremis, 7, Patraix, 46014 València, Valencia"
+        "address": "Carrer dels Gremis, 7, Patraix, 46014 València, Valencia",
+        "latitude": 39.460482899999995,
+        "longitude": -0.4105628
     }
 ]

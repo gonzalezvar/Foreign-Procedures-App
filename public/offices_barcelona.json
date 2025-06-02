@@ -1,82 +1,122 @@
 [
     {
         "name": "Oficina D'Estrangeria",
-        "address": "Pg. de St. Joan, 189, 193, Gràcia, 08037 Barcelona"
+        "address": "Pg. de St. Joan, 189, 193, Gràcia, 08037 Barcelona",
+        "latitude": 41.4036299,
+        "longitude": 2.1633372
     },
     {
         "name": "SEU 2. Oficina d'Estrangeria Barcelona",
-        "address": "Carrer de Múrcia, 42, Sant Andreu, 08027 Barcelona"
-    },
-    {
-        "name": "UNION Extranjería",
-        "address": "Carrer d'Ortigosa, 14-16, Planta 2 Oficina 4, Ciutat Vella, 08003 Barcelona"
-    },
-    {
-        "name": "extranjeria",
-        "address": "Carrer de Bergara, 12, L'Eixample, 08002 Barcelona"
-    },
-    {
-        "name": "Policía Nacional",
-        "address": "Carrer de Mallorca, 213, L'Eixample, 08008 Barcelona"
-    },
-    {
-        "name": "Delegación del Gobierno Oficina de Información y Atención Al Ciudadano",
-        "address": "Carrer de Bergara, 12, L'Eixample, 08002 Barcelona"
+        "address": "Carrer de Múrcia, 42, Sant Andreu, 08027 Barcelona",
+        "latitude": 41.415775499999995,
+        "longitude": 2.1897858
     },
     {
         "name": "Barcelona Extranjería Abogados, Slp",
-        "address": "Carrer de València, 243, 4-2, Eixample, 08007 Barcelona"
+        "address": "Carrer de València, 243, 4-2, Eixample, 08007 Barcelona",
+        "latitude": 41.3923965,
+        "longitude": 2.1626073999999997
     },
     {
         "name": "Delegació Del Govern Àrea Funcional De Treball i Immigració",
-        "address": "Pg. de St. Joan, 189, 193, Gràcia, 08037 Barcelona"
+        "address": "Pg. de St. Joan, 189, 193, Gràcia, 08037 Barcelona",
+        "latitude": 41.403716599999996,
+        "longitude": 2.1633009
     },
     {
-        "name": "Registro Extranjeria",
-        "address": "Carrer de Mallorca, 278, L'Eixample, 08037 Barcelona"
+        "name": "Delegación del Gobierno Oficina de Información y Atención Al Ciudadano",
+        "address": "Carrer de Bergara, 12, L'Eixample, 08002 Barcelona",
+        "latitude": 41.3861646,
+        "longitude": 2.1685942
+    },
+    {
+        "name": "UNION Extranjería",
+        "address": "Carrer d'Ortigosa, 14-16, Planta 2 Oficina 4, Ciutat Vella, 08003 Barcelona",
+        "latitude": 41.3887327,
+        "longitude": 2.1757006999999997
     },
     {
         "name": "Delegation of the Government of Spain to Catalonia",
-        "address": "Carrer de Mallorca, 278, L'Eixample, 08037 Barcelona"
+        "address": "Carrer de Mallorca, 278, L'Eixample, 08037 Barcelona",
+        "latitude": 41.3954683,
+        "longitude": 2.1648945
     },
     {
-        "name": "Delegació del Govern Espanyol a Catalunya - Registre Central",
-        "address": "Carrer de Bergara, 12, L'Eixample, 08002 Barcelona"
+        "name": "Registro Extranjeria",
+        "address": "Carrer de Mallorca, 278, L'Eixample, 08037 Barcelona",
+        "latitude": 41.3955671,
+        "longitude": 2.1650662
+    },
+    {
+        "name": "extranjeria",
+        "address": "Carrer de Bergara, 12, L'Eixample, 08002 Barcelona",
+        "latitude": 41.386235899999996,
+        "longitude": 2.1685996999999997
     },
     {
         "name": "Citacion NIE",
-        "address": "Carrer de Guipúscoa, 74, Sant Martí, 08020 Barcelona"
-    },
-    {
-        "name": "Gestexpert Consulting-Abogados/Asesores",
-        "address": "Av. Diagonal, 468, Planta 8, Gràcia, 08006 Barcelona"
-    },
-    {
-        "name": "EXTRANJERISTAS",
-        "address": "Carrer de Déu i Mata, 158, Entlo. 7, Les Corts, 08029 Barcelona"
-    },
-    {
-        "name": "Legalízate BCN extranjería Abogados",
-        "address": "Carrer Progrés, 2-4, 08904 L'Hospitalet de Llobregat, Barcelona"
-    },
-    {
-        "name": "Abogado Extranjería Barcelona, Caerogo abogado",
-        "address": "Ca, 08905 L'Hospitalet de Llobregat, Barcelona"
+        "address": "Carrer de Guipúscoa, 74, Sant Martí, 08020 Barcelona",
+        "latitude": 41.4172912,
+        "longitude": 2.1988072
     },
     {
         "name": "TUEXTRANJERIA S.L",
-        "address": "Pg. de St. Joan, 197, Gràcia, 08037 Barcelona"
+        "address": "Pg. de St. Joan, 197, Gràcia, 08037 Barcelona",
+        "latitude": 41.4039595,
+        "longitude": 2.1630409999999998
     },
     {
-        "name": "Policia Nacional Oficina d'Expedició",
-        "address": "Rambla Just Oliveras, 43, 08901 L'Hospitalet de Llobregat, Barcelona"
+        "name": "Policía Nacional",
+        "address": "Carrer de Mallorca, 213, L'Eixample, 08008 Barcelona",
+        "latitude": 41.3910163,
+        "longitude": 2.1585693
+    },
+    {
+        "name": "Delegació del Govern Espanyol a Catalunya - Registre Central",
+        "address": "Carrer de Bergara, 12, L'Eixample, 08002 Barcelona",
+        "latitude": 41.3861995,
+        "longitude": 2.1686989
+    },
+    {
+        "name": "EXTRANJERISTAS",
+        "address": "Carrer de Déu i Mata, 158, Entlo. 7, Les Corts, 08029 Barcelona",
+        "latitude": 41.390779099999996,
+        "longitude": 2.1401295
     },
     {
         "name": "NACIONALIDADES | Trámites de extranjería",
-        "address": "Carrer de Roger de Llúria, 108, 2B, Eixample, 08037 Barcelona"
+        "address": "Carrer de Roger de Llúria, 108, 2B, Eixample, 08037 Barcelona",
+        "latitude": 41.396279,
+        "longitude": 2.1648699
+    },
+    {
+        "name": "Gestexpert Consulting-Abogados/Asesores",
+        "address": "Av. Diagonal, 468, Planta 8, Gràcia, 08006 Barcelona",
+        "latitude": 41.396046999999996,
+        "longitude": 2.1563439
+    },
+    {
+        "name": "Oficina de Tramitació del DNI i del Passaport",
+        "address": "Carrer de Guipúscoa, 82, Sant Martí, 08020 Barcelona",
+        "latitude": 41.417213700000005,
+        "longitude": 2.1987571999999997
     },
     {
         "name": "EXTRANJERIA FOREIGNER",
-        "address": "Carrer de Sugranyes, Sants-Montjuïc, 08028 Barcelona"
+        "address": "Carrer de Sugranyes, Sants-Montjuïc, 08028 Barcelona",
+        "latitude": 41.3754165,
+        "longitude": 2.1273914
+    },
+    {
+        "name": "Comisaría De Policía Nacional Eixample",
+        "address": "Carrer de Guadalajara, 1, 3, Sarrià-Sant Gervasi, 08006 Barcelona",
+        "latitude": 41.397290999999996,
+        "longitude": 2.1539197999999997
+    },
+    {
+        "name": "National Police",
+        "address": "Plaça Esperanto, 4, 08860 Castelldefels, Barcelona",
+        "latitude": 41.2823089,
+        "longitude": 1.9826833
     }
 ]

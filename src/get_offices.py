@@ -55,7 +55,8 @@ def get_offices(city_name, center_coords):
         return response.json(), 200
 
     except requests.exceptions.HTTPError as e:
-        print(f"HTTP Error from Google Places API for {city_name}: {e.response.status_code} - {e.response.text}")
+        print(
+            f"HTTP Error from Google Places API for {city_name}: {e.response.status_code} - {e.response.text}")
         return {"error": f"Error de conexión con Google Places ({city_name}): {e.response.text}"}, e.response.status_code
 
     except requests.exceptions.ConnectionError as e:
@@ -63,11 +64,13 @@ def get_offices(city_name, center_coords):
         return {"error": f"Error de red ({city_name}): {e}"}, 500
 
     except requests.exceptions.RequestException as e:
-        print(f"General Request Error at Google Places API for {city_name}: {e}")
+        print(
+            f"General Request Error at Google Places API for {city_name}: {e}")
         return {"error": f"Error de conexión con Google Places ({city_name}): {e}"}, 500
 
     except Exception as e:
-        print(f"Unexpected error when processing Google Places response for {city_name}: {e}")
+        print(
+            f"Unexpected error when processing Google Places response for {city_name}: {e}")
         return {"error": f"Error interno del servidor ({city_name}): {e}"}, 500
 
 # Create a folium map with offices data
@@ -99,6 +102,8 @@ def create_offices_map(offices_data, map_center, json_output_path):
                 offices_list.append({
                     "name": display_name,
                     "address": address,
+                    "latitude": latitude,
+                    "longitude": longitude
                 })
             else:
                 print(f"Place without location data: {place}")
@@ -115,6 +120,7 @@ def create_offices_map(offices_data, map_center, json_output_path):
         print("No offices data to write to JSON file.")
 
     return m
+
 
 
 if __name__ == "__main__":
@@ -141,4 +147,5 @@ if __name__ == "__main__":
         elif "error" in offices_response:
             print(f"Error for {city_name}: {offices_response['error']}")
         else:
-            print(f"Failed to retrieve office data or no offices found for {city_name}.")
+            print(
+                f"Failed to retrieve office data or no offices found for {city_name}.")
