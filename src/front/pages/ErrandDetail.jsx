@@ -16,7 +16,7 @@ export const ErrandDetail = () => {
     const { store, dispatch: globalDispatch } = useGlobalReducer();
 
     const [showProcedures, setShowProcedures] = useState(false);
-    
+
     const storeOfErrands = store.content.errands.data || [];
 
     const singleErrand = storeOfErrands.find(
@@ -97,10 +97,10 @@ export const ErrandDetail = () => {
 
                         <div>
                             <h2>Mapa de ubicación</h2>
-                            <MapViewer/>
+                            <MapViewer />
                         </div>
                     </div>
-                    <div className="mt-3 text-end">
+                    <div className="text-end" style={{ marginTop: '80px', height: '80px' }}>
                         <Button
                             variant="contained"
                             size="large"

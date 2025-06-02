@@ -1,6 +1,7 @@
 import requests
 import folium
 import os
+import json
 
 # Import API KEY
 try:
@@ -26,10 +27,12 @@ headers = {
 
 # Define city coordinates
 CITY_COORDINATES = {
-    "Madrid": {"latitude": 40.4165, "longitude": -3.70256, "filename": "offices_mapM.html"},
-    "Barcelona": {"latitude": 41.3851, "longitude": 2.1734, "filename": "offices_mapB.html"},
-    "Valencia": {"latitude": 39.4699, "longitude": -0.3763, "filename": "offices_mapV.html"}
+    "Madrid": {"latitude": 40.4165, "longitude": -3.70256, "filename": "offices_mapM.html", "json_filename": "offices_madrid.json"},
+    "Barcelona": {"latitude": 41.3851, "longitude": 2.1734, "filename": "offices_mapB.html", "json_filename": "offices_barcelona.json"},
+    "Valencia": {"latitude": 39.4699, "longitude": -0.3763, "filename": "offices_mapV.html", "json_filename": "offices_valencia.json"}
 }
+
+# Get offices from Google Places API
 
 
 def get_offices(city_name, center_coords):
@@ -68,9 +71,12 @@ def get_offices(city_name, center_coords):
             f"Unexpected error when processing Google Places response for {city_name}: {e}")
         return {"error": f"Error interno del servidor ({city_name}): {e}"}, 500
 
+# Create a folium map with offices data
 
-def create_offices_map(offices_data, map_center):
+
+def create_offices_map(offices_data, map_center, json_output_path):
     m = folium.Map(location=map_center, zoom_start=13)
+    offices_list = []  # List to store office data in JSON file
 
     if "places" in offices_data and offices_data["places"]:
         print(f"Found {len(offices_data['places'])} places")
@@ -82,31 +88,50 @@ def create_offices_map(offices_data, map_center):
                                     "Dirección no disponible")
                 display_name = place.get("displayName", {}).get(
                     "text", "Oficina de extranjería")
+
                 folium.Marker(
                     location=[latitude, longitude],
                     popup=f"<b>{display_name}</b><br>{address}",
                     icon=folium.Icon(color="blue", icon="info-sign")
                 ).add_to(m)
+
+                # Add office data to the list
+                offices_list.append({
+                    "name": display_name,
+                    "address": address,
+                })
             else:
                 print(f"Place without location data: {place}")
     else:
         print("No places found in the API response or 'places' list is empty.")
         if "error" in offices_data:
             print(f"API Error: {offices_data['error']}")
+
+    # Write the JSON file
+    if offices_list:
+        with open(json_output_path, 'w', encoding='utf-8') as json_file:
+            json.dump(offices_list, json_file, ensure_ascii=False, indent=4)
+    else:
+        print("No offices data to write to JSON file.")
+
     return m
 
 
 if __name__ == "__main__":
     for city_name, city_info in CITY_COORDINATES.items():
-        print(f"Generating map for {city_name}...")
+        # Generate map for {city_name}
         center_coords = {
             "latitude": city_info["latitude"], "longitude": city_info["longitude"]}
         offices_response, status_code = get_offices(city_name, center_coords)
 
+        # Check if the response is valid and contains offices
         if status_code == 200 and "places" in offices_response:
-            offices_map = create_offices_map(
-                offices_response, [city_info["latitude"], city_info["longitude"]])
             map_file_path = os.path.join("public", city_info["filename"])
+            json_file_path = os.path.join("public", city_info["json_filename"])
+
+            # Create the map and save it
+            offices_map = create_offices_map(
+                offices_response, [city_info["latitude"], city_info["longitude"]], json_file_path)
             offices_map.save(map_file_path)
             print(f"Map saved to {map_file_path}")
         elif "error" in offices_response:
