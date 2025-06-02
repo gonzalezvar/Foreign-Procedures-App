@@ -100,7 +100,6 @@ export default function storeReducer(store, action = {}) {
       };
 
     case "REMOVE_USER_FAVORITE":
-    
       if (!store.user_data || !Array.isArray(store.user_data.favorites))
         return store;
       return {
