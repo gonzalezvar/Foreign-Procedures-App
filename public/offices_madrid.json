@@ -1,82 +1,122 @@
 [
     {
         "name": "Foreign Office",
-        "address": "Calle de Silva, 19, Centro, 28004 Madrid"
+        "address": "Calle de Silva, 19, Centro, 28004 Madrid",
+        "latitude": 40.421493500000004,
+        "longitude": -3.7062616999999998
     },
     {
         "name": "Oficina de Extranjería n°2",
-        "address": "Calle de García de Paredes, 65, Chamberí, 28010 Madrid"
+        "address": "Calle de García de Paredes, 65, Chamberí, 28010 Madrid",
+        "latitude": 40.436789999999995,
+        "longitude": -3.6919405999999992
     },
     {
         "name": "Oficina de Extranjería",
-        "address": "Av. del Padre Piquer, 18, Latina, 28024 Madrid"
+        "address": "Av. de la Plaza de Toros, 14, Carabanchel, 28025 Madrid",
+        "latitude": 40.3870082,
+        "longitude": -3.7396613
+    },
+    {
+        "name": "Oficina de Extranjería",
+        "address": "Av. del Padre Piquer, 18, Latina, 28024 Madrid",
+        "latitude": 40.392970999999996,
+        "longitude": -3.7679911
     },
     {
         "name": "Asesorías Servicios y Extranjería",
-        "address": "Paseo de las Delicias, 20, 2A, Arganzuela, 28045 Madrid"
-    },
-    {
-        "name": "Extranjeria Ministerio del Interior",
-        "address": "Av. del Padre Piquer, 18, Latina, 28024 Madrid"
-    },
-    {
-        "name": "Oficina de Extranjería",
-        "address": "Av. de la Plaza de Toros, 14, Carabanchel, 28025 Madrid"
-    },
-    {
-        "name": "Servicios de Extranjería",
-        "address": "C. de Villanueva, 31, Salamanca, 28001 Madrid"
+        "address": "Paseo de las Delicias, 20, 2A, Arganzuela, 28045 Madrid",
+        "latitude": 40.4058226,
+        "longitude": -3.6937434999999996
     },
     {
         "name": "Oficina De Extranjería",
-        "address": "C. San Nicasio, 31, 28911 Leganés, Madrid"
+        "address": "C. San Nicasio, 31, 28911 Leganés, Madrid",
+        "latitude": 40.3309183,
+        "longitude": -3.7676439999999993
+    },
+    {
+        "name": "Servicios de Extranjería",
+        "address": "C. de Villanueva, 31, Salamanca, 28001 Madrid",
+        "latitude": 40.4223645,
+        "longitude": -3.6832159
+    },
+    {
+        "name": "Extranjeria Ministerio del Interior",
+        "address": "Av. del Padre Piquer, 18, Latina, 28024 Madrid",
+        "latitude": 40.3930205,
+        "longitude": -3.7679891000000003
     },
     {
         "name": "Trámites de Extranjería Anny Moreno",
-        "address": "Calle de Antonio López, 61, escalera derecha, entreplanta puerta A, Carabanchel, 28019 Madrid"
+        "address": "Calle de Antonio López, 61, escalera derecha, entreplanta puerta A, Carabanchel, 28019 Madrid",
+        "latitude": 40.394596899999996,
+        "longitude": -3.7084303999999997
     },
     {
-        "name": "General Secretariat for Immigration and Emigration",
-        "address": "Calle de José Abascal, 39, Chamberí, 28071 Madrid"
+        "name": "Extranjeria",
+        "address": "C. de San Felipe, 7, Tetuán, 28020 Madrid",
+        "latitude": 40.4615559,
+        "longitude": -3.6968775000000003
     },
     {
         "name": "Vega Abogado extranjería",
-        "address": "C. de Carretas, 14, 2, i5, Centro, 28012 Madrid"
+        "address": "C. de Carretas, 14, 2, i5, Centro, 28012 Madrid",
+        "latitude": 40.4148114,
+        "longitude": -3.7036534
     },
     {
         "name": "Extranjeria",
-        "address": "C. de San Felipe, 7, Tetuán, 28020 Madrid"
-    },
-    {
-        "name": "M & N Gestión de Extranjería Consultor Madrid, Carabanchel, Trámite de Regularización de Documentos",
-        "address": "C. del Espinar, 10, Carabanchel, 28047 Madrid"
-    },
-    {
-        "name": "Extranjeria",
-        "address": "C. de Pradillo, 40, Chamartín, 28002 Madrid"
+        "address": "C. de Pradillo, 40, Chamartín, 28002 Madrid",
+        "latitude": 40.4489369,
+        "longitude": -3.6713614999999993
     },
     {
         "name": "Government Delegation in Madrid",
-        "address": "C. de Miguel Ángel, 25, Chamberí, 28010 Madrid"
+        "address": "C. de Miguel Ángel, 25, Chamberí, 28010 Madrid",
+        "latitude": 40.4368191,
+        "longitude": -3.6915518000000005
     },
     {
-        "name": "TRAMITEX",
-        "address": "Gran Vía, 51, 5, B, Centro, 28013 Centro, Madrid"
-    },
-    {
-        "name": "Oficina de Asilo y Refugio",
-        "address": "C. de Pradillo, 40, Chamartín, 28002 Madrid"
-    },
-    {
-        "name": "Extranjeria Madrid",
-        "address": "Local Eban Abogados, C. de Ávila, 6, Tetuán, 28020 Madrid"
+        "name": "General Secretariat for Immigration and Emigration",
+        "address": "Calle de José Abascal, 39, Chamberí, 28071 Madrid",
+        "latitude": 40.438770399999996,
+        "longitude": -3.6970539
     },
     {
         "name": "Servicios De Extranjería",
-        "address": "C. de Valmojado, 316, local B, Latina, 28047 Madrid"
+        "address": "C. de Valmojado, 316, local B, Latina, 28047 Madrid",
+        "latitude": 40.3861719,
+        "longitude": -3.7581287999999993
     },
     {
         "name": "General Commissariat for Immigration and Borders",
-        "address": "C. de San Felipe, 7, 9, Tetuán, 28020 Madrid"
+        "address": "C. de San Felipe, 7, 9, Tetuán, 28020 Madrid",
+        "latitude": 40.4615747,
+        "longitude": -3.6967795
+    },
+    {
+        "name": "Legalizados",
+        "address": "Gran Vía, 40, Piso 7 Oficina 4, Centro, 28013 Madrid",
+        "latitude": 40.420403199999996,
+        "longitude": -3.7048974
+    },
+    {
+        "name": "TRAMITEX",
+        "address": "Gran Vía, 51, 5, B, Centro, 28013 Centro, Madrid",
+        "latitude": 40.4211197,
+        "longitude": -3.7078870000000004
+    },
+    {
+        "name": "QVE Trámites de Extranjería",
+        "address": "C. de Palencia, Tetuán, 2, Oficina 1A, Tetuán, 28020 Madrid",
+        "latitude": 40.449821899999996,
+        "longitude": -3.7032370999999995
+    },
+    {
+        "name": "Comisaría General de Extranjería y Fronteras",
+        "address": "Calle del Gral. Pardiñas, 90, Salamanca, 28006 Madrid",
+        "latitude": 40.433006899999995,
+        "longitude": -3.6777588
     }
 ]

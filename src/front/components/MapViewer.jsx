@@ -28,9 +28,12 @@ const MapViewer = () => {
     const [userLocation, setUserLocation] = useState(null); // {latitude, longitude}
     const [nearestOffice, setNearestOffice] = useState(null); // {name, address, distance}
     const [officesData, setOfficesData] = useState([]);
+    const [geolocationStatus, setGeolocationStatus] = useState('pending'); // new state for explicit status
 
     // Load map and office data when selectedCity changes
     useEffect(() => {
+        console.log(`[useEffect 1] selectedCity changed to: ${selectedCity}`);
+
         let newMapSrc;
         let currentJsonPath;
 
@@ -45,50 +48,74 @@ const MapViewer = () => {
             currentJsonPath = '/offices_valencia.json';
         }
         setMapSrc(newMapSrc);
-        setOfficesData([]); // Clear previous data
+        setOfficesData([]); // Clear previous data immediately
+        setNearestOffice(null); // Clear nearest office immediately
+        setGeolocationStatus('pending'); // Reset geolocation status
 
         // Fetch the JSON data
         const fetchOffices = async () => {
+            console.log(`[fetchOffices] Attempting to fetch: ${currentJsonPath}`);
             try {
                 const response = await fetch(currentJsonPath);
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const data = await response.json();
+                console.log(`[fetchOffices] Successfully fetched data for ${selectedCity}:`, data);
                 setOfficesData(data); // Set the fetched data to state
             } catch (error) {
-                console.error("Error fetching office data:", error);
+                console.error("[fetchOffices] Error fetching office data:", error);
                 setOfficesData([]); // Reset on error
             }
         };
 
         fetchOffices();
 
-        // Get user location and find nearest office
+        // Get user location
         if (navigator.geolocation) {
+            console.log('[Geolocation] navigator.geolocation is available.');
             navigator.geolocation.getCurrentPosition(
                 (position) => {
                     const userLat = position.coords.latitude;
                     const userLng = position.coords.longitude;
                     setUserLocation({ latitude: userLat, longitude: userLng });
+                    setGeolocationStatus('granted'); // Update status
+                    console.log(`[Geolocation] User location set: Lat=${userLat}, Lng=${userLng}`);
                 },
                 (error) => {
-                    console.error("Error getting user location:", error);
+                    console.error("[Geolocation] Error getting user location:", error);
+                    setGeolocationStatus('denied'); // Update status
                     if (error.code === error.PERMISSION_DENIED) {
-                        console.error("User denied geolocation request.");
+                        console.error("User denied geolocation request. Please enable it in browser settings.");
                         alert("Geolocation access denied. Cannot find nearest office.");
+                    } else if (error.code === error.POSITION_UNAVAILABLE) {
+                        console.error("User position unavailable.");
+                    } else if (error.code === error.TIMEOUT) {
+                        console.error("Geolocation request timed out.");
                     }
                     setUserLocation(null); // Clear user location on error
-                }
+                },
+                { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 } // Add options for better accuracy/timeout
             );
+
+            // Optional: Check permission state immediately (Safari doesn't support query sometimes)
+            if (navigator.permissions && navigator.permissions.query) {
+                navigator.permissions.query({ name: 'geolocation' }).then(result => {
+                    console.log('[Geolocation Permissions] Current permission state:', result.state);
+                }).catch(err => console.error('[Geolocation Permissions] Error querying permission:', err));
+            }
+
         } else {
-            console.error("Geolocation is not supported by this browser.");
+            console.error("[Geolocation] Geolocation is not supported by this browser.");
+            setGeolocationStatus('not_supported'); // Update status
             setUserLocation(null);
         }
     }, [selectedCity]);
 
     // Calculate nearest office when officesData or userLocation changes
     useEffect(() => {
+        console.log(`[useEffect 2] officesData length: ${officesData.length}, userLocation:`, userLocation);
+
         if (userLocation && officesData.length > 0) {
             let closestOffice = null;
             let minDistance = Infinity;
@@ -106,28 +133,34 @@ const MapViewer = () => {
                     closestOffice = {
                         name: office.name,
                         address: office.address,
-                        distance: distance.toFixed(2) // Round to 2 decimal places
+                        distance: distance.toFixed(2)
                     };
                 }
             });
             setNearestOffice(closestOffice);
+            console.log('[useEffect 2] Nearest office calculated:', closestOffice);
         } else {
             setNearestOffice(null);
+            console.log('[useEffect 2] Cannot calculate nearest office (missing data or location).');
         }
-    }, [officesData, userLocation]);
+    }, [officesData, userLocation]); // Dependencies: officesData and userLocation
 
     const handleCityChange = (event) => {
         setSelectedCity(event.target.value);
-        setNearestOffice(null); // Reset
-        setUserLocation(null); // Reset user location to re-trigger geolocation
+        // Reset ALL relevant states immediately
+        setNearestOffice(null);
+        setUserLocation(null);
+        setOfficesData([]);
+        setGeolocationStatus('pending'); // Reset status on city change
+        console.log(`[handleCityChange] City changed to: ${event.target.value}. States reset.`);
     };
 
     const handleSubmit = (event) => {
-        event.preventDefault(); // Prevent reloading the page
+        event.preventDefault();
     };
 
     return (
-        <div style={{ height: "600px", width: "100%" }}>
+        <div style={{ height: "400px", width: "100%" }}>
             <form onSubmit={handleSubmit}>
                 <fieldset>
                     <div className="d-flex mb-3">
@@ -157,12 +190,17 @@ const MapViewer = () => {
                         <p><strong>Address:</strong> {nearestOffice.address}</p>
                         <p><strong>Distance:</strong> {nearestOffice.distance} km</p>
                     </div>
-                ) : userLocation === null ? (
-                    <p>Fetching your location...</p>
-                ) : officesData.length === 0 ? (
-                    <p>Loading office data...</p>
                 ) : (
-                    <p>No nearest office found or geolocation denied.</p>
+                    // Refined conditional rendering based on detailed statuses
+                    geolocationStatus === 'pending' || officesData.length === 0 ? (
+                        <p>Fetching your location and office data...</p>
+                    ) : geolocationStatus === 'denied' ? (
+                        <p style={{ color: 'red' }}>Geolocation access denied. Please enable it in your browser settings to find the nearest office.</p>
+                    ) : geolocationStatus === 'not_supported' ? (
+                        <p style={{ color: 'orange' }}>Geolocation is not supported by your browser.</p>
+                    ) : ( // Fallback for when data is loaded and location is granted, but no office found (e.g., too far)
+                        <p>No nearest office found in the selected city within a reasonable range.</p>
+                    )
                 )}
             </div>
         </div>

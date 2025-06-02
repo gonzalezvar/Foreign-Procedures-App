@@ -61,7 +61,7 @@ export const ErrandDetail = () => {
                     alt="errand"
                     style={{ objectFit: "cover", height: "300px", width: "100%" }}
                 />
-                <div className="card-body d-flex flex-column justify-content-between">
+                <div className="card-body d-flex flex-column justify-content-between h-auto">
                     <div className="rounded mt-2">
                         <h5 className="card-title mx-auto text-center">{singleErrand.name}</h5>
                         <hr />
@@ -101,7 +101,7 @@ export const ErrandDetail = () => {
                             <MapViewer />
                         </div>
                     </div>
-                    <div className="text-end" style={{ marginTop: '80px', height: '80px' }}>
+                    <div className="text-end" style={{ marginTop: '80px', height: 'auto' }}>
                         <Button
                             variant="contained"
                             size="large"
