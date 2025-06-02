@@ -17,12 +17,12 @@ def create_user_follow_up():
 
     errand_name = data['errand_name']
     status_type = data['status_type']
-    reference_date = data['reference_date']
+    reference_date = data.get('reference_date')
 
     if not errand_name or not status_type:
         return jsonify({"message": "errand_name y status_type son requeridos"}), 400
 
-    if status_type == "Finalizado" and not reference_date:
+    if status_type == "finalizado" and not reference_date:
         return jsonify({"message": "reference_date es requerida si el trámite está finalizado"}), 400
 
     try:
@@ -64,7 +64,7 @@ def update_follow_up(follow_up_id):
     follow_up.errand_name = data.get('errand_name', follow_up.errand_name)
     follow_up.status_type = data.get('status_type', follow_up.status_type)
 
-    if follow_up.status_type == "Finalizado":
+    if follow_up.status_type == "finalizado":
         expiration = data.get('reference_date')
         if not expiration:
             return jsonify({"message": "reference_date es requerida si el trámite está finalizado"}), 400

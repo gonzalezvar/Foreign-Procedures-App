@@ -116,7 +116,6 @@ def create_offices_map(offices_data, map_center, json_output_path):
 
     return m
 
-    return m
 
 if __name__ == "__main__":
     for city_name, city_info in CITY_COORDINATES.items():

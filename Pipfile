@@ -8,7 +8,6 @@ verify_ssl = true
 [packages]
 flask = "*"
 flask-sqlalchemy = "*"
-flask-migrate = "*"
 flask-swagger = "*"
 psycopg2-binary = "*"
 python-dotenv = "*"
@@ -27,6 +26,7 @@ requests = "*"
 pdfplumber = "*"
 flask-mail = "*"
 folium = "*"
+flask-migrate = "*"
 
 [requires]
 python_version = "3.13"

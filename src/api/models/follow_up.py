@@ -7,7 +7,7 @@ from datetime import datetime
 if TYPE_CHECKING:
     from .users import User
 
-status_state = Enum('Iniciado', 'Finalizado', name='status_enum')
+status_state = Enum('Iniciado', 'finalizado', name='status_enum')
 
 
 class Follow_up(db.Model):

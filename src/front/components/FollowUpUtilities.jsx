@@ -28,10 +28,11 @@ export const FollowUpForm = () => {
                 errand_name: followUpData.errand_name.trim(),
                 status_type: followUpData.status_type,
                 reference_date:
-                    followUpData.status_type === "Finalizado"
+                    followUpData.status_type === "finalizado"
                         ? followUpData.reference_date
                         : null
             };
+            const response = await authenticationServices.createFollowUp(followUpPost);
             const userData = await authenticationServices.userDataActualization();
             dispatch({ type: "SET_USER_DATA", payload: userData });
         } catch (error) {
@@ -69,11 +70,11 @@ export const FollowUpForm = () => {
                         >
                             <option value="">Seleccionar estado</option>
                             <option value="Iniciado">Iniciado</option>
-                            <option value="Finalizado">Finalizado</option>
+                            <option value="finalizado">Finalizado</option>
                         </select>
                     </div>
                     {/* Show expiration date only if status is "finalizado" */}
-                    {followUpData.status_type === "Finalizado" && (
+                    {followUpData.status_type === "finalizado" && (
                         <div className="mb-3">
                             <label className="form-label">Fecha de vencimiento</label>
                             <input
