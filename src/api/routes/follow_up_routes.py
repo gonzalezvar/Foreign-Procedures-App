@@ -17,17 +17,17 @@ def create_user_follow_up():
 
     errand_name = data['errand_name']
     status_type = data['status_type']
-    expiration_date = data['expiration_date']
+    reference_date = data['reference_date']
 
     if not errand_name or not status_type:
         return jsonify({"message": "errand_name y status_type son requeridos"}), 400
 
-    if status_type == "Finalizado" and not expiration_date:
-        return jsonify({"message": "expiration_date es requerida si el trámite está finalizado"}), 400
+    if status_type == "Finalizado" and not reference_date:
+        return jsonify({"message": "reference_date es requerida si el trámite está finalizado"}), 400
 
     try:
-        expiration_date_parsed = datetime.strptime(
-            expiration_date, "%Y-%m-%d") if expiration_date else datetime.now()
+        reference_date_parsed = datetime.strptime(
+            reference_date, "%Y-%m-%d") if reference_date else datetime.now()
     except Exception as e:
         print(e)
         return jsonify({"message": "Formato de fecha inválido, debe ser YYYY-MM-DD"}), 400
@@ -36,7 +36,7 @@ def create_user_follow_up():
         users_id=users_id,
         errand_name=errand_name,
         status_type=status_type,
-        expiration_date=expiration_date_parsed
+        reference_date=reference_date_parsed
     )
 
     try:
@@ -65,12 +65,12 @@ def update_follow_up(follow_up_id):
     follow_up.status_type = data.get('status_type', follow_up.status_type)
 
     if follow_up.status_type == "Finalizado":
-        expiration = data.get('expiration_date')
+        expiration = data.get('reference_date')
         if not expiration:
-            return jsonify({"message": "expiration_date es requerida si el trámite está finalizado"}), 400
-        follow_up.expiration_date = datetime.strptime(expiration, "%Y-%m-%d")
+            return jsonify({"message": "reference_date es requerida si el trámite está finalizado"}), 400
+        follow_up.reference_date = datetime.strptime(expiration, "%Y-%m-%d")
     else:
-        follow_up.expiration_date = datetime.now()
+        follow_up.reference_date = datetime.now()
 
     try:
         db.session.add(follow_up)

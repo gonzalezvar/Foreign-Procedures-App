@@ -15,6 +15,7 @@ class Offices(db.Model):
     postal_code: Mapped[int] = mapped_column(Integer, nullable=True)
     # 2083 is the maximum length for a URL in most browsers
     coordinates: Mapped[str] = mapped_column(String(2083), nullable=True)
+    #Ampliación a futuro, por si se quiere crear un diccionario con todas coordenadas de las ciudades del país con 2083 caracteres, como máximo estimado
 
     # Relationships
     errand_list: Mapped[List["Errand"]] = relationship(

@@ -3,7 +3,7 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import shadow from 'leaflet/dist/images/marker-shadow.png';
 
-// Correct default Leaflet icons
+
 L.Icon.Default.mergeOptions({
     iconUrl: '/icons/marker.png',
     shadowUrl: shadow,
@@ -23,14 +23,14 @@ const MapViewer = () => {
             newMapSrc = '/offices_mapV.html';
         }
         setMapSrc(newMapSrc);
-    }, [selectedCity]); // Reloads when it changes
+    }, [selectedCity]); 
 
     const handleCityChange = (event) => {
         setSelectedCity(event.target.value);
     };
 
     const handleSubmit = (event) => {
-        event.preventDefault(); // Prevent page reload
+        event.preventDefault(); 
     };
 
     return (

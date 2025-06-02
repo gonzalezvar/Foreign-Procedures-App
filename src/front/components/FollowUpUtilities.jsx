@@ -5,11 +5,11 @@ import { motion } from "framer-motion";
 
 export const FollowUpForm = () => {
 
-    const { _, dispatch } = useGlobalReducer();
+    const { store, dispatch } = useGlobalReducer();
 
     const [followUpData, setFollowUpData] = useState({
         errand_name: "",
-        expiration_date: "",
+        reference_date: "",
         status_type: "",
     });
 
@@ -27,9 +27,9 @@ export const FollowUpForm = () => {
             const followUpPost = {
                 errand_name: followUpData.errand_name.trim(),
                 status_type: followUpData.status_type,
-                expiration_date:
-                    followUpData.status_type === "finalizado"
-                        ? followUpData.expiration_date
+                reference_date:
+                    followUpData.status_type === "Finalizado"
+                        ? followUpData.reference_date
                         : null
             };
             const userData = await authenticationServices.userDataActualization();
@@ -69,18 +69,18 @@ export const FollowUpForm = () => {
                         >
                             <option value="">Seleccionar estado</option>
                             <option value="Iniciado">Iniciado</option>
-                            <option value="finalizado">finalizado</option>
+                            <option value="Finalizado">Finalizado</option>
                         </select>
                     </div>
                     {/* Show expiration date only if status is "finalizado" */}
-                    {followUpData.status_type === "finalizado" && (
+                    {followUpData.status_type === "Finalizado" && (
                         <div className="mb-3">
                             <label className="form-label">Fecha de vencimiento</label>
                             <input
                                 type="date"
                                 className="form-control"
-                                name="expiration_date"
-                                value={followUpData.expiration_date}
+                                name="reference_date"
+                                value={followUpData.reference_date}
                                 onChange={handleChange}
                                 required
                             />
@@ -121,7 +121,7 @@ export const FollowUpMap = () => {
                         <div className="card-body"> { }
                             <h5 className="card-title">{item.errand_name}</h5>
                             <p className="card-text">{item.status_type}</p>
-                            {item.status_type === "Iniciado" ? (<p className="card-text">Fecha de iniciación: {item.expiration_date}</p>) : (<p className="card-text">Fecha de vencimiento: {item.expiration_date}</p>)}
+                            {item.status_type === "Iniciado" ? (<p className="card-text">Fecha de iniciación: {item.reference_date}</p>) : (<p className="card-text">Fecha de vencimiento: {item.reference_date}</p>)}
                         </div>
                     </div>
                 </motion.div>

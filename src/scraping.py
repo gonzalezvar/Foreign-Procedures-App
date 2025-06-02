@@ -11,14 +11,14 @@ keyword_categories = {
         "description": "Permite residir por estudios, formación o movilidad académica."
     },
     "prácticas": {
-        "name": "Estancia por Prácticas y Voluntariado", # Nota: Esta categoría comparte "prácticas" y "voluntariado"
+        "name": "Estancia por Prácticas y Voluntariado", 
         "description": "Permite realizar prácticas formativas y participar en voluntariados."
     },
     "voluntariado": {
         "name": "Estancia por Prácticas y Voluntariado",
         "description": "Permite participar en programas de voluntariado."
     },
-    "residencia temporal": { # Esta es una keyword muy general, puede ser sobrescrita por otras más específicas
+    "residencia temporal": {
         "name": "Residencia Temporal General",
         "description": "Autorizaciones temporales, iniciales o renovaciones, incluidas no lucrativas, y otras circunstancias especiales."
     },
@@ -113,7 +113,7 @@ TEMP_PDF = "temp_procedure.pdf"
 
 
 def extract_procedure_section(pdf_text):
-     # Buscar TODAS las apariciones de la palabra "PROCEDIMIENTO" como sección (con salto de línea después)
+     # Filtrar por "PROCEDIMIENTO" como sección (con salto de línea después)
     matches = list(re.finditer(r'\bPROCEDIMIENTO\b\s*\n', pdf_text, re.IGNORECASE))
 
     if len(matches) == 0:
@@ -185,12 +185,12 @@ with sync_playwright() as p:
             pdf_link_locator.wait_for(state="visible", timeout=10000)
 
             pdf_href = pdf_link_locator.get_attribute("href")
-            print(f"  Link PDF encontrado: {pdf_href}")
+           
 
             if pdf_href:
                 if not pdf_href.startswith("http"):
                     pdf_href = f"https://www.inclusion.gob.es{pdf_href}"
-                print(f"  URL completo del PDF: {pdf_href}")
+                
 
                 with page.expect_download() as download_info:
                     page.click("a.m-attachment__link.m-icon-pdf")
@@ -198,7 +198,7 @@ with sync_playwright() as p:
                 download.save_as(TEMP_PDF)
 
                 pdf_text = extract_text_from_pdf(TEMP_PDF)
-                print(f"  Extracted PDF text length: {len(pdf_text)}")
+              
                 procedure_content = extract_procedure_section(pdf_text)
                 print(
                     f"  Procedimiento extraído: {procedure_content[:200] if procedure_content else 'None'}")

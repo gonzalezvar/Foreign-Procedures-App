@@ -1,14 +1,16 @@
+
 export const initialStore = () => {
+
   return {
     auth: {
       token: localStorage.getItem("jwt-token") || null,
       isAuthenticated: !!localStorage.getItem("jwt-token"),
     },
-    user_data: null, // { users_id: ..., email: ..., favorites: [], follow_up: [] }
+    user_data: null, 
     offices: [],
     appLoading: false,
     appError: null,
-    // { follow_up_id: ..., users_id: ..., errand_name: ..., status_type: ..., form_data: {} }
+    
     selected_errand: null,
   };
 };
@@ -59,8 +61,7 @@ export default function storeReducer(store, action = {}) {
         },
       };
 
-    case "UPDATE_USER_FOLLOW_UP": // Update follow_up on user
-      // Add follow_up_id on payload
+    case "UPDATE_USER_FOLLOW_UP": 
       if (!store.user_data || !Array.isArray(store.user_data.follow_up))
         return store;
       return {

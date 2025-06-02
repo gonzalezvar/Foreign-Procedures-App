@@ -7,7 +7,7 @@ from datetime import datetime
 if TYPE_CHECKING:
     from .users import User
 
-status_state = Enum('Iniciado', 'finalizado', name='status_enum')
+status_state = Enum('Iniciado', 'Finalizado', name='status_enum')
 
 
 class Follow_up(db.Model):
@@ -18,8 +18,13 @@ class Follow_up(db.Model):
     errand_name: Mapped[str] = mapped_column(
         String(250), nullable=False)  # errand_id?
     status_type: Mapped[str] = mapped_column(status_state, nullable=False)
-    expiration_date: Mapped[datetime] = mapped_column(nullable=True)
-    form_data: Mapped[str] = mapped_column(String(250), nullable=True)
+    reference_date: Mapped[datetime] = mapped_column(nullable=True)
+    # Posible implementación a futuro de almacennaje de información de una consulta para una API IA, por ejemplo
+    form_data: Mapped[str] = mapped_column(String(2038), nullable=True)
+    # # Para intentar en un futuro agregar documentos de los users
+    documentation: Mapped[str] = mapped_column(String(2038), nullable=True)
+    # permitir al usuario agregar una descripcion del tramite
+    description: Mapped[str] = mapped_column(String(2038), nullable=True)
 
     # Relationships
     user: Mapped["User"] = relationship(
@@ -31,8 +36,10 @@ class Follow_up(db.Model):
             "errand_name": self.errand_name,
             "status_type": self.status_type,
             # format expiration_date to string
-            "expiration_date": self.expiration_date.strftime('%Y-%m-%d') if self.expiration_date else None,
-            "form_data": self.form_data
+            "reference_date": self.reference_date.strftime('%Y-%m-%d') if self.reference_date else None,
+            "form_data": self.form_data,
+            "documentation": self.documentation,
+            "description": self.description
         }
 
     def serialize_with_relations(self):

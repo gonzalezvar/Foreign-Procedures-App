@@ -10,37 +10,42 @@ import { motion } from "framer-motion";
 export const ErrandTypes = ({ errands }) => {
     const [selectedCategory, setSelectedCategory] = useState("Todas");
     const [searchTerm, setSearchTerm] = useState("");
+
     const { state: favoritesState, dispatch: favoriteDispatch } = useFavorites();
     const { store, dispatch: globalDispatch } = useGlobalReducer();
+
     const userId = store?.main?.user_data?.users_id;
     const isLoggedIn = !!store?.main?.auth?.token;
     const globalUserFavorites = store?.main?.user_data?.favorites;
+
     const isLoading = store?.content?.errands?.loading;
 
-    // useEffect To sync the user's favorites with the local favorites state
+
+   
     useEffect(() => {
         if (isLoggedIn && globalUserFavorites && globalUserFavorites.length > 0) {
-            // Maps favorites from the global store to the format expected by the favoriteReducer
+           // Maps favorites from the global store to the format expected by the favoriteReducer
             const adaptedGlobalFavorites = globalUserFavorites.map(fav => ({
                 id: fav.errand.errand_id,
                 name: fav.errand.name
             }));
-            // Update the local favorites state with the user's favorites
+           // Update the local favorites state with the user's favorites
             favoriteDispatch({ type: "setFavorites", payload: adaptedGlobalFavorites });
 
         } else if (!isLoggedIn) {
             // If the user is logged out, clear the local favorites state
             favoriteDispatch({ type: "setFavorites", payload: [] });
         }
-    }, [isLoggedIn, globalUserFavorites, favoriteDispatch]);
+    }, [isLoggedIn, globalUserFavorites, favoriteDispatch]); 
+
 
     // Extract errands from the store
     const errandsFromStore = store.content.errands.data || [];
     // Adapt the errands data to include category and errand names
     const adaptedErrands = errandsFromStore.map(item => ({
         errand_id: item.errand_id,
-        category_name: item.errand_type?.name || "Sin categoría",
-        category_description: item.errand_type?.description,
+        category_name: item.errand_type?.name || "Sin categoría", 
+        category_description: item.errand_type?.description, 
         errand_name: item.name
     }));
 
@@ -60,7 +65,7 @@ export const ErrandTypes = ({ errands }) => {
         const isFavorite = favoritesState.favorites.some(fav => fav.id === item.errand_id);
 
         if (isFavorite) {
-            // Remove favorite
+          // Remove favorite
             favoritesServices.removeFavorite(favoriteDispatch, globalDispatch, item.errand_id);
         } else {
             // Add favorite
@@ -79,14 +84,14 @@ export const ErrandTypes = ({ errands }) => {
                 </div>
             ) : (
                 <>
-                    <div className="mb-4"> {/* Search bar */}
-                        <div className="input-group rounded-pill border border-2" style={{ borderColor: '#dee2e6' }}>
-                            <span className="input-group-text bg-white border-0 ps-3 rounded-start-pill">
-                                <i className="bi bi-search text-muted"></i>
+                    <div className="mb-4"> 
+                        <div className="input-group rounded-pill border border-2" style={{ borderColor: '#dee2e6' }}> 
+                            <span className="input-group-text bg-white border-0 ps-3 rounded-start-pill"> 
+                                <i className="bi bi-search text-muted"></i> 
                             </span>
                             <input
                                 type="text"
-                                className="form-control border-0 pe-3 rounded-end-pill"
+                                className="form-control border-0 pe-3 rounded-end-pill" 
                                 placeholder="Buscar trámite..."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -165,25 +170,3 @@ export const ErrandTypes = ({ errands }) => {
 };
 
 
-/*<Card sx={{ maxWidth: 345 }}>
-              <CardMedia
-                sx={{ height: 140 }}
-                image="/static/images/cards/contemplative-reptile.jpg"
-                title="green iguana"
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  Lizard
-                </Typography>
-                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                  Lizards are a widespread group of squamate reptiles, with over 6,000
-                  species, ranging across all continents except Antarctica
-                </Typography>
-              </CardContent>
-              <CardActions>
-                <Button size="small">Share</Button>
-                <Button size="small">Learn More</Button>
-              </CardActions>
-            </Card>
-          );
-        }*/

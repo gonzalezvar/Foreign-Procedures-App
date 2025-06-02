@@ -6,7 +6,7 @@ export const Navbar = () => {
 
 
 	const { store, dispatch } = useGlobalReducer();
-	const token = store?.main?.auth?.isAuthenticated;
+	const token = !!store?.main?.user_data?.users_id;
 	console.log("Como se ve en store:", token)
 
 	const navigate = useNavigate();

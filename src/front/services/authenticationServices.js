@@ -51,7 +51,6 @@ export const authenticationServices = {
   },
 
   getMyTask: async () => {
-    // Retrieve token from localStorage
     const token = localStorage.getItem("jwt-token");
     console.log(token);
 
@@ -60,7 +59,7 @@ export const authenticationServices = {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer " + token, // ⬅⬅⬅ authorization token
+          Authorization: "Bearer " + token,
         },
       });
       if (resp.status === 403) {
@@ -76,7 +75,6 @@ export const authenticationServices = {
   },
 
   userDataActualization: async () => {
-    // Retrieve token from localStorage
     const token = localStorage.getItem("jwt-token");
     console.log(token);
 
@@ -127,7 +125,7 @@ export const authenticationServices = {
     }
   },
 
-  createFollowUp: async ({ errand_name, status_type, expiration_date }) => {
+  createFollowUp: async ({ errand_name, status_type, reference_date }) => {
     const token = localStorage.getItem("jwt-token");
 
     try {
@@ -140,7 +138,7 @@ export const authenticationServices = {
         body: JSON.stringify({
           errand_name,
           status_type,
-          expiration_date,
+          reference_date,
         }),
       });
 
@@ -157,24 +155,3 @@ export const authenticationServices = {
     }
   },
 };
-
-// const resp = await fetch(`https://your_api.com/token`, {
-//           method: "POST",
-//           headers: { "Content-Type": "application/json" },
-//           body: JSON.stringify({ username, password })
-//      })
-
-//      if(!resp.ok) throw Error("There was a problem in the login request")
-
-//      if(resp.status === 401){
-//           throw("Invalid credentials")
-//      }
-//      else if(resp.status === 400){
-//           throw ("Invalid email or password format")
-//      }
-//      const data = await resp.json()
-//      // Save your token in the localStorage
-//      // Also you should set your user into the store using the setItem function
-//      localStorage.setItem("jwt-token", data.token);
-
-//      return data
