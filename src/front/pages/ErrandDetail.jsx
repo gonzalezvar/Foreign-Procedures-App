@@ -89,12 +89,13 @@ export const ErrandDetail = () => {
                         {singleErrand.requirements && (
                             <div className="mb-3">
                                 <h6 className="fw-bold">Requerimientos</h6>
-                                <div className="mt-2 border rounded p-2 bg-light overflow-auto" style={{ maxHeight: "300px" }}>
-                                    {singleErrand.requirements}
+                                <div className="mt-2  p-2 overflow-auto" style={{ maxHeight: "300px" }}>
+                                    <a href={singleErrand.requirements} className="no-underline-link">
+                                        Página oficial de requisitos
+                                    </a>
                                 </div>
                             </div>
                         )}
-
                         <div>
                             <h2>Mapa de ubicación</h2>
                             <MapViewer />

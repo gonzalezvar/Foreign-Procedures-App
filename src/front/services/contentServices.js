@@ -10,18 +10,13 @@ export const contentServices = {
         },
       });
       const errands = await request.json();
-      console.log("API response:", errands);
-      console.log(errands);
       dispatch({
         type: "setData",
         category: "errands",
         data: errands,
       });
-
            localStorage.setItem("errands", JSON.stringify({ data: errands, timestamp: Date.now() }));
-
       return errands;
-      
     } catch (error) {}
     
   },

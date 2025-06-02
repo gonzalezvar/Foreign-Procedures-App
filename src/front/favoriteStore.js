@@ -29,32 +29,6 @@ export const favoritesReducer = (state = initialFavoritesState(), action) => {
       
       return updatedState;
 
-    case "toggleFavorite":
-      const exists = state.favorites.some(
-        (fav) => fav.id === action.payload.id
-      );
-      let toggledState;
-
-      if (exists) {
-        toggledState = {
-          ...state,
-          favorites: state.favorites.filter(
-            (fav) => fav.id !== action.payload.id
-          ),
-        };
-      } else {
-        const newToggleFavorite = {
-          ...action.payload,
-          uid: action.payload.id, 
-        };
-        toggledState = {
-          ...state,
-          favorites: [...state.favorites, newToggleFavorite],
-        };
-      }
-
-      
-      return toggledState;
 
    case "setFavorites":
       return {

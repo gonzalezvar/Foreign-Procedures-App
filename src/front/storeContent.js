@@ -48,4 +48,3 @@ export default function storeReducerContent(store, action = {}) {
       return store;
   }
 }
-

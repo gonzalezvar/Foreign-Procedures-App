@@ -21,31 +21,27 @@ export const ErrandTypes = ({ errands }) => {
     const isLoading = store?.content?.errands?.loading;
 
 
-   
+
     useEffect(() => {
         if (isLoggedIn && globalUserFavorites && globalUserFavorites.length > 0) {
-           // Maps favorites from the global store to the format expected by the favoriteReducer
             const adaptedGlobalFavorites = globalUserFavorites.map(fav => ({
                 id: fav.errand.errand_id,
                 name: fav.errand.name
             }));
-           // Update the local favorites state with the user's favorites
             favoriteDispatch({ type: "setFavorites", payload: adaptedGlobalFavorites });
-
         } else if (!isLoggedIn) {
-            // If the user is logged out, clear the local favorites state
             favoriteDispatch({ type: "setFavorites", payload: [] });
         }
-    }, [isLoggedIn, globalUserFavorites, favoriteDispatch]); 
+    }, [isLoggedIn, globalUserFavorites, favoriteDispatch]);
 
 
     // Extract errands from the store
     const errandsFromStore = store.content.errands.data || [];
-    // Adapt the errands data to include category and errand names
+
     const adaptedErrands = errandsFromStore.map(item => ({
         errand_id: item.errand_id,
-        category_name: item.errand_type?.name || "Sin categoría", 
-        category_description: item.errand_type?.description, 
+        category_name: item.errand_type?.name || "Sin categoría",
+        category_description: item.errand_type?.description,
         errand_name: item.name
     }));
 
@@ -65,10 +61,8 @@ export const ErrandTypes = ({ errands }) => {
         const isFavorite = favoritesState.favorites.some(fav => fav.id === item.errand_id);
 
         if (isFavorite) {
-          // Remove favorite
             favoritesServices.removeFavorite(favoriteDispatch, globalDispatch, item.errand_id);
         } else {
-            // Add favorite
             favoritesServices.addFavorite(favoriteDispatch, globalDispatch, userId, {
                 id: item.errand_id,
                 name: item.errand_name,
@@ -84,21 +78,6 @@ export const ErrandTypes = ({ errands }) => {
                 </div>
             ) : (
                 <>
-                    <div className="mb-4"> 
-                        <div className="input-group rounded-pill border border-2" style={{ borderColor: '#dee2e6' }}> 
-                            <span className="input-group-text bg-white border-0 ps-3 rounded-start-pill"> 
-                                <i className="bi bi-search text-muted"></i> 
-                            </span>
-                            <input
-                                type="text"
-                                className="form-control border-0 pe-3 rounded-end-pill" 
-                                placeholder="Buscar trámite..."
-                                value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
-                                style={{ outline: 'none', boxShadow: 'none' }}
-                            />
-                        </div>
-                    </div>
                     <h1 className="display-5 fw-bold text-primary mb-2"
                         style={{
                             transition: 'transform 0.3s',
@@ -109,6 +88,24 @@ export const ErrandTypes = ({ errands }) => {
                     >
                         🛂 Trámites de Extranjería
                     </h1>
+                    <div className="mb-4">
+                        <p className="lead text-muted">
+                            Busca el trámite</p>
+                        <div className="input-group rounded-pill border border-2" style={{ borderColor: '#dee2e6' }}>
+
+                            <span className="input-group-text bg-white border-0 ps-3 rounded-start-pill">
+                                <i className="bi bi-search text-muted"></i>
+                            </span>
+                            <input
+                                type="text"
+                                className="form-control border-0 pe-3 rounded-end-pill"
+                                placeholder="Buscar trámite..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                style={{ outline: 'none', boxShadow: 'none' }}
+                            />
+                        </div>
+                    </div>
                     <p className="lead text-muted">
                         Selecciona una categoría para ver los procedimientos disponibles.
                     </p>

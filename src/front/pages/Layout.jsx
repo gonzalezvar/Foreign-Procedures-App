@@ -22,7 +22,6 @@ export const Layout = () => {
                     const userData = await authenticationServices.userDataActualization();
                     if (userData) {
                         globalDispatch({ type: "SET_USER_DATA", payload: userData });
-                        console.log("Datos de usuario actualizados al navegar:", userData);
                     }
                 } catch (error) {
                     console.error("Error al actualizar datos de usuario en navegación:", error);

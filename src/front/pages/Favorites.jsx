@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 import { Link } from "react-router-dom";
 import { favoritesServices } from "../services/favoritesServices";
