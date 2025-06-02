@@ -99,17 +99,17 @@ export const ErrandDetail = () => {
                         <div>
                             <h2>Mapa de ubicación</h2>
                             <MapViewer />
+                            <div className="text-end" style={{ paddingTop: '210px' }}>
+                                <Button
+                                    variant="contained"
+                                    size="large"
+                                    style={{ textDecoration: 'none', backgroundColor: 'orange' }}
+                                    onClick={(e) => handleFavorite(e, singleErrand)}
+                                >
+                                    {isFavorite ? "❤️" : "🤍"}
+                                </Button>
+                            </div>
                         </div>
-                    </div>
-                    <div className="text-end" style={{ marginTop: '80px', height: 'auto' }}>
-                        <Button
-                            variant="contained"
-                            size="large"
-                            style={{ textDecoration: 'none', backgroundColor: 'orange' }}
-                            onClick={(e) => handleFavorite(e, singleErrand)}
-                        >
-                            {isFavorite ? "❤️" : "🤍"}
-                        </Button>
                     </div>
                 </div>
             </div>
