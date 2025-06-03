@@ -1,11 +1,10 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { authenticationServices } from "../services/authenticationServices";
 import useGlobalReducer from "../hooks/useGlobalReducer";
-import { motion } from "framer-motion";
 
 export const FollowUpForm = () => {
-
-    const { store, dispatch } = useGlobalReducer();
+    const { dispatch } = useGlobalReducer();
 
     const [followUpData, setFollowUpData] = useState({
         errand_name: "",
@@ -17,7 +16,7 @@ export const FollowUpForm = () => {
         const { name, value } = e.target;
         setFollowUpData((prevState) => ({
             ...prevState,
-            [name]: value
+            [name]: value,
         }));
     };
 
@@ -30,18 +29,19 @@ export const FollowUpForm = () => {
                 reference_date:
                     followUpData.status_type === "finalizado"
                         ? followUpData.reference_date
-                        : null
+                        : null,
             };
-            const response = await authenticationServices.createFollowUp(followUpPost);
+
+            await authenticationServices.createFollowUp(followUpPost);
             const userData = await authenticationServices.userDataActualization();
             dispatch({ type: "SET_USER_DATA", payload: userData });
         } catch (error) {
-            console.error('Error al crear tarea:', error);
+            console.error("Error al crear tarea:", error);
         }
     };
 
     return (
-        <form onSubmit={handleSubmit}> {/*Follow up form*/}
+        <form onSubmit={handleSubmit}>
             <div className="container d-flex align-items-center justify-content-center mt-4 mb-4">
                 <div className="card p-4 shadow-sm" style={{ maxWidth: "400px", width: "100%" }}>
                     <div className="mb-3">
@@ -73,7 +73,6 @@ export const FollowUpForm = () => {
                             <option value="finalizado">Finalizado</option>
                         </select>
                     </div>
-                    {/* Show expiration date only if status is "finalizado" */}
                     {followUpData.status_type === "finalizado" && (
                         <div className="mb-3">
                             <label className="form-label">Fecha de vencimiento</label>
@@ -92,40 +91,72 @@ export const FollowUpForm = () => {
                     </button>
                 </div>
             </div>
-        </form >
+        </form>
     );
 };
 
 export const FollowUpMap = () => {
-    const { store, _ } = useGlobalReducer();
-    const startRouteStoreForFollowUpErrands = store?.main?.user_data?.follow_up
+    const { store, dispatch } = useGlobalReducer();
+    const followUps = store?.main?.user_data?.follow_up || [];
+    const [successMessage, setSuccessMessage] = useState("");
+
+    const handleDelete = async (id) => {
+        try {
+            await authenticationServices.deleteFollowUp(id);
+            const updatedData = await authenticationServices.userDataActualization();
+            dispatch({ type: "SET_USER_DATA", payload: updatedData });
+            setSuccessMessage("✅ Eliminado correctamente");
+            setTimeout(() => setSuccessMessage(""), 3000);
+        } catch (error) {
+            console.error("Error al eliminar:", error);
+            setSuccessMessage("❌ Error al eliminar");
+            setTimeout(() => setSuccessMessage(""), 3000);
+        }
+    };
 
     return (
-        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4"> {/* Follow up errands map */}
-            {startRouteStoreForFollowUpErrands.map((item) => (
-                <motion.div key={item.follow_up_id}
-                    id={item.follow_up_id}
-                    className="col-md-4 mb-4"
-                    initial={{ y: 50, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ type: "spring", stiffness: 100, damping: 10 }}
-                    whileHover={{ scale: 1.05 }}
-                >
-                    <div className="card" style={{ width: '100%' }}> {/* Card for each errand */}
-                        <img
-                            src="https://plus.unsplash.com/premium_photo-1661329930662-19a43503782f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                            className="card-img-top"
-                            alt="errand"
-                        />
-                        <div className="card-body"> { }
-                            <h5 className="card-title">{item.errand_name}</h5>
-                            <p className="card-text">{item.status_type}</p>
-                            {item.status_type === "Iniciado" ? (<p className="card-text">Fecha de iniciación: {item.reference_date}</p>) : (<p className="card-text">Fecha de vencimiento: {item.reference_date}</p>)}
+        <>
+            {successMessage && (
+                <div className="alert alert-success text-center" role="alert">
+                    {successMessage}
+                </div>
+            )}
+
+            <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+                {followUps.map((item) => (
+                    <motion.div
+                        key={item.follow_up_id}
+                        className="col-md-4 mb-4"
+                        initial={{ y: 50, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{ type: "spring", stiffness: 100, damping: 10 }}
+                        whileHover={{ scale: 1.05 }}
+                    >
+                        <div className="card" style={{ width: "100%" }}>
+                            <img
+                                src="https://plus.unsplash.com/premium_photo-1661329930662-19a43503782f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0"
+                                className="card-img-top"
+                                alt="errand"
+                            />
+                            <div className="card-body">
+                                <h5 className="card-title">{item.errand_name}</h5>
+                                <p className="card-text">{item.status_type}</p>
+                                <p className="card-text">
+                                    {item.status_type === "Iniciado"
+                                        ? `Fecha de iniciación: ${item.reference_date}`
+                                        : `Fecha de vencimiento: ${item.reference_date}`}
+                                </p>
+                                <button
+                                    onClick={() => handleDelete(item.follow_up_id)}
+                                    className="btn btn-danger btn-sm mt-2"
+                                >
+                                    Eliminar
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                </motion.div>
-            ))
-            }
-        </div>
+                    </motion.div>
+                ))}
+            </div>
+        </>
     );
 };

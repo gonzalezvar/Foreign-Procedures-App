@@ -66,7 +66,7 @@ export const authenticationServices = {
       const data = await resp.json();
       return data;
     } catch (error) {
-      console.error("No se actualizo:", error);
+      console.error("No se actualizó:", error);
       throw error;
     }
   },
@@ -124,6 +124,29 @@ export const authenticationServices = {
       return data;
     } catch (error) {
       console.error("Error al crear seguimiento:", error);
+      throw error;
+    }
+  },
+
+  deleteFollowUp: async (followUpId) => {
+    const token = localStorage.getItem("jwt-token");
+
+    try {
+      const response = await fetch(`${baseUrl}/api/user_follow_ups/${followUpId}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Error al eliminar seguimiento");
+      }
+
+      return true;
+    } catch (error) {
+      console.error("Error al eliminar seguimiento:", error);
       throw error;
     }
   },
