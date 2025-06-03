@@ -4,19 +4,13 @@ from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from flask_migrate import Migrate
 from dotenv import load_dotenv
-
 from extensions import mail
-from api.routes.routes import api
-from api.routes.user_routes import user_bp
-from api.routes.errand_types_routes import errand_type_bp
-from api.routes.errand_routes import errand_bp
-from api.routes.favorites_routes import favorite_bp
-from api.routes.offices_routes import offices_bp
-from api.routes.follow_up_routes import follow_up_bp
 from api.commands import setup_commands
 from api.admin import setup_admin
 from api.models import db, Errand, Errand_type, Favorites, Offices, Follow_up, User
+from api.routes import errand_bp, errand_type_bp, favorite_bp, follow_up_bp, offices_bp, user_bp, api
 from api.utils import *
+from datetime import timedelta
 
 load_dotenv()
 
@@ -32,6 +26,10 @@ app.url_map.strict_slashes = False
 jwt = JWTManager(app)
 mail.init_app(app)
 CORS(app)
+
+app.config["JWT_SECRET_KEY"] = os.getenv("SECRET_KEY")
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=3)
+
 
 # Blueprints registration
 app.register_blueprint(user_bp, url_prefix='/api')

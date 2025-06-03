@@ -4,7 +4,6 @@ from api.models import db, User, Errand, Favorites
 favorite_bp = Blueprint('favorite_custom', __name__)
 
 
-
 @favorite_bp.route('/favorite/errand/<int:errand_id>', methods=['POST'])
 def add_favorite(errand_id):
     data_request = request.get_json()

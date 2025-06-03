@@ -98,7 +98,12 @@ export const authenticationServices = {
     }
   },
 
-  createFollowUp: async ({ errand_name, status_type, reference_date }) => {
+  createFollowUp: async ({
+    errand_name,
+    status_type,
+    description,
+    reference_date,
+  }) => {
     const token = localStorage.getItem("jwt-token");
 
     try {
@@ -111,7 +116,41 @@ export const authenticationServices = {
         body: JSON.stringify({
           errand_name,
           status_type,
+          description,
           reference_date,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Error al crear tarea de seguimiento");
+      }
+
+      return data;
+    } catch (error) {
+      console.error("Error al crear seguimiento:", error);
+      throw error;
+    }
+  },
+
+  editFollowUp: async ({
+    editTask,
+  }) => {
+    const token = localStorage.getItem("jwt-token");
+
+    try {
+      const response = await fetch(`${baseUrl}/api/user_follow_ups${editTask.id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+        body: JSON.stringify({
+          errand_name:editTask.errand_name,
+          status_type:editTask.status_type,
+          description:editTask.description,
+          reference_date:editTask.reference_date,
         }),
       });
 
@@ -132,12 +171,15 @@ export const authenticationServices = {
     const token = localStorage.getItem("jwt-token");
 
     try {
-      const response = await fetch(`${baseUrl}/api/user_follow_ups/${followUpId}`, {
-        method: "DELETE",
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      });
+      const response = await fetch(
+        `${baseUrl}/api/user_follow_ups/${followUpId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
 
       if (!response.ok) {
         const errorData = await response.json();
