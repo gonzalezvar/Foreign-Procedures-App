@@ -119,5 +119,5 @@ Then, make them public on Ports tab.
    For inquiries, collaborations, or further information about Foreign Procedures, please contact:
 
 Luis Oballos - `https://www.linkedin.com/in/luis-oballos-mancini/`
-Cesar Arnetta - ` `
+Cesar Arnetta - `https://www.linkedin.com/in/cesar-eduardo-arnetta/`
 Eduardo Chavez - ` `
