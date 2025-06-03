@@ -80,3 +80,24 @@ def update_follow_up(follow_up_id):
         print(e)
         db.session.rollback()
         return jsonify({"error": "Error en el servidor"}), 500
+
+@follow_up_bp.route("/user_follow_ups/<int:follow_up_id>", methods=["DELETE"])
+@jwt_required()
+def delete_follow_up(follow_up_id):
+    users_id = get_jwt_identity()
+
+    follow_up = Follow_up.query.filter_by(
+        follow_up_id=follow_up_id, users_id=users_id
+    ).first()
+
+    if not follow_up:
+        return jsonify({"message": "No se encontró tarea de seguimiento"}), 404
+
+    try:
+        db.session.delete(follow_up)
+        db.session.commit()
+        return jsonify({"msg": "Se eliminó la tarea de seguimiento"}), 200
+    except Exception as e:
+        print(e)
+        db.session.rollback()
+        return jsonify({"error": "Error al eliminar la tarea de seguimiento"}), 500
