@@ -37,8 +37,8 @@ This project incorporates the following core functionalities, adhering to the pr
 │   ├── offices_X.json          # Example office data when generated (X will be the city)
 │   └── offices_mapX.html       # Example map HTML when generated (X will be the city)
 └── src/                        # Source code for both backend and frontend
-    ├── app.py                  #
-    ├── extensions.py           #
+    ├── app.py                  # Main Flask application instance and configuration.
+    ├── extensions.py           # Flask extensions setup (flask-mail).
     ├── get_offices.py          # Used to request offices data from Google Places API
     ├── scraping.py             # Scraping from government website the errand details
     ├── wsgi.py                 #
