@@ -17,6 +17,7 @@ def create_user_follow_up():
 
     errand_name = data['errand_name']
     status_type = data['status_type']
+    description = data['description']
     reference_date = data.get('reference_date')
 
     if not errand_name or not status_type:
@@ -36,7 +37,8 @@ def create_user_follow_up():
         users_id=users_id,
         errand_name=errand_name,
         status_type=status_type,
-        reference_date=reference_date_parsed
+        reference_date=reference_date_parsed,
+        description=description
     )
 
     try:
@@ -63,15 +65,15 @@ def update_follow_up(follow_up_id):
 
     follow_up.errand_name = data.get('errand_name', follow_up.errand_name)
     follow_up.status_type = data.get('status_type', follow_up.status_type)
+    follow_up.description = data.get('description', follow_up.description)
 
     if follow_up.status_type == "finalizado":
         expiration = data.get('reference_date')
         if not expiration:
+            follow_up.reference_date = datetime.strptime(expiration, "%Y-%m-%d")
+        elif not follow_up.reference_date:
             return jsonify({"message": "reference_date es requerida si el trámite está finalizado"}), 400
-        follow_up.reference_date = datetime.strptime(expiration, "%Y-%m-%d")
-    else:
-        follow_up.reference_date = datetime.now()
-
+ 
     try:
         db.session.add(follow_up)
         db.session.commit()

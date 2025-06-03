@@ -12,13 +12,13 @@ export const FollowUp = () => {
             <h1 className="text-center mb-4">🗂️ Gestión de Trámites</h1>
 
             <div className="mb-3 text-center">
-                <Button variant="contained" className="m-2" size="large" style={{ color: "white", textDecoration: 'none', backgroundColor: "rgba(25, 118, 210)" }}
+                <Button variant="contained" className="m-2" size="large" style={{ color: "white", textDecoration: 'none', backgroundColor: "rgb(25, 118, 210)" }}
                     onClick={() => setShowForm(!showForm)}
                 >
                     {showForm ? "Ocultar formulario" : "Mostrar formulario"}
                 </Button>
 
-                <Button variant="contained" className="m-2" size="large" style={{ color: "white", textDecoration: 'none', backgroundColor: "rgba(25, 118, 210)" }}
+                <Button variant="contained" className="m-2" size="large" style={{ color: "white", textDecoration: 'none', backgroundColor: "rgb(25, 118, 210)" }}
                     onClick={() => setShowMap(!showMap)}
                 >
                     {showMap ? "Ocultar seguimientos" : "Mostrar seguimientos"}
