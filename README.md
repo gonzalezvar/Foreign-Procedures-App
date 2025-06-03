@@ -73,13 +73,14 @@ Follow these steps to run the application:
 
 ```bash
 git clone https://github.com/4GeeksAcademy/Foreign-Procedures-App
+cd Foreign-Procedures-App
 ```
 
-2. Create API Key text file
+2. Create API Key text file and add your Google Places API key
 
 ```bash
 touch API_KEY
-echo API_KEY --your API key--
+echo "YOUR_GOOGLE_PLACES_API_KEY_HERE" > API_KEY
 ```
 
 3. Create Python environment
@@ -111,5 +112,12 @@ npm run start
 
 Then, make them public on Ports tab.
 
-7. Open frontend
-   Click on the link at Port 3000.
+7. Access the application
+   Open your web browser and navigate to the URL provided by the frontend development server (e.g., `http://localhost:3000`).
+
+8. Contact
+   For inquiries, collaborations, or further information about Foreign Procedures, please contact:
+
+Luis Oballos - `https://www.linkedin.com/in/luis-oballos-mancini/`
+Cesar Arnetta - ` `
+Eduardo Chavez - ` `
