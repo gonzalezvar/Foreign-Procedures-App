@@ -120,4 +120,4 @@ Then, make them public on Ports tab.
 
 Luis Oballos - `https://www.linkedin.com/in/luis-oballos-mancini/`
 Cesar Arnetta - `https://www.linkedin.com/in/cesar-eduardo-arnetta/`
-Eduardo Chavez - ` `
+Eduardo Chavez - `https://www.linkedin.com/in/eduardo-chavez-lopez-57aa78146/`

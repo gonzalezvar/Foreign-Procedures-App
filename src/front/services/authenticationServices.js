@@ -140,7 +140,7 @@ export const authenticationServices = {
     const token = localStorage.getItem("jwt-token");
 
     try {
-      const response = await fetch(`${baseUrl}/api/user_follow_ups${editTask.id}`, {
+      const response = await fetch(`${baseUrl}/api/user_follow_ups/${editTask.id}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
