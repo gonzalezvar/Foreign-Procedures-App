@@ -15,7 +15,6 @@ class Errand(db.Model):
     name: Mapped[str] = mapped_column(String(250), nullable=False)
     procedures: Mapped[str] = mapped_column(String(4500), nullable=False)
     requirements: Mapped[str] = mapped_column(String(2083), nullable=False)
-    "segun lo investigado con el maximo de caracteres que puede haber en una url es de 2083"
     country: Mapped[str] = mapped_column(String(250), nullable=False)
 
     # Relationships

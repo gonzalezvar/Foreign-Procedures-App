@@ -8,3 +8,6 @@ npm run build
 pipenv install
 
 pipenv run upgrade
+
+python src/get_offices.py
+python src/scraping.py

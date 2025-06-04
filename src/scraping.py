@@ -11,7 +11,7 @@ keyword_categories = {
         "description": "Permite residir por estudios, formación o movilidad académica."
     },
     "prácticas": {
-        "name": "Estancia por Prácticas y Voluntariado", 
+        "name": "Estancia por Prácticas y Voluntariado",
         "description": "Permite realizar prácticas formativas y participar en voluntariados."
     },
     "voluntariado": {
@@ -113,8 +113,9 @@ TEMP_PDF = "temp_procedure.pdf"
 
 
 def extract_procedure_section(pdf_text):
-     # Filtrar por "PROCEDIMIENTO" como sección (con salto de línea después)
-    matches = list(re.finditer(r'\bPROCEDIMIENTO\b\s*\n', pdf_text, re.IGNORECASE))
+    # Filtrar por "PROCEDIMIENTO" como sección (con salto de línea después)
+    matches = list(re.finditer(
+        r'\bPROCEDIMIENTO\b\s*\n', pdf_text, re.IGNORECASE))
 
     if len(matches) == 0:
         return None
@@ -185,12 +186,10 @@ with sync_playwright() as p:
             pdf_link_locator.wait_for(state="visible", timeout=10000)
 
             pdf_href = pdf_link_locator.get_attribute("href")
-           
 
             if pdf_href:
                 if not pdf_href.startswith("http"):
                     pdf_href = f"https://www.inclusion.gob.es{pdf_href}"
-                
 
                 with page.expect_download() as download_info:
                     page.click("a.m-attachment__link.m-icon-pdf")
@@ -198,7 +197,7 @@ with sync_playwright() as p:
                 download.save_as(TEMP_PDF)
 
                 pdf_text = extract_text_from_pdf(TEMP_PDF)
-              
+
                 procedure_content = extract_procedure_section(pdf_text)
                 print(
                     f"  Procedimiento extraído: {procedure_content[:200] if procedure_content else 'None'}")
@@ -232,7 +231,7 @@ with sync_playwright() as p:
     browser.close()
 
     # Guardar JSON
-    with open("procedures_categorized.json", "w", encoding="utf-8") as f:
+    with open("src/front/assets/procedures_categorized.json", "w", encoding="utf-8") as f:
         json.dump(resultados, f, ensure_ascii=False, indent=2)
 
-print("Proceso finalizado, datos guardados en procedures_categorized.json")
+print("Proceso finalizado, datos guardados en src/front/assets/procedures_categorized.json")
